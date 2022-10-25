@@ -1,0 +1,23 @@
+<ul id="mobile-menu-list" class="mobile-menu-list">
+  {% for link in linklists.main-menu.links %}
+    <li class="mobile-menu-item">
+        <a href="{{ link.url }}">{{ link.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<style>
+  .mobile-menu-list {
+    margin-top: 20px;
+  }
+
+  .mobile-menu-list li a {
+    display: block;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 1.2px;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 10px;
+  }
+</style>

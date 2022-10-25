@@ -1,0 +1,156 @@
+{% schema %}
+  {
+    "name": "Search",
+    "class": "search",
+    "settings": [
+       
+    ]
+  }
+{% endschema %}
+
+{% comment %}
+  Docs on the Shopify search object
+  https://shopify.dev/api/liquid/objects/search#search-results
+{% endcomment %}
+
+{{ 'main-search.css' | asset_url | stylesheet_tag }}
+
+<div class="search-inner shell">
+  {% if search.performed %}
+    <h1>Search Results</h1>
+  {% else %}
+    <h1>Search</h1>
+  {% endif %}
+
+  <form action="{{ routes.search_url }}">
+    <input type="text"
+      placeholder="Search"
+      name="q"
+      value="{{ search.terms | escape }}"
+   >
+   <!-- <input type="hidden" name="type" value="product" /> -->
+    <input type="submit" value="Search">
+  </form>
+
+  {% if search.performed %}
+    {% if search.results.size > 0 %}
+      <style>
+        .product-grid {
+            display: grid;
+            grid-gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        } 
+      </style>
+
+{%- paginate search.results by 12 -%}
+      <div class="product-grid">
+          {% for item in search.results %}
+            {% case item.object_type %}
+              {% when 'product' %}
+                {% render 'product-grid-item', prod: item %}
+              {% when 'article' %}
+                <div class="article-grid-item">
+                  <div class="article-grid-item-inner">
+                    {% if item.image %}
+                      <img src="{{ item.image | img_url: 'medium' }}" alt="{{ item.image.alt }}">
+                    {% else %}
+                      <img src="{{ 'no-image-placeholdeer.png' | asset_url }}" alt="No image found.">
+                    {% endif %}
+                    <div class="content">
+                      <a href="{{ item.url }}">
+                        <h3 class="h3 dark">{{ item.title }}</h3>
+                      </a>
+                      <p class="article-excerpt">
+                        {{ item.excerpt_or_content | truncate: 100 }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              {% when 'page' %}
+                <div class="page-grid-item">
+                  <div class="page-grid-item-inner">
+                    {% if item.featured_image %}
+                      {{ item.featured_image | img_tag }}
+                    {% else %}
+                      <img src="{{ 'no-image-placeholder.png' | asset_url }}" alt="No image found.">
+                    {% endif %}
+                    <div class="content">
+                      <a href="{{ item.url }}">
+                        <h3 class="h3 dark">{{ item.title }}</h3>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+                This item cannot be displayed.
+            {% endcase %}
+
+          {% endfor %}
+
+        </div>
+        {%- if paginate.pages > 1 -%}
+        <nav class="pagination-nav" role="navigation ">
+          <ol class="pagination">
+            {%- if paginate.previous-%}
+            <li>
+              <a href="{{ paginate.previous.url }}">
+                <span aria-hidden="true">&laquo;</span>
+                Previous
+                <span class="visuallyhidden"></span>
+              </a>
+            </li>
+            {%- else -%}
+            <li class="disabled">
+              <span aria-hidden="true">&laquo;</span>
+              Previous
+              <span class="visuallyhidden"></span>
+            </li>
+            {%- endif -%}
+    
+            {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}
+            <li>
+              <a href="{{ part.url }}">
+                <span class="visuallyhidden"></span>
+                {{ part.title }}
+              </a>
+            </li>
+            {%- else -%}
+            {%- if part.title == paginate.current_page -%}
+            <li aria-current="page" class="active">
+              <span class="visuallyhidden"></span>
+              {{ part.title }}
+            </li>
+            {%- else -%}
+            <li>
+              <span class="visuallyhidden"></span>
+              {{ part.title }}
+            </li>
+            {%- endif -%}
+            {%- endif -%}
+            {%- endfor -%}
+    
+            {%- if paginate.next -%}
+            <li>
+              <a href="{{ paginate.next.url }}">
+                Next
+                <span class="visuallyhidden"></span>
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+            {%- else -%}
+            <li class="disabled">
+              Next
+              <span class="visuallyhidden"></span>
+              <span aria-hidden="true">&raquo;</span>
+            </li>
+            {%- endif -%}
+          </ol>
+        </nav>
+        {%- endif -%}
+        {% endpaginate %}
+    {% else %}
+      There are no results
+    {% endif %}
+  {% endif %}
+</div>

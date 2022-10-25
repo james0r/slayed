@@ -1,0 +1,64 @@
+{{ 'accounts.css' | asset_url | stylesheet_tag }}
+
+{% if customer %}
+customer logged in
+  <script>
+    window.location.href = '{{ routes.account_url }}'
+  </script>
+{% else %}
+  <div class="login-n-reset-container" x-data="{ showPasswordReset: false }">
+    <div class="account-login" x-show="!showPasswordReset">
+      <div class="account-login-inner shell">
+  
+        <h1>Sign In</h1>
+        {% form 'customer_login', return_to: routes.account_url %}
+          {{ form_errors | default_errors }}
+  
+          <div class="email">
+            <label for="email" class="visually-hidden">Email</label>
+            <input type="email" name="customer[email]" placeholder="Email Address">
+          </div>
+          <div class="password" x-data="{inputVal: null}">
+            <label for="password" x-show="inputVal == '' || inputVal == null">Password</label>
+            <input type="password" x-model="inputVal" name="customer[password]">
+          </div>
+          <div class="submit">
+            <input type="submit" value="Sign in">
+          </div>
+        {% endform %}
+  
+        <div class="account-inquiry">
+          <span>Don't have an account? <a href="{{ routes.account_register_url }}">Sign Up.</a></span>
+        </div>
+        <div class="forgot-password">
+          <a href="{{ routes.account_recover_url }}" @click="$event.preventDefault(), showPasswordReset = true">Forgot Password?</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="account-reset-password" x-show="showPasswordReset">
+      <div class="account-reset-password-inner shell">
+  
+        <h1>Reset Password</h1>
+        {% form 'recover_customer_password' %}
+          {{ form_errors | default_errors }}
+    
+          <div class="email">
+            <label for="email" class="visually-hidden" placeholder="Email Address">Email</label>
+            <input type="email" name="email" placeholder="Email Address">
+          </div>
+  
+          <div class="submit">
+            <input type="submit" value="Submit">
+          </div>
+        {% endform %}
+        <div class="cancel-wrapper">
+          <button @click="showPasswordReset = false">
+            Cancel Reset
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endif %}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="{{ 'favicon.static.ico' | asset_url }}">
+
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preload" href="{{ 'bundle.css' | asset_url }}" as="style">
+    <link rel="preload" href="{{ 'bundle.js' | asset_url }}" as="script">
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %}
+        &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %}
+        &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %}
+        &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+
+    {% render 'css-vars' %}
+    {{ 'bundle.css' | asset_url | stylesheet_tag }}
+
+    <!-- header hook for Shopify plugins -->
+    {{ content_for_header }}
+  </head>
+
+  <body class="{{ template | handleize }}-template using-mouse" x-data x-pulse-on-click>
+    <a class="skip-to-content-link" href="#main-content">
+      Skip to content
+    </a>
+    {% section 'header' %}
+
+    <div class="minicart-wrapper" x-data x-show="$store.globals.isMinicartVisible" x-on:click.outside="$store.globals.isMinicartVisible = false" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="off-screen-right" x-transition:enter-end="right-50" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="right-50" x-transition:leave-end="off-screen-right" x-cloak :aria-hidden="$store.globals.isMinicartVisible ? 'false' : 'true'" aria-modal="true" role="dialog">
+      {% section 'minicart' %}
+    </div>
+
+    <main id="main-content" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+
+    {% render 'liquid-ajax-cart' %}
+
+    <!-- webpack bundle -->
+    <script src="{{ 'bundle.js' | asset_url }}" defer="defer"></script>
+
+  </body>
+</html>

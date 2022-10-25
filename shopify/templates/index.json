@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-index",
+      "settings": {
+      }
+    },
+    "featured-product-grid": {
+      "type": "featured-product-grid",
+      "settings": {
+        "featured_collection": "featured"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "featured-product-grid"
+  ]
+}

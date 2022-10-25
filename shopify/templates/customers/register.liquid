@@ -1,0 +1,43 @@
+{{ 'accounts.css' | asset_url | stylesheet_tag }}
+
+<div class="account-register">
+  <div class="account-register-inner shell">
+
+    <h1>Sign Up</h1>
+    {% form 'create_customer', novalidate: 'novalidate' %}
+      {{ form_errors | default_errors }}
+      <div class="first-name">
+        <label for="first-name" class="visually-hidden">First name</label>
+        <input type="text" name="customer[first_name]" placeholder="First Name">
+      </div>
+    
+      <div class="last-name">
+        <label for="last-name" class="visually-hidden">Last name</label>
+        <input type="text" name="customer[last_name]" placeholder="Last Name">
+      </div>
+    
+      <div class="email">
+        <label for="email" class="visually-hidden">Email</label>
+        <input type="email" name="customer[email]" placeholder="Email Address">
+      </div>
+    
+      <div class="password" x-data="{inputVal: null}">
+        <label for="password" x-show="inputVal == '' || inputVal == null" class="">Password</label>
+        <input type="password" name="customer[password]" x-model="inputVal" autocomplete="off">
+      </div>
+
+      <div id="accepts_marketing" class="clearfix large_form"> 
+        <label for="marketing" style="font-weight:normal">Sign up for the latest Couplet updates, special offers, and more. Unsubscribe at any time. See our Private Policy for details.</label> 
+        <input type="checkbox" name="customer[accepts_marketing]" checked="checked" value="true" id="marketing" />
+      </div> 
+    
+      <div class="submit">
+        <input type="submit" value="Sign up">
+      </div>
+    {% endform %}
+    
+    <div>
+      Already signed up? <a href="/account/login">Login</a>
+    </div>
+  </div>
+</div>

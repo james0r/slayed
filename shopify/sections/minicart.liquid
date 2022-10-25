@@ -1,0 +1,294 @@
+<div class="minicart" data-ajax-cart-section x-cloak>
+  <div class="title-row">
+    <h2 id="minicart-label">
+      Cart
+    </h2>
+    <button @click="$store.globals.isMinicartVisible = false">
+      {% render 'icon-close-x' %}
+    </button>
+  </div>
+  <div class="item-count-message">
+    You have
+    <span class="count" style="font-weight: 600" x-data>{{ cart.item_count }}
+    </span>
+    <span x-data></span>
+    in your cart!
+  </div>
+  <hr/>
+  <ul class="items-list" data-ajax-cart-section-scroll>
+    {% for item in cart.items %}
+      <li class="item">
+        <div class="product-thumb-wrapper">
+          <img class="product-thumb" src="{{ item.image | img_url: '100x' }}" alt="{{ item.title }}"/>
+        </div>
+        <div class="item-details">
+          <h4 class="title">
+            {{ item.title | truncatewords: 5 }}
+          </h4>
+          <div class="options">
+            {% for option in item.options_with_values %}
+              <p class="option" data-option-name="{{ option.name }}">
+                <span style="font-weight: 600">{{ option.name }} :
+                </span>
+                <span>{{ option.value }}
+                </span>
+              </p>
+            {% endfor %}
+          </div>
+          <div class="quantity-row">
+            <span style="font-weight: bold;">Quantity:
+            </span>
+            <span>{{ item.quantity }}
+            </span>
+          </div>
+          <p class="price">{{ item.price | money }}
+          </p>
+          <p class="remove">
+            <a href="{{ item.url_to_remove }}" data-ajax-cart-request-button>
+              <i class="fa fa-trash-o"></i>
+              Remove from cart
+            </a>
+          </p>
+        </div>
+      </li>
+    {% endfor %}
+
+  </ul>
+  <hr/>
+  <div class="subtotal">
+    <p class="title">Subtotal
+    </p>
+    <p class="amount">{{ cart.items_subtotal_price | money }}
+    </p>
+  </div>
+  <a class="cart-link" href="{{ routes.cart_url }}">View Cart Details
+  </a>
+
+</div>
+
+<style>
+  /* Animation classes */
+  .transition {
+    transition-property: all;
+  }
+
+  .duration-300 {
+    transition-duration: 300ms;
+  }
+
+  .ease-out {
+    transition-timing-function: ease-out;
+  }
+
+  .ease-in {
+    transition-timing-function: ease-in;
+  }
+
+  .off-screen-right {
+    right: -100px;
+    transform: translateX(120%);
+  }
+
+  .right-50 {
+    right: 50px;
+    transform: translateX(0%);
+  }
+
+  @media(max-width: 576px) {
+    .right-50 {
+      right: 20px;
+      transform: translateX(0%);
+    }
+  }
+
+  /* Main styles */
+  .minicart-wrapper {
+    position: fixed;
+    top: 50px;
+    right: 50px;
+    z-index: 100;
+  }
+
+  @media(max-width: 576px) {
+    .minicart-wrapper {
+      right: 20px;
+    }
+  }
+
+  .minicart {
+    width: 288px;
+    height: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 30px 130px -8px rgba(0, 0, 0, 0.25);
+  }
+
+  .minicart .cart-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+    height: 43px;
+    font-weight: 600;
+    background: white;
+    border: 2px solid #000;
+    outline: none;
+    text-decoration: none;
+  }
+
+  .minicart .cart-link:hover {
+    cursor: pointer;
+    color: #fff;
+    background: var(--brand-color);
+  }
+
+  .minicart hr {
+    margin-bottom: 20px;
+  }
+
+  .minicart .title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .minicart .title-row h2 {
+    color: var(--brand-color);
+    margin: 0;
+  }
+
+  .minicart .title-row button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .minicart .title-row button svg {
+    display: block;
+    height: 16px;
+  }
+
+  .minicart .items-list {
+    list-style: none;
+    padding-left: 0;
+    max-height: 300px;
+    overflow: auto;
+  }
+
+  .minicart .item-count-message {
+    margin-bottom: 10px;
+    font-size: 0.8em;
+  }
+
+  .minicart .item-count-message .minicart--item-count {
+    font-weight: 600;
+  }
+
+  .minicart .item {
+    display: flex;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .minicart .item .product-thumb-wrapper {
+    width: 100px;
+    height: 120px;
+    position: relative;
+    flex: 0 0 100px;
+  }
+
+  .minicart .item .product-thumb-wrapper img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .minicart .item .item-details {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .minicart .item .item-details p {
+    margin: 0;
+  }
+
+  .minicart .item .item-details .option-label {
+    font-weight: 600;
+  }
+
+  .minicart .item .item-details .title {
+    font-size: 0.9em;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 6px;
+  }
+
+  .minicart .item .item-details .options {
+    margin-bottom: 2px 0;
+  }
+
+  .minicart .item .item-details .option {
+    margin: 0 0 2px;
+    font-size: 0.8rem;
+  }
+
+  .minicart .item .item-details .quantity-row {
+    margin: 2px 0;
+  }
+
+  .minicart .item .item-details .quantity-row span {
+    margin: 0 0 2px;
+    font-size: 0.8rem;
+  }
+
+  .minicart .item .item-details .option:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .minicart .item .item-details .price {
+    margin-top: auto;
+  }
+
+  .minicart .item .item-details .remove {
+    font-size: 0.6em;
+    margin-top: auto;
+  }
+
+  .minicart .subtotal {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .minicart .subtotal .title {
+    height: 16px;
+    margin: 0;
+  }
+
+  .minicart .subtotal .amount {
+    font-weight: 600;
+    font-size: 1.2em;
+    margin: 0;
+  }
+
+  .minicart a {
+    color: black;
+    text-decoration: none;
+  }
+
+  .minicart a:hover {
+    text-decoration: underline;
+  }
+</style>

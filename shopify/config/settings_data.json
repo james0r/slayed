@@ -1,0 +1,25 @@
+{
+  "current": {
+    "brand_color": "#242a5c",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+        }
+      },
+      "minicart": {
+        "type": "minicart",
+        "settings": {
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+        }
+      }
+    },
+    "content_for_index": [
+
+    ]
+  }
+}

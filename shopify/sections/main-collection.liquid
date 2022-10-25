@@ -1,0 +1,111 @@
+{% schema %}
+{
+  "name": "collection",
+  "class": "collection"
+}
+{% endschema %}
+
+<div class="collection-inner shell">
+  <h1>
+    {{ collection.title }}
+  </h1>
+  {% render 'collections-list' %}
+  <div class="grid-wrapper">
+    {%- paginate collection.products by 12 -%}
+    <div class="product-grid">
+      {% for prod in collection.products %}
+      {% render 'product-grid-item', prod: prod %}
+      {% endfor %}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+    <nav class="pagination-nav" role="navigation ">
+      <ol class="pagination">
+        {%- if paginate.previous-%}
+        <li>
+          <a href="{{ paginate.previous.url }}">
+            <span aria-hidden="true">&laquo;</span>
+            Previous
+            <span class="visuallyhidden"></span>
+          </a>
+        </li>
+        {%- else -%}
+        <li class="disabled">
+          <span aria-hidden="true">&laquo;</span>
+          Previous
+          <span class="visuallyhidden"></span>
+        </li>
+        {%- endif -%}
+
+        {%- for part in paginate.parts -%}
+        {%- if part.is_link -%}
+        <li>
+          <a href="{{ part.url }}">
+            <span class="visuallyhidden"></span>
+            {{ part.title }}
+          </a>
+        </li>
+        {%- else -%}
+        {%- if part.title == paginate.current_page -%}
+        <li aria-current="page" class="active">
+          <span class="visuallyhidden"></span>
+          {{ part.title }}
+        </li>
+        {%- else -%}
+        <li>
+          <span class="visuallyhidden"></span>
+          {{ part.title }}
+        </li>
+        {%- endif -%}
+        {%- endif -%}
+        {%- endfor -%}
+
+        {%- if paginate.next -%}
+        <li>
+          <a href="{{ paginate.next.url }}">
+            Next
+            <span class="visuallyhidden"></span>
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        {%- else -%}
+        <li class="disabled">
+          Next
+          <span class="visuallyhidden"></span>
+          <span aria-hidden="true">&raquo;</span>
+        </li>
+        {%- endif -%}
+      </ol>
+    </nav>
+    {%- endif -%}
+    {% endpaginate %}
+  </div>
+</div>
+
+<style>
+  .collection h1 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .collection {
+    padding: 20px;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .featured-product-grid .pagination-nav {
+    margin-top: 40px;
+  }
+
+  .featured-product-grid .pagination-nav .pagination {
+    display: flex;
+    gap: 10px;
+    margin: auto;
+    max-width: max-content;
+  }
+</style>

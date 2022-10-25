@@ -1,0 +1,55 @@
+{% comment %}
+    Usage:
+    {% render 'product-grid-item',
+      product: {product object}
+    %}
+{% endcomment %}
+
+<div class="product-grid-item">
+  <div class="product-grid-item-inner">
+    <div class="image-wrapper" style="padding-top: 141%">
+      <img src="{{ prod.featured_image | img_url: '740x' }}" alt="{{ prod.title }}">
+    </div>
+    <div class="content">
+      <a href="{{ prod.url }}">
+        <div class="h3 dark">{{ prod.title }}</div>
+      </a>
+      <p class="">
+        {% if prod.compare_at_price_max != blank and prod.compare_at_price_max > prod.price %}
+          <span class="compare-at-price">{{ prod.compare_at_price_max | money }}</span>
+          &nbsp;
+        {% endif %}
+          
+        {{ prod.price | money }}
+      </p>
+    </div>
+    {% form 'product', prod %}
+      <input type="hidden" name="id" value="{{ prod.selected_or_first_available_variant.id }}">
+      <input type="hidden" name="quantity" value="1"> 
+      <input type="submit" value="Add to cart">
+      <div data-ajax-cart-messages="form"> 
+        <!-- Error messages appear here --> 
+      </div>
+      </button>
+    {% endform %}
+  </div>
+</div>
+
+<style>
+  .product-grid-item .image-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+  .product-grid-item .image-wrapper img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    object-fit: cover;
+    object-position: center;
+  }
+  .product-grid-item .compare-at-price {
+    text-decoration: line-through;
+  }
+</style>

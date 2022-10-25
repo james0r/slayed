@@ -1,0 +1,22 @@
+{% schema %}
+  {
+    "name": "page",
+    "class": "page-template",
+    "settings": [
+       {
+         "type": "image_picker", 
+         "id": "featured_image_esc",
+         "label": "Featured Image"
+       }
+    ]
+  }
+{% endschema %}
+
+<div class="shopify-section-main-page-inner">
+  <section>
+    
+  </section>
+</div>
+
+<h1>{{ page.title }}</h1>
+<div>{{ page.content }}</div>

@@ -1,0 +1,117 @@
+{% schema %}
+{
+  "name": "featured-product-grid",
+  "class": "featured-product-grid",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "featured_collection",
+      "label": "Collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% if section.settings.featured_collection != blank %}
+  <div class="featured-product-grid-inner shell">
+    <h2>
+      Featured Product Grid
+    </h2>
+    <div class="grid-wrapper">
+      {%- paginate section.settings.featured_collection.products by 12 -%}
+        <div class="product-grid">
+          {% for prod in section.settings.featured_collection.products %}
+            {% render 'product-grid-item', prod: prod %}
+          {% endfor %}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <nav class="pagination-nav" role="navigation ">
+            <ol class="pagination">
+              {%- if paginate.previous-%}
+                <li>
+                  <a href="{{ paginate.previous.url }}">
+                    <span aria-hidden="true">&laquo;</span>
+                    Previous
+                    <span class="visuallyhidden"></span>
+                  </a>
+                </li>
+              {%- else -%}
+                <li class="disabled">
+                  <span aria-hidden="true">&laquo;</span>
+                  Previous
+                  <span class="visuallyhidden"></span>
+                </li>
+              {%- endif -%}
+
+              {%- for part in paginate.parts -%}
+                {%- if part.is_link -%}
+                  <li>
+                    <a href="{{ part.url }}">
+                      <span class="visuallyhidden"></span>
+                      {{ part.title }}
+                    </a>
+                  </li>
+                {%- else -%}
+                  {%- if part.title == paginate.current_page -%}
+                    <li aria-current="page" class="active">
+                      <span class="visuallyhidden"></span>
+                      {{ part.title }}
+                    </li>
+                  {%- else -%}
+                    <li>
+                      <span class="visuallyhidden"></span>
+                      {{ part.title }}
+                    </li>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {%- if paginate.next -%}
+                <li>
+                  <a href="{{ paginate.next.url }}">
+                    Next
+                    <span class="visuallyhidden"></span>
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              {%- else -%}
+                <li class="disabled">
+                  Next
+                  <span class="visuallyhidden"></span>
+                  <span aria-hidden="true">&raquo;</span>
+                </li>
+              {%- endif -%}
+            </ol>
+          </nav>
+        {%- endif -%}
+      {% endpaginate %}
+    </div>
+  </div>
+  <style>
+    .featured-product-grid {
+      padding: 20px;
+    }
+
+    .featured-product-grid h2 {
+      margin-bottom: 40px;
+    }
+  
+    .product-grid {
+      display: grid;
+      grid-gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  
+    .featured-product-grid .pagination-nav {
+      margin-top: 40px;
+    }
+  
+    .featured-product-grid .pagination-nav .pagination {
+      display: flex;
+      gap: 10px;
+      margin: auto;
+      max-width: max-content;
+    }
+  </style>
+{% endif %}

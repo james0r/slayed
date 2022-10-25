@@ -1,0 +1,21 @@
+<ul class="collections-list">
+  {% for collection in collections %}
+  <li>
+    <a href="{{ collection.url }}">
+      {{ collection.title }}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+
+<style>
+  .collections-list {
+    display: flex;
+    justify-content: center;
+  }
+
+  .collections-list li + li {
+    margin-left: 1rem;
+    margin-bottom: 40px;
+  }
+</style>

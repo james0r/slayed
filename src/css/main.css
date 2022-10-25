@@ -1,0 +1,13 @@
+/**
+ * entry file for Tailwind CSS
+ * and other style files
+ */
+
+@import './base.css';
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+/* @import "my-file"; */
+
+@import "tailwindcss/utilities";
