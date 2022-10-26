@@ -35,7 +35,7 @@
   </head>
 
   <body class="{{ template | handleize }}-template using-mouse" x-data x-pulse-on-click>
-    <a class="skip-to-content-link" href="#main-content">
+    <a class="skip-to-content-link sr-only" href="#main-content">
       Skip to content
     </a>
     {% section 'header' %}
@@ -44,7 +44,7 @@
       {% section 'minicart' %}
     </div>
 
-    <main id="main-content" role="main">
+    <main id="main-content" role="main" class="mt-[60px]">
       {{ content_for_layout }}
     </main>
 
