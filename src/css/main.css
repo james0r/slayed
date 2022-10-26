@@ -10,4 +10,6 @@
 
 /* @import "my-file"; */
 
+@import './utilities.css';
+
 @import "tailwindcss/utilities";

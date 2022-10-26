@@ -8,7 +8,11 @@ const path = require('path')
 
 module.exports = {
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'primary': 'var(--brand-color)'
+      }
+    },
     container: {
       center: true,
       padding: '1rem'

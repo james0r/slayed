@@ -86,17 +86,19 @@
       {%- form 'product', product, id: product_form_id, class: 'product-form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
       <input type="hidden" name="id" x-model="selectedVariant">
       <input type="hidden" name="quantity" x-model="quantity">
-      <input class="btn" name="add" style="margin-bottom: 10px;" x-bind:disabled="addToCartButtonText != 'Add to cart'"
-        x-model="addToCartButtonText" type="submit"
-        {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
-        {%- if product.selected_or_first_available_variant.available -%} value="Add to cart" {%- else -%}
-        value="Sold out" {%- endif -%}>
-      </input>
+      <div class="hover:after:border-offset-1 mb-[10px]" x-bind:disabled="addToCartButtonText != 'Add to cart'">
+        <input class="border border-primary px-6 text-primary w-full h-12 cursor-pointer disabled:cursor-default" name="add" x-bind:disabled="addToCartButtonText != 'Add to cart'"
+          x-model="addToCartButtonText" type="submit"
+          {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+          {%- if product.selected_or_first_available_variant.available -%} value="Add to cart" {%- else -%}
+          value="Sold out" {%- endif -%}>
+        </input>
+      </div>
       <div data-ajax-cart-messages="form">
         <!-- Error messages appear here -->
       </div>
       {%- if product.selected_or_first_available_variant.available -%}
-      <a type="button" class="btn inverted checkout-button" :href="`/cart/${selectedVariant}:1`" x-show="showBuyNow">
+      <a type="button" class="w-full h-12 px-6 text-white bg-primary flex items-center justify-center hover:after:border-offset-1" :href="`/cart/${selectedVariant}:1`" x-show="showBuyNow">
         Buy it now
       </a>
       {%- endif -%}
