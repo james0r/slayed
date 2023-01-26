@@ -22,12 +22,10 @@
     "fix:shopify": "cd shopify && shopify theme check -a"
   },
   "dependencies": {
-    "@alpinejs/focus": "^3.10.4",
-    "@alpinejs/intersect": "^3.10.4",
-    "alpinejs": "^3.10.4",
-    "body-scroll-lock": "^4.0.0-beta.0",
+    "@alpinejs/focus": "^3.11.1",
+    "alpinejs": "^3.11.1",
     "liquid-ajax-cart": "^1.10.3",
-    "tailwindcss": "^3.0.2"
+    "tailwindcss": "^3.2.4"
   },
   "devDependencies": {
     "@modyqyw/vite-plugin-eslint": "^2.0.3",

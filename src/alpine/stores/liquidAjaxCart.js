@@ -10,7 +10,6 @@ export default {
     return {
       init() {
         document.addEventListener('alpine:init', () => {
-          const Alpine = window.Alpine
 
           subscribeToCartAjaxRequests((requestState, subscribeToResult) => {
             if (requestState.requestType === 'add') {
@@ -20,14 +19,14 @@ export default {
 
               subscribeToResult((requestState) => {
                 if (requestState.responseData?.ok) {
-                  Alpine.store('globals').isMinicartVisible = true
+                  window.Alpine.store('globals').isMinicartVisible = true
                 }
               })
             }
           })
 
           subscribeToCartStateUpdate((state) => {
-            Alpine.store('liquidAjaxCart', {
+            window.Alpine.store('liquidAjaxCart', {
               state: state,
             })
           })

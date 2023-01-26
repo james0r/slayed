@@ -1,5 +1,3 @@
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
-
 export default {
   name: 'globals',
   store() {
@@ -9,11 +7,8 @@ export default {
       isMobileMenuVisible: false,
       isMinicartVisible: false,
       init() {
+        console.log('test3')
         this.mobileMenuEl = document.querySelector('#mobile-nav');
-
-        window.Alpine.effect(() => {
-          this.isMobileMenuVisible ? disableBodyScroll(this.mobileMenuEl) : enableBodyScroll(this.mobileMenuEl)
-        })
       },
       openMobileMenu() {
         this.isMobileMenuVisible = true

@@ -1,6 +1,5 @@
 import Alpine from 'alpinejs'
 import helpers from './helpers.js'
-import intersect from '@alpinejs/intersect'
 import focus from '@alpinejs/focus'
 import './a11y.js'
 import './css/site.css'
@@ -20,7 +19,6 @@ for (const [key, value] of Object.entries(helpers)) {
 }
 
 // Register Alpine plugins
-Alpine.plugin(intersect)
 Alpine.plugin(focus)
 
 // Register Alpine stores
