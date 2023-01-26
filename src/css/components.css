@@ -1,0 +1,5 @@
+@layer components {
+  .btn {
+    @apply py-3 px-12 bg-primary-500 hover:bg-primary-600 text-white rounded-full transition;
+  } 
+}

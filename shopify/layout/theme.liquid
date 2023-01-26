@@ -6,10 +6,24 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="icon" href="{{ 'favicon.static.ico' | asset_url }}">
 
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
     <link rel="canonical" href="{{ canonical_url }}">
-    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-    <link rel="preload" href="{{ 'bundle.css' | asset_url }}" as="style">
-    <link rel="preload" href="{{ 'bundle.js' | asset_url }}" as="script">
+    <link
+      rel="preconnect"
+      href="https://cdn.shopify.com"
+      crossorigin>
+    <link
+      rel="preload"
+      href="{{ 'bundle.css' | asset_url }}"
+      as="style">
+    <link
+      rel="preload"
+      href="{{ 'bundle.js' | asset_url }}"
+      as="script">
 
     <title>
       {{ page_title }}
@@ -34,17 +48,37 @@
     {{ content_for_header }}
   </head>
 
-  <body class="{{ template | handleize }}-template using-mouse" x-data x-pulse-on-click>
+  <body
+    class="{{ template | handleize }}-template using-mouse"
+    x-data
+    x-pulse-on-click>
     <a class="skip-to-content-link sr-only" href="#main-content">
       Skip to content
     </a>
     {% section 'header' %}
 
-    <div class="minicart-wrapper" x-data x-show="$store.globals.isMinicartVisible" x-on:click.outside="$store.globals.isMinicartVisible = false" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="off-screen-right" x-transition:enter-end="right-50" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="right-50" x-transition:leave-end="off-screen-right" x-cloak :aria-hidden="$store.globals.isMinicartVisible ? 'false' : 'true'" aria-modal="true" role="dialog">
+    <div
+      class="minicart-wrapper"
+      x-data
+      x-show="$store.globals.isMinicartVisible"
+      x-on:click.outside="$store.globals.isMinicartVisible = false"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="off-screen-right"
+      x-transition:enter-end="right-50"
+      x-transition:leave="transition ease-in duration-300"
+      x-transition:leave-start="right-50"
+      x-transition:leave-end="off-screen-right"
+      x-cloak
+      :aria-hidden="$store.globals.isMinicartVisible ? 'false' : 'true'"
+      aria-modal="true"
+      role="dialog">
       {% section 'minicart' %}
     </div>
 
-    <main id="main-content" role="main" class="mt-[60px]">
+    <main
+      id="main-content"
+      role="main"
+      class="mt-[60px]">
       {{ content_for_layout }}
     </main>
 

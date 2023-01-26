@@ -1,3 +1,21 @@
-[x-cloak] {
-  display: none !important;
+@layer base {
+  h1 {
+    @apply text-5xl font-bold;
+  }
+  h2 {
+    @apply text-4xl font-bold;
+  }
+  h3 {
+    @apply text-2xl font-bold;
+  }
+  a {
+    @apply text-primary-500 font-bold;
+  }
+
+  /* Gutenberg block alignment */
+
+  /* Remove tap highlight on mobile chrome */
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
 }

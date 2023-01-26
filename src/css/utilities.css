@@ -1,20 +1,3 @@
-.hover\:after\:border-offset-1:hover:after {
-  display: block;
-  content: '';
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  bottom: -1px;
-  left: -1px;
-  z-index: -1;
-  background-color: var(--brand-color);
-}
-
-[disabled].hover\:after\:border-offset-1:after {
-  content: none !important;
-}
-
-.hover\:after\:border-offset-1 {
-  position: relative;
-  background-color: white;
+@layer utilities {
+  
 }
