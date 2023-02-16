@@ -55,5 +55,3 @@ for (const path in alpineMagic) {
 }
 
 Alpine.start()
-
-console.log('test')
