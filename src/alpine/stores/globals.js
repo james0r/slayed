@@ -7,7 +7,6 @@ export default {
       isMobileMenuVisible: false,
       isMinicartVisible: false,
       init() {
-        console.log('test3')
         this.mobileMenuEl = document.querySelector('#mobile-nav');
       },
       openMobileMenu() {

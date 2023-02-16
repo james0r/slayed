@@ -5,21 +5,21 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "run-p -sr shopify:serve vite:watch",
-    "deploy": "run-s vite:build && cd shopify && shopify2 theme push",
-    "deploy:new": "run-s vite:build && cd shopify && shopify2 theme push --unpublished",
+    "start": "run-p -sr shopify:dev vite:watch",
+    "deploy": "run-s vite:build && shopify theme push --path shopify",
+    "deploy:new": "run-s vite:build && shopify theme push --unpublished --path shopify",
     "vite:watch": "cross-env NODE_ENV=development vite build --watch --mode 'development' --config .config/vite.config.js",
     "vite:build": "cross-env NODE_ENV=production vite build --mode 'production' --config .config/vite.config.js",
-    "shopify:serve": "cd shopify && shopify2 theme serve",
-    "shopify:pull": "cd shopify && shopify2 theme pull",
+    "shopify:dev": "shopify theme dev --path shopify",
+    "shopify:pull": "shopify theme pull --path shopify",
     "lint": "run-s -c lint:*",
     "lint:js": "eslint src/**/*.js --config .config/.eslintrc.js",
     "lint:css": "stylelint src/**/*.{css,sass,scss} --config .config/.stylelintrc.js",
-    "lint:shopify": "cd shopify && shopify theme check",
+    "lint:shopify": "shopify theme check --path shopify",
     "fix": "run-s -c fix:*",
     "fix:js": "eslint src/**/*.js --config .config/.eslintrc.js --fix",
     "fix:css": "stylelint src/**/*.{css,sass,scss} --config .config/.stylelintrc.js --fix",
-    "fix:shopify": "cd shopify && shopify theme check -a"
+    "fix:shopify": "shopify theme check -a --path shopify"
   },
   "dependencies": {
     "@alpinejs/focus": "^3.11.1",
