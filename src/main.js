@@ -56,4 +56,4 @@ for (const path in alpineMagic) {
 
 Alpine.start()
 
-console.log('test shopify-cli 3')
+console.log('github cli auth test')
