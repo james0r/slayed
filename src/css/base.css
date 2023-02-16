@@ -9,7 +9,7 @@
     @apply text-2xl font-bold;
   }
   a {
-    @apply text-primary-500 font-bold;
+    @apply text-cloud-burst-500 font-bold;
   }
 
   /* Gutenberg block alignment */

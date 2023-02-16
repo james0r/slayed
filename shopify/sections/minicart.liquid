@@ -1,6 +1,9 @@
-<div class="minicart" data-ajax-cart-section x-cloak>
+<div
+  class="minicart"
+  data-ajax-cart-section
+  x-cloak>
   <div class="title-row">
-    <h2 id="minicart-label">
+    <h2 id="minicart-label" class="text-cloud-burst-500">
       Cart
     </h2>
     <button @click="$store.globals.isMinicartVisible = false">
@@ -9,7 +12,10 @@
   </div>
   <div class="item-count-message">
     You have
-    <span class="count" style="font-weight: 600" x-data>{{ cart.item_count }}
+    <span
+      class="count"
+      style="font-weight: 600"
+      x-data>{{ cart.item_count }}
     </span>
     <span x-data></span>
     in your cart!
@@ -19,7 +25,10 @@
     {% for item in cart.items %}
       <li class="item">
         <div class="product-thumb-wrapper">
-          <img class="product-thumb" src="{{ item.image | img_url: '100x' }}" alt="{{ item.title }}"/>
+          <img
+            class="product-thumb"
+            src="{{ item.image | img_url: '100x' }}"
+            alt="{{ item.title }}" />
         </div>
         <div class="item-details">
           <h4 class="title">
@@ -61,7 +70,7 @@
     <p class="amount">{{ cart.items_subtotal_price | money }}
     </p>
   </div>
-  <a class="cart-link" href="{{ routes.cart_url }}">View Cart Details
+  <a class="cart-link hover:bg-cloud-burst-500" href="{{ routes.cart_url }}">View Cart Details
   </a>
 
 </div>
@@ -141,7 +150,6 @@
   .minicart .cart-link:hover {
     cursor: pointer;
     color: #fff;
-    background: var(--brand-color);
   }
 
   .minicart hr {
@@ -156,7 +164,6 @@
   }
 
   .minicart .title-row h2 {
-    color: var(--brand-color);
     margin: 0;
   }
 

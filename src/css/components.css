@@ -1,5 +1,5 @@
 @layer components {
   .btn {
-    @apply py-3 px-12 bg-primary-500 hover:bg-primary-600 text-white rounded-full transition;
+    @apply py-3 px-12 bg-cloud-burst-500 hover:bg-cloud-burst-600 text-white rounded-full transition;
   } 
 }

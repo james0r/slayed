@@ -44,13 +44,13 @@
         <fieldset>
           <legend>{{ option.name }}</legend>
           {% for value in option.values %}
-          <input id="{{ option.name }}-{{ value }}" class="hidden" type="radio" value="{{value}}"
+          <input id="{{ option.name }}-{{ value }}" class="hidden variant-radio-input" type="radio" value="{{value}}"
             x-model="selectedOption{{ option.position }}" name="{{ option.name }}"
             {% if option.selected_value == value %}checked{% endif %}
             @change="onOptionChangeHandler($el, '{{ option.name }}-{{ value }}')" data-section="{{ section.id }}"
             data-url="{{ product.url }}" :data-index="{{forloop.index0}}"
             >
-          <label for="{{ option.name }}-{{ value }}" tabindex="{% if option.selected_value == value %}-1{% else %}0{% endif %}" @keyup.enter="$el.click()">
+          <label for="{{ option.name }}-{{ value }}" class="" tabindex="{% if option.selected_value == value %}-1{% else %}0{% endif %}" @keyup.enter="$el.click()">
             {{ value }}
           </label>
           {% endfor %}
@@ -87,7 +87,7 @@
       <input type="hidden" name="id" x-model="selectedVariant">
       <input type="hidden" name="quantity" x-model="quantity">
       <div class="hover:after:border-offset-1 mb-[10px]" x-bind:disabled="addToCartButtonText != 'Add to cart'">
-        <input class="border border-primary px-6 text-primary w-full h-12 cursor-pointer disabled:cursor-default" name="add" x-bind:disabled="addToCartButtonText != 'Add to cart'"
+        <input class="border border-primary px-6 text-cloud-burst-500 w-full h-12 cursor-pointer disabled:cursor-default" name="add" x-bind:disabled="addToCartButtonText != 'Add to cart'"
           x-model="addToCartButtonText" type="submit"
           {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
           {%- if product.selected_or_first_available_variant.available -%} value="Add to cart" {%- else -%}
@@ -98,7 +98,7 @@
         <!-- Error messages appear here -->
       </div>
       {%- if product.selected_or_first_available_variant.available -%}
-      <a type="button" class="w-full h-12 px-6 text-white bg-primary flex items-center justify-center hover:after:border-offset-1" :href="`/cart/${selectedVariant}:1`" x-show="showBuyNow">
+      <a type="button" class="w-full h-12 px-6 text-white bg-cloud-burst-500 flex items-center justify-center hover:after:border-offset-1" :href="`/cart/${selectedVariant}:1`" x-show="showBuyNow">
         Buy it now
       </a>
       {%- endif -%}
@@ -193,8 +193,6 @@
 
   .product-section .shopify-section-main-product-inner .flex .info fieldset label {
     display: inline-block;
-    background-color: rgba(0, 0, 0, .1);
-    color: #1a1b18;
     padding: 10px 20px;
     border-radius: 40px;
     letter-spacing: 1px;
@@ -212,10 +210,6 @@
     color: lightgray;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info fieldset input:checked+label {
-    background-color: var(--brand-color);
-    color: white;
-  }
 
   .product-section .shopify-section-main-product-inner .flex .info .quantity-row label {
     display: block;

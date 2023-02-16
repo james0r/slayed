@@ -1,3 +1,8 @@
 @layer utilities {
-  
+  .variant-radio-input + label {
+    @apply bg-slate-100 text-black;
+  }
+  .variant-radio-input:checked + label {
+    @apply bg-cloud-burst-500 text-white;
+  }
 }
