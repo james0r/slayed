@@ -56,4 +56,8 @@ for (const path in alpineMagic) {
 
 Alpine.start()
 
+<<<<<<< HEAD
 console.log('a second logging part 2')
+=======
+console.log('gonna merge using rebase part 1')
+>>>>>>> e9d0506 (part 1)
