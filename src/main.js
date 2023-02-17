@@ -56,4 +56,4 @@ for (const path in alpineMagic) {
 
 Alpine.start()
 
-console.log('logging something in the feature branch')
+console.log('a second logging part 2')
