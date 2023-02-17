@@ -56,4 +56,4 @@ for (const path in alpineMagic) {
 
 Alpine.start()
 
-console.log('gonna merge using rebase part 1')
+console.log('gonna merge using rebase part 2')
