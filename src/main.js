@@ -56,4 +56,4 @@ for (const path in alpineMagic) {
 
 Alpine.start()
 
-console.log('fourth branch part 1')
+console.log('fourth branch part 2')
