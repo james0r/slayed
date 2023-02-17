@@ -56,4 +56,4 @@ for (const path in alpineMagic) {
 
 Alpine.start()
 
-console.log('a second logging part 1')
+console.log('a second logging part 2')
