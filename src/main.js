@@ -56,4 +56,4 @@ for (const path in alpineMagic) {
 
 Alpine.start()
 
-console.log('doing some work on the develop branch')
+console.log('logging something in the feature branch')
