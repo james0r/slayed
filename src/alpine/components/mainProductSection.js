@@ -1,5 +1,5 @@
 export default {
-  name: 'product',
+  name: 'mainProductSection',
   component() {
     return {
       quantity: 0,
@@ -12,10 +12,10 @@ export default {
       showBuyNow: true,
       variants: [],
       init(variants, selectedVariantId) {
-        // Return if not explicitly called by component
+        // Return if not explicitly called by x-init directive
         if (!selectedVariantId) return
 
-        // First make variants and selected variant id reactive
+        // Make variants array and selected variant id reactive
         this.variants = variants
         this.selectedVariant = selectedVariantId
 
@@ -49,58 +49,79 @@ export default {
         // Set selected variant price
         this.selectedVariantPrice = variantSelected.price
       },
-      onOptionChangeHandler(el, option) {
-        this.quantity = 1
-        let variantExists = false
-
-        this.variants.forEach((variant) => {
-          if (
+      get matchedVariantByCurrentOptions() {
+        return this.variants.find((variant) => {
+          return (
             variant.option1 == this.selectedOption1 &&
             variant.option2 == this.selectedOption2 &&
             variant.option3 == this.selectedOption3
-          ) {
-            this.selectedVariant = variant.id
-            this.selectedVariantPrice = variant.price
-            variantExists = true
-
-            // Set button text, button visibility, and quantity input
-            if (variant.available) {
-              this.quantity = 1
-              this.addToCartButtonText = 'Add to cart'
-              this.showBuyNow = true
-            } else {
-              this.quantity = 0
-              this.addToCartButtonText = 'Out of stock'
-              this.showBuyNow = false
-            }
-
-            this.replaceSection(el)
-          }
+          )
         })
+      },
+      availableVariantsFromFirstSelected() {
+        if (this.selectedOption2) {
+          return this.variants.filter(
+            (variant) => this.selectedOption1 === variant.option1 && variant.available
+          );
+        }
+      },
+      availableVariantsFromSecondSelected() {
+        if (this.selectedOption3) {
+          return this.availableVariantsFromFirstSelected().filter(
+            (variant) => this.selectedOption2 === variant.option2 && variant.available
+          );
+        }
+      },
+      inputIsSoldOutOrUnavailable(optionPosition, value) {
+        if (optionPosition === 1) { return }
+        if (optionPosition === 2) {
+          return !this.availableVariantsFromFirstSelected().some((v) => (
+            v[`option${optionPosition}`] === value
+          ))
+        }
 
-        if (!variantExists) {
-          // this.replaceSection(el)
+        if (optionPosition === 3) {
+          return !this.availableVariantsFromSecondSelected().some((v) => (
+            v[`option${optionPosition}`] === value
+          ))
+        }
+      },
+      onOptionChangeHandler(el, option) {
+
+        if (this.matchedVariantByCurrentOptions) {
+          let variant = this.matchedVariantByCurrentOptions
+          this.selectedVariant = variant.id
+          this.selectedVariantPrice = variant.price
+
+          // Set button text, button visibility, and quantity input
+          if (variant.available) {
+            this.quantity = 1
+            this.addToCartButtonText = 'Add to cart'
+            this.showBuyNow = true
+          } else {
+            this.quantity = 0
+            this.addToCartButtonText = 'Out of stock'
+            this.showBuyNow = false
+          }
+
+          this.replaceSection(el)
+          window.history.replaceState(
+            {},
+            '',
+            `${el.dataset.url}?variant=${this.selectedVariant}&lastSelectedOption=${option}`
+          )
+        } else {
           this.addToCartButtonText = 'Unavailable'
           this.showBuyNow = false
           this.quantity = 0
         }
 
-        window.history.replaceState(
-          {},
-          '',
-          `${el.dataset.url}?variant=${this.selectedVariant}&lastSelectedOption=${option}`
-        )
       },
       replaceSection(el) {
-        fetch(
-          `${el.dataset.url}?variant=${this.selectedVariant}&section_id=${el.dataset.section}`
-        )
+        fetch(`${el.dataset.url}?variant=${this.selectedVariant}&section_id=${el.dataset.section}`)
           .then((response) => response.text())
           .then((responseText) => {
-            const html = new DOMParser().parseFromString(
-              responseText,
-              'text/html'
-            )
+            const html = new DOMParser().parseFromString(responseText, 'text/html')
             const destination = document.querySelector('.pdp-main')
             const source = html.querySelector('.pdp-main')
 
@@ -108,7 +129,7 @@ export default {
 
             const params = new Proxy(new URLSearchParams(window.location.search), {
               get: (searchParams, prop) => searchParams.get(prop),
-            });
+            })
 
             let optionId = params.lastSelectedOption
 

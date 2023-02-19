@@ -6,10 +6,8 @@
 }
 {% endschema %}
 
-{{ 'main-product.css' | asset_url | stylesheet_tag }}
-
 <div class="shopify-section-main-product-inner shell" data-handle="{{ product.handle }}" data-id="{{ product.id }}"
-  x-data="product"
+  x-data="mainProductSection"
   x-init="init({{product.variants | json | escape}}, {{product.selected_or_first_available_variant.id}})">
   <a class="skip-to-content-link sr-only" href="#product-info-{{ section.id }}">
     Skip to product info
@@ -44,13 +42,23 @@
         <fieldset>
           <legend>{{ option.name }}</legend>
           {% for value in option.values %}
+          {%- assign variant_label_state = true -%}
+
+          {%- if product.options.size == 1 -%}
+            {%- unless product.variants[forloop.index0].available -%}
+              {%- assign variant_label_state = false -%}
+            {%- endunless -%}
+          {%- endif -%}
+
           <input id="{{ option.name }}-{{ value }}" class="hidden variant-radio-input" type="radio" value="{{value}}"
             x-model="selectedOption{{ option.position }}" name="{{ option.name }}"
+            {% unless variant_label_state %} disabled="disabled"{% endunless %}
             {% if option.selected_value == value %}checked{% endif %}
-            @change="onOptionChangeHandler($el, '{{ option.name }}-{{ value }}')" data-section="{{ section.id }}"
+            @change="onOptionChangeHandler($el, '{{ option.name }}-{{ value }}')" 
+            data-section="{{ section.id }}"
             data-url="{{ product.url }}" :data-index="{{forloop.index0}}"
             >
-          <label for="{{ option.name }}-{{ value }}" class="" tabindex="{% if option.selected_value == value %}-1{% else %}0{% endif %}" @keyup.enter="$el.click()">
+          <label for="{{ option.name }}-{{ value }}" :class="inputIsSoldOutOrUnavailable({{ option.position }},'{{ value }}') && 'line-through'" tabindex="{% if option.selected_value == value %}-1{% else %}0{% endif %}" @keyup.enter="$el.click()">
             {{ value }}
           </label>
           {% endfor %}
