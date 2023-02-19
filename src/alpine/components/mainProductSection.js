@@ -133,6 +133,8 @@ export default {
 
             let optionId = params.lastSelectedOption
 
+            console.log(optionId)
+
             document.getElementById(optionId).focus()
           })
       },

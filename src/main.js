@@ -7,7 +7,7 @@ import './css/site.css'
 window.Alpine = Alpine
 
 // Declare our namespace on the window
-const ns = 'vta'
+const ns = 'vta' 
 
 // Define our ns and helpers property
 window[ns] = (window[ns] || {})

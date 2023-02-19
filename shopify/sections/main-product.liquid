@@ -117,6 +117,21 @@
       </div>
     </div>
   </div>
+  <h2>List of names</h2>
+  {% if product.metafields.custom.list_of_names %}
+    {% for name in product.metafields.custom.list_of_names.value %}
+      {{ name }}
+    {% endfor %}
+  {% endif %}
+  <h2>List of influencers</h2>
+  {% if product.metafields.custom.list_of_influencers %}
+    {% for i in product.metafields.custom.list_of_influencers.value %}
+      <li>
+        Name: {{ i.name }}
+        Instagram: {{ i.instagram }}
+      </li>
+    {% endfor %}
+  {% endif %}
 </div>
 
 <style>
