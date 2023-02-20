@@ -7,7 +7,7 @@ import './css/site.css'
 window.Alpine = Alpine
 
 // Declare our namespace on the window
-const ns = 'vta' 
+const ns = 'slayed' 
 
 // Define our ns and helpers property
 window[ns] = (window[ns] || {})
@@ -54,4 +54,4 @@ for (const path in alpineMagic) {
   Alpine.magic(name, magic.callback)
 }
 
-Alpine.start()
+Alpine.start() 
