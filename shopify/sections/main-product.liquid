@@ -109,9 +109,9 @@
       {%- form 'product', product, id: product_form_id, class: 'product-form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
       <input type="hidden" name="id" x-model="selectedVariant">
       <input type="hidden" name="quantity" x-model="quantity">
-      <div class="hover:after:border-offset-1 mb-[10px]" x-bind:disabled="addToCartButtonText != 'Add to cart'">
-        <input class="border border-primary px-6 text-cloud-burst-500 w-full h-12 cursor-pointer disabled:cursor-default" name="add" x-bind:disabled="addToCartButtonText != 'Add to cart'"
-          x-model="addToCartButtonText" type="submit"
+      <div class="hover:after:border-offset-1 mb-[10px]">
+        <input class="border border-primary px-6 text-cloud-burst-500 w-full h-12 cursor-pointer disabled:cursor-default" name="add"
+          x-ref="addToCartButton" type="submit"
           {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
           {%- if product.selected_or_first_available_variant.available -%} value="Add to cart" {%- else -%}
           value="Sold out" {%- endif -%}>
@@ -148,8 +148,6 @@
     {% endfor %}
   {% endif %}
 </div>
-
-
 
 <style>
   .product-section {

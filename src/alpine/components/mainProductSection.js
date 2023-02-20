@@ -116,11 +116,9 @@ export default {
           // Set button text, button visibility, and quantity input
           if (variant.available) {
             this.quantity = 1
-            this.addToCartButtonText = 'Add to cart'
             this.showBuyNow = true
           } else {
             this.quantity = 0
-            this.addToCartButtonText = 'Out of stock'
             this.showBuyNow = false
           }
 
@@ -131,7 +129,8 @@ export default {
             `${url}?variant=${this.selectedVariant}&lastSelectedOption=${option}`
           )
         } else {
-          this.addToCartButtonText = 'Unavailable'
+          this.$refs.addToCartButton.value = 'Unavailable'
+          this.$refs.addToCartButton.disabled = true
           this.showBuyNow = false
           this.quantity = 0
         }
