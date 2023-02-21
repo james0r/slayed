@@ -12,6 +12,7 @@
     "vite:build": "cross-env NODE_ENV=production vite build --mode 'production' --config .config/vite.config.js",
     "shopify:dev": "shopify theme dev --path shopify",
     "shopify:pull": "shopify theme pull --path shopify",
+    "shopify:pull-dev": "shopify theme pull -d --path shopify",
     "lint": "run-s -c lint:*",
     "lint:js": "eslint src/**/*.js --config .config/.eslintrc.js",
     "lint:css": "stylelint src/**/*.{css,sass,scss} --config .config/.stylelintrc.js",

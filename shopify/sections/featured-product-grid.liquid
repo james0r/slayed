@@ -1,15 +1,20 @@
 {% schema %}
-{
-  "name": "featured-product-grid",
-  "class": "featured-product-grid",
-  "settings": [
-    {
-      "type": "collection",
-      "id": "featured_collection",
-      "label": "Collection"
-    }
-  ]
-}
+  {
+    "name": "featured-product-grid",
+    "class": "featured-product-grid",
+    "settings": [
+      {
+        "type": "collection",
+        "id": "featured_collection",
+        "label": "Collection"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Product Grid"
+      }
+    ]
+  }
 {% endschema %}
 
 {% if section.settings.featured_collection != blank %}
@@ -28,7 +33,7 @@
         {%- if paginate.pages > 1 -%}
           <nav class="pagination-nav" role="navigation ">
             <ol class="pagination">
-              {%- if paginate.previous-%}
+              {%- if paginate.previous -%}
                 <li>
                   <a href="{{ paginate.previous.url }}">
                     <span aria-hidden="true">&laquo;</span>
@@ -96,17 +101,17 @@
     .featured-product-grid h2 {
       margin-bottom: 40px;
     }
-  
+
     .product-grid {
       display: grid;
       grid-gap: 1rem;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
-  
+
     .featured-product-grid .pagination-nav {
       margin-top: 40px;
     }
-  
+
     .featured-product-grid .pagination-nav .pagination {
       display: flex;
       gap: 10px;

@@ -2,20 +2,13 @@
 {
   "name": "product",
   "class": "product-section",
-  "tag": "section",
   "settings": []
 }
 {% endschema %}
 
-<script type="application/json" data-product-variants-json>
-  {{product.variants | json }}
-</script>
-
-<div class="shopify-section-main-product-inner shell" 
-  data-handle="{{ product.handle }}" 
-  data-id="{{ product.id }}"
+<div class="shopify-section-main-product-inner shell" data-handle="{{ product.handle }}" data-id="{{ product.id }}"
   x-data="mainProductSection"
-  x-init="init(JSON.parse(document.querySelector('[data-product-variants-json]').textContent), {{product.selected_or_first_available_variant.id}})">
+  x-init="init({{product.variants | json | escape}}, {{product.selected_or_first_available_variant.id}})">
   <a class="skip-to-content-link sr-only" href="#product-info-{{ section.id }}">
     Skip to product info
   </a>
@@ -44,42 +37,34 @@
       </dl>
 
       {% if product.options.size > 0 %}
-        <div class="variant-radios">
-          {% for option in product.options_with_values %}
-            <fieldset>
-              <legend>{{ option.name }}</legend>
-              {% for value in option.values %}
-                {%- assign variant_label_state = true -%}
-        
-                {%- if product.options.size == 1 -%}
-                  {%- unless product.variants[forloop.index0].available -%}
-                    {%- assign variant_label_state = false -%}
-                  {%- endunless -%}
-                {%- endif -%}
-        
-                <input
-                  id="{{ option.name }}-{{ value }}"
-                  class="hidden variant-radio-input"
-                  type="radio"
-                  value="{{value}}"
-                  x-model="selectedOption{{ option.position }}"
-                  name="{{ option.name }}"
-                  {% unless variant_label_state %}
-                  disabled="disabled"
-                  {% endunless %}
-                  {% if option.selected_value == value %}checked{% endif %}
-                  @change="onOptionChangeHandler('{{ product.url }}', '{{ section.id }}' ,'{{ option.name }}-{{ value }}')">
-                <label
-                  for="{{ option.name }}-{{ value }}"
-                  :class="inputIsSoldOutOrUnavailable({{ option.position }},'{{ value }}') && 'line-through'"
-                  tabindex="{% if option.selected_value == value %}-1{% else %}0{% endif %}"
-                  @keyup.enter="$el.click()">
-                  {{ value }}
-                </label>
-              {% endfor %}
-            </fieldset>
+      <div class="variant-radios">
+        {% for option in product.options_with_values %}
+        <fieldset>
+          <legend>{{ option.name }}</legend>
+          {% for value in option.values %}
+          {%- assign variant_label_state = true -%}
+
+          {%- if product.options.size == 1 -%}
+            {%- unless product.variants[forloop.index0].available -%}
+              {%- assign variant_label_state = false -%}
+            {%- endunless -%}
+          {%- endif -%}
+
+          <input id="{{ option.name }}-{{ value }}" class="hidden variant-radio-input" type="radio" value="{{value}}"
+            x-model="selectedOption{{ option.position }}" name="{{ option.name }}"
+            {% unless variant_label_state %} disabled="disabled"{% endunless %}
+            {% if option.selected_value == value %}checked{% endif %}
+            @change="onOptionChangeHandler($el, '{{ option.name }}-{{ value }}')" 
+            data-section="{{ section.id }}"
+            data-url="{{ product.url }}" :data-index="{{forloop.index0}}"
+            >
+          <label for="{{ option.name }}-{{ value }}" :class="inputIsSoldOutOrUnavailable({{ option.position }},'{{ value }}') && 'line-through'" tabindex="{% if option.selected_value == value %}-1{% else %}0{% endif %}" @keyup.enter="$el.click()">
+            {{ value }}
+          </label>
           {% endfor %}
-        </div>
+        </fieldset>
+        {% endfor %}
+      </div>
       {% endif %}
 
       <div class="quantity-row">
@@ -109,9 +94,9 @@
       {%- form 'product', product, id: product_form_id, class: 'product-form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
       <input type="hidden" name="id" x-model="selectedVariant">
       <input type="hidden" name="quantity" x-model="quantity">
-      <div class="hover:after:border-offset-1 mb-[10px]">
-        <input class="border border-primary px-6 text-cloud-burst-500 w-full h-12 cursor-pointer disabled:cursor-default" name="add"
-          x-ref="addToCartButton" type="submit"
+      <div class="hover:after:border-offset-1 mb-[10px]" x-bind:disabled="addToCartButtonText != 'Add to cart'">
+        <input class="border border-primary px-6 text-cloud-burst-500 w-full h-12 cursor-pointer disabled:cursor-default" name="add" x-bind:disabled="addToCartButtonText != 'Add to cart'"
+          x-model="addToCartButtonText" type="submit"
           {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
           {%- if product.selected_or_first_available_variant.available -%} value="Add to cart" {%- else -%}
           value="Sold out" {%- endif -%}>
@@ -132,21 +117,6 @@
       </div>
     </div>
   </div>
-  <h2>List of names</h2>
-  {% if product.metafields.custom.list_of_names %}
-    {% for name in product.metafields.custom.list_of_names.value %}
-      {{ name }}
-    {% endfor %}
-  {% endif %}
-  <h2>List of influencers</h2>
-  {% if product.metafields.custom.list_of_influencers %}
-    {% for i in product.metafields.custom.list_of_influencers.value %}
-      <li>
-        Name: {{ i.name }}
-        Instagram: {{ i.instagram }}
-      </li>
-    {% endfor %}
-  {% endif %}
 </div>
 
 <style>
