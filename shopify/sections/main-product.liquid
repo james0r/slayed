@@ -55,7 +55,7 @@
             x-model="selectedOption{{ option.position }}" name="{{ option.name }}"
             {% unless variant_label_state %} disabled="disabled"{% endunless %}
             {% if option.selected_value == value %}checked{% endif %}
-            @change="onOptionChangeHandler($el, '{{ option.name }}-{{ value }}')" 
+            @change="onOptionChangeHandler('{{ product.url }}', '{{ section.id }}', '{{ option.name }}-{{ value }}')" 
             data-section="{{ section.id }}"
             data-url="{{ product.url }}" :data-index="{{forloop.index0}}"
             >
