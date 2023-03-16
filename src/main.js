@@ -43,6 +43,15 @@ for (const path in alpineComponents) {
   Alpine.data(name, component.component)
 }
 
+// Register Alpine Directives
+const alpineDirectives = import.meta.glob('./alpine/directives/*.js', { eager: true, import: 'default' })
+
+for (const path in alpineDirectives) {
+  const directive = alpineDirectives[path]
+    
+  Alpine.directive(directive.name, directive.callback)
+}
+
 // Register Alpine Magic Properties
 const alpineMagic = import.meta.glob('./alpine/magic/*.js', { eager: true, import: 'default' })
 

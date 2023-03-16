@@ -7,8 +7,9 @@
 {% endschema %}
 
 <div class="shopify-section-main-product-inner shell" data-handle="{{ product.handle }}" data-id="{{ product.id }}"
+  x-prodify
   x-data="mainProductSection"
-  x-init="init({{product.variants | json | escape}}, {{product.selected_or_first_available_variant.id}})">
+  x-init="init({{ product.variants | json | escape }}, {{ product.selected_or_first_available_variant.id }})">
   <a class="skip-to-content-link sr-only" href="#product-info-{{ section.id }}">
     Skip to product info
   </a>
