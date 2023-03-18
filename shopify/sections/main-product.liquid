@@ -1,25 +1,29 @@
 {% schema %}
 {
-  "name": "product",
-  "class": "product-section",
-  "settings": []
+  "name": "Product",
+  "class": "section-main-product"
 }
 {% endschema %}
+
+<script defer src="{{ 'prodify.static.js' | asset_url }}"></script>
 
 <div
   class="shopify-section-main-product-inner shell"
   data-handle="{{ product.handle }}"
   data-id="{{ product.id }}"
   x-prodify
-  x-data="mainProductSection"
-  x-init="init({{ product.variants | json | escape }}, {{ product.selected_or_first_available_variant.id }})"
+  data-url="{{ product.url }}"
+  data-section="{{ section.id }}"
 >
+  <script type="application/json" x-prodify-variants-json>
+    {{ product.variants | json }}
+  </script>
   <a class="skip-to-content-link sr-only" href="#product-info-{{ section.id }}"> Skip to product info </a>
   <div class="flex pdp-main" style="position: relative;">
     <span style="position: absolute; top: 0; left: 0; z-index: 1; font-size: 10px;">
       {{ product.selected_or_first_available_variant.id }}
     </span>
-    <div class="media">
+    <div class="media" x-prodify-media-container>
       <div class="image-wrapper" style="padding-top: 137%;">
         {%- if product.selected_or_first_available_variant.image != null -%}
           variant image
@@ -33,16 +37,22 @@
     <div class="info" id="product-info-{{ section.id }}">
       <p class="caption">{{ product.type | upcase }}</p>
       <h1>{{ product.title }}</h1>
-      <dl>
-        <dt class="visually-hidden">Regular Price</dt>
-        <dd x-text="$money(selectedVariantPrice)">{{ product.selected_or_first_available_variant.price | money }}</dd>
-        <dd></dd>
-      </dl>
+      <div class="flex items-center py-2" x-prodify-price-container>
+        <span class="sr-only">Regular Price</span>
+        {% if product.selected_or_first_available_variant.compare_at_price %}
+          <span class="line-through">
+            {{ product.selected_or_first_available_variant.compare_at_price }}
+          </span>
+        {% endif %}
+        <span>
+          {{ product.selected_or_first_available_variant.price | money }}
+        </span>
+      </div>
 
       {% if product.options.size > 0 %}
         <div class="variant-radios">
           {% for option in product.options_with_values %}
-            <fieldset>
+            <fieldset x-prodify-option-container>
               <legend>{{ option.name }}</legend>
               {% for value in option.values %}
                 {%- assign variant_label_state = true -%}
@@ -58,7 +68,6 @@
                   class="hidden variant-radio-input"
                   type="radio"
                   value="{{value}}"
-                  x-model="selectedOption{{ option.position }}"
                   name="{{ option.name }}"
                   {% unless variant_label_state %}
                     disabled="disabled"
@@ -66,14 +75,10 @@
                   {% if option.selected_value == value %}
                     checked
                   {% endif %}
-                  @change="onOptionChangeHandler('{{ product.url }}', '{{ section.id }}', '{{ option.name }}-{{ value }}')"
-                  data-section="{{ section.id }}"
-                  data-url="{{ product.url }}"
-                  :data-index="{{forloop.index0}}"
+                  x-prodify-variant-radio
                 >
                 <label
                   for="{{ option.name }}-{{ value }}"
-                  :class="inputIsSoldOutOrUnavailable({{ option.position }},'{{ value }}') && 'line-through'"
                   tabindex="{% if option.selected_value == value %}-1{% else %}0{% endif %}"
                   @keyup.enter="$el.click()"
                 >
@@ -85,90 +90,89 @@
         </div>
       {% endif %}
 
-      <div class="quantity-row">
-        <label for="quantity-control-input">Quantity</label>
-        <div class="quantity-control-container">
-          <button @click="quantity = Math.max(quantity - 1, 1)" :disabled="quantity == 0">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              focusable="false"
-              role="presentation"
-              class="icon icon-minus"
-              fill="none"
-              viewBox="0 0 10 2"
+      {% comment %}
+        <div class="quantity-row">
+          <label for="quantity-control-input">Quantity</label>
+          <div class="quantity-control-container">
+            <button @click="quantity = Math.max(quantity - 1, 1)" :disabled="quantity == 0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                focusable="false"
+                role="presentation"
+                class="icon icon-minus"
+                fill="none"
+                viewBox="0 0 10 2"
+              >
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M.5 1C.5.7.7.5 1 .5h8a.5.5 0 110 1H1A.5.5 0 01.5 1z"
+                  fill="currentColor">
+                </path>
+              </svg>
+            </button>
+            <input
+              tabindex="-1"
+              type="number"
+              id="quantity-control-input"
+              value="1"
+              x-model="quantity"
+              :disabled="quantity == 0"
             >
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M.5 1C.5.7.7.5 1 .5h8a.5.5 0 110 1H1A.5.5 0 01.5 1z"
-                fill="currentColor">
-              </path>
-            </svg>
-          </button>
-          <input
-            tabindex="-1"
-            type="number"
-            id="quantity-control-input"
-            value="1"
-            x-model="quantity"
-            :disabled="quantity == 0"
-          >
-          <button @click="quantity = quantity + 1" :disabled="quantity == 0">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              focusable="false"
-              role="presentation"
-              class="icon icon-plus"
-              fill="none"
-              viewBox="0 0 10 10"
-            >
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z"
-                fill="currentColor">
-              </path>
-            </svg>
-          </button>
+            <button @click="quantity = quantity + 1" :disabled="quantity == 0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                focusable="false"
+                role="presentation"
+                class="icon icon-plus"
+                fill="none"
+                viewBox="0 0 10 10"
+              >
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z"
+                  fill="currentColor">
+                </path>
+              </svg>
+            </button>
+          </div>
         </div>
-      </div>
-      {%- form 'product',
-        product,
-        id: 'product_form_id',
-        class: 'product-form',
-        novalidate: 'novalidate',
-        data-type: 'add-to-cart-form'
-      -%}
-        <input type="hidden" name="id" x-model="selectedVariant">
-        <input type="hidden" name="quantity" x-model="quantity">
-        <div class="hover:after:border-offset-1 mb-[10px]" x-bind:disabled="addToCartButtonText != 'Add to cart'">
-          <input
-            class="border border-primary px-6 text-cloud-burst-500 w-full h-12 cursor-pointer disabled:cursor-default"
+      {% endcomment %}
+      <form action="{{ routes.cart_add_url }}" id="product_form_id" class="product-form" novalidate="novalidate" x-prodify-product-form>
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <div class="hover:after:border-offset-1 mb-[10px]">
+          <button
+            class="border hover:border-2 hover:border-black border-primary px-6 text-cloud-burst-500 w-full h-12 cursor-pointer disabled:cursor-default mb-2"
             name="add"
-            x-bind:disabled="addToCartButtonText != 'Add to cart'"
-            x-model="addToCartButtonText"
             type="submit"
             {% if product.selected_or_first_available_variant.available == false %}
               disabled
             {% endif %}
-            {%- if product.selected_or_first_available_variant.available -%}
-              value="Add to cart"
-            {%- else -%}
-              value="Sold out"
-            {%- endif -%}
           >
+            <span>
+              {%- if product.selected_or_first_available_variant.available -%}
+                Add to cart
+              {%- else -%}
+                Sold out
+              {%- endif -%}
+            </span>
+          </button>
         </div>
         <div data-ajax-cart-messages="form">
           <!-- Error messages appear here -->
         </div>
-        {%- if product.selected_or_first_available_variant.available -%}
-          <a
-            type="button"
-            class="w-full h-12 px-6 text-white bg-cloud-burst-500 flex items-center justify-center hover:after:border-offset-1"
-            :href="`/cart/${selectedVariant}:1`"
-            x-show="showBuyNow"
-          >
-            Buy it now
-          </a>
-        {%- endif -%}
-      {%- endform -%}
+        {% comment %}
+          {%- if product.selected_or_first_available_variant.available -%}
+            <a
+              type="button"
+              class="w-full h-12 px-6 text-white bg-cloud-burst-500 flex items-center justify-center hover:after:border-offset-1"
+              :href="`/cart/${selectedVariant}:1`"
+              x-show="showBuyNow"
+            >
+              Buy it now
+            </a>
+          {%- endif -%}
+        {% endcomment %}
+      </form>
 
       <div class="description rte">
         {{ product.description }}
@@ -178,35 +182,39 @@
 </div>
 
 <style>
-  .product-section {
+  input[type='radio'].disabled + label {
+    text-decoration: line-through;
+  }
+
+  .section-main-product {
     padding: 50px;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Ubuntu, Helvetica Neue, sans-serif,
       Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   }
 
   @media (max-width: 576px) {
-    .product-section {
+    .section-main-product {
       padding: 15px;
     }
   }
 
-  .product-section .shopify-section-main-product-inner .flex {
+  .section-main-product .shopify-section-main-product-inner .flex {
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .media {
+  .section-main-product .shopify-section-main-product-inner .flex .media {
     width: 100%;
     flex: 2 1 400px;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .media .image-wrapper {
+  .section-main-product .shopify-section-main-product-inner .flex .media .image-wrapper {
     position: relative;
     width: 100%;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .media .image-wrapper img {
+  .section-main-product .shopify-section-main-product-inner .flex .media .image-wrapper img {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -218,24 +226,24 @@
     object-position: center;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info {
+  .section-main-product .shopify-section-main-product-inner .flex .info {
     flex: 1 1 300px;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info .caption {
+  .section-main-product .shopify-section-main-product-inner .flex .info .caption {
     letter-spacing: 1.3px;
     font-size: 10px;
     line-height: 12px;
     color: rgba(26, 27, 24, 0.75);
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info h1 {
+  .section-main-product .shopify-section-main-product-inner .flex .info h1 {
     font-size: 40px;
     font-weight: 400;
     line-height: 52px;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info dl dd {
+  .section-main-product .shopify-section-main-product-inner .flex .info dl dd {
     letter-spacing: 1.3px;
     font-size: 18px;
     line-height: 27px;
@@ -243,14 +251,14 @@
     margin: 15px auto;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info fieldset {
+  .section-main-product .shopify-section-main-product-inner .flex .info fieldset {
     margin-bottom: 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info fieldset legend {
+  .section-main-product .shopify-section-main-product-inner .flex .info fieldset legend {
     font-size: 13px;
     letter-spacing: 0.4px;
     line-height: 19.5px;
@@ -258,7 +266,7 @@
     margin-bottom: 16px;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info fieldset label {
+  .section-main-product .shopify-section-main-product-inner .flex .info fieldset label {
     display: inline-block;
     padding: 10px 20px;
     border-radius: 40px;
@@ -267,17 +275,24 @@
     cursor: pointer;
   }
 
-  body:not(.using-mouse) .product-section .shopify-section-main-product-inner .flex .info fieldset input:focus + label {
+  body:not(.using-mouse)
+    .section-main-product
+    .shopify-section-main-product-inner
+    .flex
+    .info
+    fieldset
+    input:focus
+    + label {
     outline: #08f auto 2px;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info fieldset label[data-unavailable='true'],
-  .product-section .shopify-section-main-product-inner .flex .info fieldset input[disabled] + label {
+  .section-main-product .shopify-section-main-product-inner .flex .info fieldset label[data-unavailable='true'],
+  .section-main-product .shopify-section-main-product-inner .flex .info fieldset input[disabled] + label {
     background-color: transparent;
     color: lightgray;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info .quantity-row label {
+  .section-main-product .shopify-section-main-product-inner .flex .info .quantity-row label {
     display: block;
     font-size: 13px;
     letter-spacing: 0.4px;
@@ -286,7 +301,7 @@
     margin-bottom: 4px;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container {
+  .section-main-product .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container {
     display: flex;
     align-items: center;
     border: 1px solid rgba(26, 27, 24, 0.55);
@@ -296,7 +311,13 @@
     font-size: 14px;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container button {
+  .section-main-product
+    .shopify-section-main-product-inner
+    .flex
+    .info
+    .quantity-row
+    .quantity-control-container
+    button {
     width: 45px;
     height: 45px;
     appearance: none;
@@ -310,7 +331,7 @@
     cursor: pointer;
   }
 
-  .product-section
+  .section-main-product
     .shopify-section-main-product-inner
     .flex
     .info
@@ -321,7 +342,13 @@
     width: 10px;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container input {
+  .section-main-product
+    .shopify-section-main-product-inner
+    .flex
+    .info
+    .quantity-row
+    .quantity-control-container
+    input {
     appearance: none;
     -webkit-appearance: none;
     border: none;
@@ -331,14 +358,14 @@
     padding: 0;
   }
 
-  .product-section
+  .section-main-product
     .shopify-section-main-product-inner
     .flex
     .info
     .quantity-row
     .quantity-control-container
     input[type='number']::-webkit-inner-spin-button,
-  .product-section
+  .section-main-product
     .shopify-section-main-product-inner
     .flex
     .info
@@ -349,20 +376,20 @@
     margin: 0;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info form {
+  .section-main-product .shopify-section-main-product-inner .flex .info form {
     margin: 25px auto;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info .description {
+  .section-main-product .shopify-section-main-product-inner .flex .info .description {
     font-size: 16px;
     line-height: 28.8px;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info .description em {
+  .section-main-product .shopify-section-main-product-inner .flex .info .description em {
     font-style: italic;
   }
 
-  .product-section .shopify-section-main-product-inner .flex .info .description a {
+  .section-main-product .shopify-section-main-product-inner .flex .info .description a {
     color: rgba(68, 89, 88, 0.85);
   }
 </style>
