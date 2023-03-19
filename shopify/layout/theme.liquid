@@ -1,60 +1,41 @@
 <!doctype html>
-<html lang="{{ request.locale.iso_code }}">
+<html lang="{{ request.locale.iso_code }}" class="no-js">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="icon" href="{{ 'favicon.static.ico' | asset_url }}">
+    {% render 'head-meta' %}
 
-    <style>
-      [x-cloak] {
-        display: none !important;
-      }
-    </style>
+    <link rel="icon" href="{{ 'favicon.static.ico' | asset_url }}">
     <link rel="canonical" href="{{ canonical_url }}">
-    <link
-      rel="preconnect"
-      href="https://cdn.shopify.com"
-      crossorigin>
-    <link
-      rel="preload"
-      href="{{ 'bundle.css' | asset_url }}"
-      as="style">
-    <link
-      rel="preload"
-      href="{{ 'bundle.js' | asset_url }}"
-      as="script">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
     <title>
       {{ page_title }}
-      {%- if current_tags %}
-        &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-      {%- if current_page != 1 %}
-        &ndash; Page {{ current_page }}{% endif -%}
-      {%- unless page_title contains shop.name %}
-        &ndash; {{ shop.name }}{% endunless -%}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{%- endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page -}}{%- endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name -}}{%- endunless -%}
     </title>
-
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
-    {% endif %}
-
-    {% render 'meta-tags' %}
-
-    {% render 'css-vars' %}
-    {{ 'bundle.css' | asset_url | stylesheet_tag }}
 
     <!-- header hook for Shopify plugins -->
     {{ content_for_header }}
+
+    {% render 'head-css' %}
+
+    {{ 'bundle.js' | asset_url | preload_tag: as: 'script' }}
+    {{ 'bundle.css' | asset_url | stylesheet_tag: preload: true }}
+
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js')
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
   </head>
 
   <body
     class="{{ template | handleize }}-template using-mouse"
+    :class="$store.globals.bodyClasses"
     x-data
-    x-pulse-on-click>
-    <a class="skip-to-content-link sr-only" href="#main-content">
-      Skip to content
-    </a>
+  >
+    <a class="skip-to-content-link sr-only" href="#main-content"> Skip to content </a>
     {% section 'header' %}
 
     <div
@@ -71,14 +52,16 @@
       x-cloak
       :aria-hidden="$store.globals.isMinicartVisible ? 'false' : 'true'"
       aria-modal="true"
-      role="dialog">
+      role="dialog"
+    >
       {% section 'minicart' %}
     </div>
 
     <main
       id="main-content"
       role="main"
-      class="mt-[60px]">
+      class="mt-[60px]"
+    >
       {{ content_for_layout }}
     </main>
 
@@ -86,8 +69,6 @@
 
     {% render 'liquid-ajax-cart' %}
 
-    <!-- webpack bundle -->
-    <script src="{{ 'bundle.js' | asset_url }}" defer="defer"></script>
-
+    <script defer src="{{ 'bundle.js' | asset_url }}"></script>
   </body>
 </html>
