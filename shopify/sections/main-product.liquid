@@ -26,7 +26,7 @@
 <script defer src="{{ 'prodify.static.js' | asset_url }}"></script>
 
 <div
-  class="shopify-section-main-product-inner shell"
+  class="shopify-section-main-product-inner max-w-[1200px] mx-auto"
   data-handle="{{ product.handle }}"
   data-id="{{ product.id }}"
   data-url="{{ product.url }}"
@@ -43,13 +43,21 @@
         {{ product.selected_or_first_available_variant.id }}
       </span>
       <div class="image-wrapper" style="padding-top: 137%;">
-        {%- if product.selected_or_first_available_variant.image != null -%}
-          variant image
-          {% render 'image-srcset', image: product.selected_or_first_available_variant.image %}
+        {% if product.selected_variant and product.selected_variant.image %}
+          {% assign media = product.selected_variant.image %}
         {% else %}
-          no variant image
-          {% render 'image-srcset', image: product.featured_image %}
-        {%- endif -%}
+          {% assign media = product.featured_image %}
+        {% endif %}
+        <img 
+          src="{{ media | image_url }}" 
+          alt="{{ media.alt }}" 
+          srcset="{{ media | image_url: width: 1000 }} 800w, {{ media | image_url: width: 1000 }} 1000w, {{ media | image_url: width: 1426 }} 1426w"
+          sizes="(min-width: 830px) 55vw, 100vw" 
+          height="{{ media.height }}"
+          width="{{ media.width }}"
+          class="absolute h-full w-full object-cover"
+          loading="eager"
+        >
       </div>
     </div>
     <div class="info" id="product-info-{{ section.id }}">

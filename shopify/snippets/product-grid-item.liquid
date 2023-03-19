@@ -1,14 +1,21 @@
 {% comment %}
-    Usage:
-    {% render 'product-grid-item',
-      product: {product object}
-    %}
+  Usage:
+  {% render 'product-grid-item',
+    product: {product object}
+  %}
 {% endcomment %}
 
 <div class="product-grid-item" test4>
   <div class="product-grid-item-inner">
     <div class="image-wrapper" style="padding-top: 141%">
-      <img src="{{ prod.featured_image | img_url: '740x' }}" alt="{{ prod.title }}">
+      <img
+        src="{{ prod.featured_image | image_url: width: 410 }}"
+        srcset="{{ prod.featured_image | image_url: width: 205 }} 1x, {{ prod.featured_image | image_url: width: 410 }} 2x"
+        loading="lazy"
+        width="{{ prod.featured_image.width }}"
+        height="{{ prod.featured_image.height }}"
+        alt="{{ prod.featured_image.alt }}"
+      >
     </div>
     <div class="content">
       <a href="{{ prod.url }}">
@@ -19,19 +26,21 @@
           <span class="compare-at-price">{{ prod.compare_at_price_max | money }}</span>
           &nbsp;
         {% endif %}
-          
+
         {{ prod.price | money }}
       </p>
     </div>
-    {% form 'product', prod %}
-      <input type="hidden" name="id" value="{{ prod.selected_or_first_available_variant.id }}">
-      <input type="hidden" name="quantity" value="1"> 
-      <input type="submit" value="Add to cart">
-      <div data-ajax-cart-messages="form"> 
-        <!-- Error messages appear here --> 
-      </div>
-      </button>
-    {% endform %}
+    {% comment %}
+      {% form 'product', prod %}
+        <input type="hidden" name="id" value="{{ prod.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <input type="submit" value="Add to cart">
+        <div data-ajax-cart-messages="form">
+          <!-- Error messages appear here -->
+        </div>
+        </button>
+      {% endform %}
+    {% endcomment %}
   </div>
 </div>
 
