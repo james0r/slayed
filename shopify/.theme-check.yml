@@ -2,3 +2,8 @@ MatchingTranslations:
   enabled: false
 LiquidTag:
   enabled: false
+MissingTemplate:
+  enabled: false
+UndefinedObject:
+  enabled: false
+  exclude_snippets: true
