@@ -6,22 +6,19 @@ import './css/site.css'
 
 window.Alpine = Alpine
 
-// Declare our namespace on the window
 const ns = 'slayed' 
 
-// Define our ns and helpers property
 window[ns] = (window[ns] || {})
 window[ns].helpers = helpers
 
-// Map helper functions to window[ns].helpers
 for (const [key, value] of Object.entries(helpers)) {
   window[ns].helpers[key] = value
 }
 
-// Register Alpine plugins
+// Alpine plugins
 Alpine.plugin(focus)
 
-// Register Alpine stores
+// Alpine stores
 const alpineStores = import.meta.glob('./alpine/stores/*.js', { eager: true, import: 'default' })
 
 for (const path in alpineStores) {
@@ -32,7 +29,7 @@ for (const path in alpineStores) {
   Alpine.store(name, store.store())
 }
 
-// Register Alpine componentw
+// Alpine components
 const alpineComponents = import.meta.glob('./alpine/components/*.js', { eager: true, import: 'default' })
 
 for (const path in alpineComponents) {
@@ -43,7 +40,7 @@ for (const path in alpineComponents) {
   Alpine.data(name, component.component)
 }
 
-// Register Alpine Directives
+// Alpine directives
 const alpineDirectives = import.meta.glob('./alpine/directives/*.js', { eager: true, import: 'default' })
 
 for (const path in alpineDirectives) {
@@ -52,7 +49,7 @@ for (const path in alpineDirectives) {
   Alpine.directive(directive.name, directive.callback)
 }
 
-// Register Alpine Magic Properties
+// Alpine magic
 const alpineMagic = import.meta.glob('./alpine/magic/*.js', { eager: true, import: 'default' })
 
 for (const path in alpineMagic) {
@@ -62,5 +59,19 @@ for (const path in alpineMagic) {
   
   Alpine.magic(name, magic.callback)
 }
+
+// Hide the Shopify preview bar when in development
+// if (process.env.NODE_ENV === 'development') {
+//   //
+//   window.addEventListener('DOMContentLoaded', () => {
+//     var css = '#preview-bar-iframe { display: none !important; }',
+//       head = document.head || document.getElementsByTagName('head')[0],
+//       style = document.createElement('style')
+
+//     head.appendChild(style)
+
+//     style.appendChild(document.createTextNode(css))
+//   })
+// }
 
 Alpine.start() 

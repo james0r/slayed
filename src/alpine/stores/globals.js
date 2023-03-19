@@ -2,12 +2,19 @@ export default {
   name: 'globals',
   store() {
     return {
-      authorWebsite: 'https://jamesauble.com',
-      mobileMenuEl: null,
       isMobileMenuVisible: false,
       isMinicartVisible: false,
       init() {
-        this.mobileMenuEl = document.querySelector('#mobile-nav');
+        console.log('Slayed Global Store Initialized.')
+      },
+      get bodyClasses() {
+        let classes = []
+
+        if (this.isMobileMenuVisible) {
+          classes.push('mobile-menu-visible')
+        }
+
+        return classes || ''
       },
       openMobileMenu() {
         this.isMobileMenuVisible = true
