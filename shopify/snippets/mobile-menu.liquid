@@ -1,16 +1,18 @@
-<ul id="mobile-menu-list" class="mobile-menu-list">
-  {% for link in linklists.main-menu.links %}
-    <li class="mobile-menu-item">
-        <a href="{{ link.url }}">{{ link.title }}</a>
+<ul
+  id="mobile-menu-list"
+  class="mobile-menu-list fixed inset-0 z-40 p-[30px] mt-header-height-mobile bg-cloud-burst-500"
+  x-show="$store.global.isMobileMenuVisible"
+  role="menu"
+>
+  {% for link in linklists['main-menu'].links %}
+    <li class="mobile-menu-item" role="presentation">
+      <a href="{{ link.url }}" role="menuitem">{{ link.title }}</a>
     </li>
   {% endfor %}
+  <li></li>
 </ul>
 
 <style>
-  .mobile-menu-list {
-    margin-top: 20px;
-  }
-
   .mobile-menu-list li a {
     display: block;
     font-size: 26px;

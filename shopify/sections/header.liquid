@@ -8,25 +8,33 @@
 {% endschema %}
 
 <div class="flex items-center text-white relative mx-auto h-header-height-mobile md:h-header-height-desktop">
-  <button
-    :aria-expanded="$store.globals.isMobileMenuVisible"
-    @click="$store.globals.openMobileMenu()"
-    aria-label="Mobile Navigation Button"
-    id="mobile-nav-trigger"
-    x-data
-  >
-    {% render 'icon-hamburger' %}
-  </button>
   <nav
-    :class="$store.globals.isMobileMenuVisible ? 'open' : 'closed'"
+    :class="$store.global.isMobileMenuVisible ? 'open' : 'closed'"
     aria-label="Mobile Navigation Overlay"
-    class="mobile-nav"
+    class="block md:hidden"
+    style="transition: all 300ms;"
     id="mobile-nav"
-    role="Navigation"
+    role="navigation"
     x-cloak
     x-data
   >
-    <button @click="$store.globals.closeMobileMenu()">Close</button>
+    <button
+      id="mobile-nav-trigger"
+      type="button"
+      @click="$store.global.toggleMobileMenu()"
+      :aria-expanded="$store.global.isMobileMenuVisible"
+      aria-label="Mobile Navigation Button"
+      aria-controls="mobile-menu-list"
+      x-data
+    >
+      <span class="sr-only">Menu</span>
+      <span aria-hidden="true" x-show="!$store.global.isMobileMenuVisible">
+        {% render 'icon-hamburger' %}
+      </span>
+      <span aria-hidden="true" x-show="$store.global.isMobileMenuVisible">
+        {% render 'icon-close-x' %}
+      </span>
+    </button>
     {% render 'mobile-menu' %}
   </nav>
 
@@ -95,26 +103,6 @@
     height: auto;
   }
 
-  .mobile-nav {
-    display: none;
-    padding: 30px;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 100;
-    transition: all 300ms;
-    transform: translateX(-100%);
-    overflow: auto;
-  }
-
-  #mobile-nav.open {
-    transform: translateX(0%);
-  }
-
   @media (max-width: 768px) {
     .section-header .header-logo {
       position: absolute;
@@ -124,10 +112,6 @@
     }
 
     #mobile-nav-trigger {
-      display: block;
-    }
-
-    .mobile-nav {
       display: block;
     }
   }

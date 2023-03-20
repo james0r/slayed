@@ -7,3 +7,6 @@ MissingTemplate:
 UndefinedObject:
   enabled: false
   exclude_snippets: true
+SchemaJsonFormat:
+  enabled: true
+  severity: style

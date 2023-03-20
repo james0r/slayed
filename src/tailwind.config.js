@@ -73,7 +73,7 @@ module.exports = {
   plugins: [
     require('@tailwindcss/typography'),
     plugin(function ({ addVariant }) {
-      addVariant('scrolled', '.scrolled &'), addVariant('mobile-menu-open', '.mobile-menu-open &')
+      addVariant('scrolled', '.scrolled &'), addVariant('mobile-menu-visible', '.mobile-menu-visible &')
     }),
   ],
 }

@@ -18,10 +18,10 @@
 <predictive-search
   x-data
   x-cloak
-  x-show="$store.globals.isPredictiveSearchVisible"
-  x-trap="$store.globals.isPredictiveSearchVisible"
+  x-show="$store.global.isPredictiveSearchVisible"
+  x-trap="$store.global.isPredictiveSearchVisible"
   x-transition.opacity
-  @keyup.escape="$store.globals.isPredictiveSearchVisible = false"
+  @keyup.escape="$store.global.isPredictiveSearchVisible = false"
 >
   <div
     id="predictive-search-form-wrapper"
@@ -37,7 +37,7 @@
       method="get"
       role="search"
       class="w-full max-w-[422px] mx-auto"
-      @click.outside="$store.globals.isPredictiveSearchVisible = false"
+      @click.outside="$store.global.isPredictiveSearchVisible = false"
     >
       <div class="flex gap-x-3 w-full relative">
         <input
@@ -64,7 +64,7 @@
         <button
           type="button"
           class="absolute -right-[15px] top-1/2 -translate-y-1/2 translate-x-full"
-          @click="$store.globals.isPredictiveSearchVisible = false"
+          @click="$store.global.isPredictiveSearchVisible = false"
         >
           {% render 'svg-smmt-mobile-menu-close-icon' %}
         </button>

@@ -19,7 +19,7 @@ export default {
 
               subscribeToResult((requestState) => {
                 if (requestState.responseData?.ok) {
-                  window.Alpine.store('globals').isMinicartVisible = true
+                  window.Alpine.store('global').isMinicartVisible = true
                 }
               })
             }

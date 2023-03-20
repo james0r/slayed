@@ -1,5 +1,5 @@
 export default {
-  name: 'globals',
+  name: 'global',
   store() {
     return {
       isMobileMenuVisible: false,
