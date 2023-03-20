@@ -9,8 +9,8 @@ class Prodify {
     this.variantsJsonSelector = '[data-prodify-variants-json]'
     this.optionContainerSelector = '[data-prodify-option-container]'
     this.productFormSelector = '[data-prodify-product-form]'
-    this.addButtonTextUnavailable = 'Unavailable',
-    this.unavailableVariantLabel = '[value] - Unavailable'
+    ;(this.addButtonTextUnavailable = 'Unavailable'),
+      (this.unavailableVariantLabel = '[value] - Unavailable')
   }
 
   onVariantChange = () => {
@@ -65,12 +65,11 @@ class Prodify {
   }
 
   swapProductInfo = () => {
-    fetch(
-      `${this.el.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.el.dataset.section}`
-    )
-      .then((response) => response.text())
-      .then((responseText) => {
-        const responseHTML = new DOMParser().parseFromString(responseText, 'text/html')
+    window.slayed.helpers
+      .fetchHTML(
+        `${this.el.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.el.dataset.section}`
+      )
+      .then((responseHTML) => {
         const priceSource = responseHTML.querySelector(this.priceContainerSelector)
         const priceTarget = this.el.querySelector(this.priceContainerSelector)
         const mediaSource = responseHTML.querySelector(this.mediaContainerSelector)
@@ -117,13 +116,16 @@ class Prodify {
     listOfOptions.forEach((input) => {
       if (listOfAvailableOptions.includes(input.getAttribute('value'))) {
         if (this.pickerType == 'select') {
-          input.innerText = input.getAttribute('value');
+          input.innerText = input.getAttribute('value')
           return
         }
         input.classList.remove('disabled')
       } else {
         if (this.pickerType == 'select') {
-          input.innerText = this.unavailableVariantLabel.replace('[value]', input.getAttribute('value'))
+          input.innerText = this.unavailableVariantLabel.replace(
+            '[value]',
+            input.getAttribute('value')
+          )
           return
         }
         input.classList.add('disabled')
@@ -139,7 +141,7 @@ class Prodify {
 
   updateOptions = () => {
     if (this.pickerType == 'select') {
-      this.options = Array.from(this.el.querySelectorAll('select'), (select) => select.value);
+      this.options = Array.from(this.el.querySelectorAll('select'), (select) => select.value)
       return
     }
 

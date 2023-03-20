@@ -9,13 +9,14 @@ export default {
       t = setTimeout(() => fn.apply(this, args), wait);
     };
   },
-  fetchConfig(type = 'json') {
-    return {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': `application/${type}` }
-    };
-  },
   truncateLongTitle(input) {
     return input.length > 5 ? `${input.substring(0, 18)}...` : input
+  },
+  async fetchHTML(endpoint) {
+    return await fetch(endpoint)
+    .then((response) => response.text())
+    .then((responseText) => {
+      return new DOMParser().parseFromString(responseText, 'text/html')
+    })
   }
 }
