@@ -1,7 +1,26 @@
 <style id="head-css">
   :root {
-    --color-warning: red;
+    --header-height-mobile: 48px;
+    --header-height-mobile-scrolled: 48px;
+    --header-height-desktop: 60px;
+    --header-height-desktop-scrolled: 60px;
   }
+
+  {% if settings.show_promo_bar %}
+  :root {
+    --header-height-mobile-offset: calc(100px + 40px);
+    --header-height-mobile-scrolled-offset: calc(82px);
+    --header-height-desktop-offset: calc(124px + 40px);
+    --header-height-desktop-scrolled-offset: calc(86px);
+  }
+  {% else %}
+  :root {
+    --header-height-mobile-offset: 100px;
+    --header-height-mobile-scrolled-offset: 82px;
+    --header-height-desktop-offset: 124px;
+    --header-height-desktop-scrolled-offset: 86px;
+  }
+  {% endif %}
 
   [x-cloak] {
     display: none !important;

@@ -7,6 +7,17 @@
 const path = require('path')
 let plugin = require('tailwindcss/plugin')
 
+const headerSizes = {
+  'header-height-mobile': 'var(--header-height-mobile)',
+  'header-height-mobile-scrolled': 'var(--header-height-mobile-scrolled)',
+  'header-height-desktop': 'var(--header-height-desktop)',
+  'header-height-desktop-scrolled': 'var(--header-height-desktop-scrolled)',
+  'header-height-mobile-offset': 'var(--header-height-mobile-offset)',
+  'header-height-mobile-scrolled-offset': 'var(--header-height-mobile-scrolled-offset)',
+  'header-height-desktop-offset': 'var(--header-height-desktop-offset)',
+  'header-height-desktop-scrolled-offset': 'var(--header-height-desktop-scrolled-offset)',
+}
+
 module.exports = {
   content: [path.resolve(__dirname, '**/*.js'), path.resolve(__dirname, '../shopify/**/*.liquid')],
   theme: {
@@ -55,6 +66,8 @@ module.exports = {
           900: '#000000',
         },
       },
+      height: headerSizes,
+      spacing: headerSizes
     },
   },
   plugins: [
