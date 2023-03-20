@@ -48,11 +48,11 @@
         {% else %}
           {% assign media = product.featured_image %}
         {% endif %}
-        <img 
-          src="{{ media | image_url }}" 
-          alt="{{ media.alt }}" 
+        <img
+          src="{{ media | image_url }}"
+          alt="{{ media.alt }}"
           srcset="{{ media | image_url: width: 1000 }} 800w, {{ media | image_url: width: 1000 }} 1000w, {{ media | image_url: width: 1426 }} 1426w"
-          sizes="(min-width: 830px) 55vw, 100vw" 
+          sizes="(min-width: 830px) 55vw, 100vw"
           height="{{ media.height }}"
           width="{{ media.width }}"
           class="absolute h-full w-full object-cover"
@@ -75,55 +75,62 @@
         </span>
       </div>
 
-      {% render 'product-variant-picker', product: product, product_form_id: 'product-form-id', picker_type: section.settings.picker_type %}
+      {% render 'product-variant-picker',
+        product: product,
+        product_form_id: 'product-form-id',
+        picker_type: section.settings.picker_type
+      %}
 
-      {% comment %}
-        <div class="quantity-row">
-          <label for="quantity-control-input">Quantity</label>
-          <div class="quantity-control-container">
-            <button @click="quantity = Math.max(quantity - 1, 1)" :disabled="quantity == 0">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                focusable="false"
-                role="presentation"
-                class="icon icon-minus"
-                fill="none"
-                viewBox="0 0 10 2"
-              >
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M.5 1C.5.7.7.5 1 .5h8a.5.5 0 110 1H1A.5.5 0 01.5 1z"
-                  fill="currentColor">
-                </path>
-              </svg>
-            </button>
-            <input
-              tabindex="-1"
-              type="number"
-              id="quantity-control-input"
-              value="1"
-              x-model="quantity"
-              :disabled="quantity == 0"
+      <div class="quantity-row">
+        <label for="quantity-control-input">Quantity</label>
+        <div class="quantity-control-container">
+          <button type="button" data-prodify-quantity-decrement>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              focusable="false"
+              role="presentation"
+              class="icon icon-minus"
+              fill="none"
+              viewBox="0 0 10 2"
             >
-            <button @click="quantity = quantity + 1" :disabled="quantity == 0">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                focusable="false"
-                role="presentation"
-                class="icon icon-plus"
-                fill="none"
-                viewBox="0 0 10 10"
-              >
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z"
-                  fill="currentColor">
-                </path>
-              </svg>
-            </button>
-          </div>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M.5 1C.5.7.7.5 1 .5h8a.5.5 0 110 1H1A.5.5 0 01.5 1z"
+                fill="currentColor">
+              </path>
+            </svg>
+          </button>
+          <input
+            tabindex="-1"
+            type="number"
+            id="quantity-control-input"
+            value="1"
+            disabled=""
+            data-prodify-quantity-presentation
+          >
+          <button type="button" data-prodify-quantity-increment>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              focusable="false"
+              role="presentation"
+              class="icon icon-plus"
+              fill="none"
+              viewBox="0 0 10 10"
+            >
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z"
+                fill="currentColor">
+              </path>
+            </svg>
+          </button>
         </div>
-      {% endcomment %}
-      <form action="{{ routes.cart_add_url }}" id="product_form_id" class="product-form" novalidate="novalidate" data-prodify-product-form>
+      </div>
+
+      <form
+        action="{{ routes.cart_add_url }}"
+        id="product_form_id"
+        class="product-form"
+        novalidate="novalidate"
+        data-prodify-product-form
+      >
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
         <input type="hidden" name="quantity" value="1">
         <div class="hover:after:border-offset-1 mb-[10px]">

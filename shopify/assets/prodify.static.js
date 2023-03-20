@@ -1,16 +1,51 @@
 class Prodify {
   constructor() {
-    this.el = document.querySelector('[data-prodify]')
-    this.el.addEventListener('change', this.onVariantChange)
-    this.pickerType = this.el.dataset.prodify
-
     this.priceContainerSelector = '[data-prodify-price-container]'
     this.mediaContainerSelector = '[data-prodify-media-container]'
     this.variantsJsonSelector = '[data-prodify-variants-json]'
     this.optionContainerSelector = '[data-prodify-option-container]'
     this.productFormSelector = '[data-prodify-product-form]'
-    ;(this.addButtonTextUnavailable = 'Unavailable'),
-      (this.unavailableVariantLabel = '[value] - Unavailable')
+    this.addButtonTextUnavailable = 'Unavailable'
+    this.unavailableVariantLabel = '[value] - Unavailable'
+
+    this.quantityIncrementSelector = '[data-prodify-quantity-increment]'
+    this.quantityDecrementSelector = '[data-prodify-quantity-decrement]'
+    this.quantityPresentationSelector = '[data-prodify-quantity-presentation]'
+
+    this.el = document.querySelector('[data-prodify]')
+    this.el.querySelector(this.quantityWrapperSelector)
+    this.pickerType = this.el.dataset.prodify
+
+    this.el.addEventListener('change', this.onVariantChange)
+
+    this.quantityIncrement = this.el.querySelector(this.quantityIncrementSelector)
+    this.quantityDecrement = this.el.querySelector(this.quantityDecrementSelector)
+    this.quantityPresentation = this.el.querySelector(this.quantityPresentationSelector)
+    this.quantityInput = this.el.querySelector('input[name="quantity"]')
+
+    if (this.quantityIncrement && this.quantityDecrement && this.quantityPresentation) {
+      this.initQuantityControls()
+    }
+  }
+
+  initQuantityControls = () => {
+    this.quantityIncrement.addEventListener('click', () => {
+      this.updateQuantity('up')
+    })
+
+    this.quantityDecrement.addEventListener('click', () => {
+      this.updateQuantity('down')
+    })
+  }
+
+  updateQuantity = (stepDirection) => {
+    const previousQuantity = parseInt(this.quantityPresentation.value)
+
+    if (stepDirection == 'up') {
+      this.quantityInput.value = this.quantityPresentation.value = previousQuantity + 1
+    } else {
+      this.quantityInput.value = this.quantityPresentation.value = Math.max(1, previousQuantity - 1)
+    }
   }
 
   onVariantChange = () => {
@@ -27,6 +62,10 @@ class Prodify {
       this.updateVariantInput()
       this.swapProductInfo()
     }
+  }
+
+  onQuantityClick = (event) => {
+    console.log(event.currentTarget)
   }
 
   updateURL() {
