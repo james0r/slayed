@@ -1,0 +1,54 @@
+{%- if paginate.pages > 1 -%}
+  <nav class="pagination-nav my-12 max-w-max mx-auto" role="navigation">
+    <ol class="pagination flex items-center space-x-2" role="menu">
+      {%- if paginate.previous -%}
+        <li role="presentation">
+          <a href="{{ paginate.previous.url }}" role="menuitem">
+            <span aria-hidden="true">&laquo;</span>
+            Previous
+          </a>
+        </li>
+      {%- else -%}
+        <li class="disabled" role="presentation">
+          <span aria-hidden="true">&laquo;</span>
+          Previous
+        </li>
+      {%- endif -%}
+
+      {%- for part in paginate.parts -%}
+        {%- if part.is_link -%}
+          <li role="presentation">
+            <a href="{{ part.url }}" role="menuitem">
+              <span class="visuallyhidden"></span>
+              {{ part.title }}
+            </a>
+          </li>
+        {%- else -%}
+          {%- if part.title == paginate.current_page -%}
+            <li aria-current="page" class="active" role="presentation">
+              {{ part.title }}
+            </li>
+          {%- else -%}
+            <li role="presentation">
+              {{ part.title }}
+            </li>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if paginate.next -%}
+        <li role="presentation">
+          <a href="{{ paginate.next.url }}" role="menuitem">
+            Next
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      {%- else -%}
+        <li class="disabled" role="presentation">
+          Next
+          <span aria-hidden="true">&raquo;</span>
+        </li>
+      {%- endif -%}
+    </ol>
+  </nav>
+{%- endif -%}

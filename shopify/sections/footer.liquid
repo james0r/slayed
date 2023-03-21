@@ -12,30 +12,22 @@
   }
 {% endschema %}
 
-<div class="footer-inner shell">
-  <div>
-    {% for link in linklists.footer.links %}
-      <a href="{{ link.url }}">
-        {{ link.title }}
-      </a>
-    {% endfor %}
-  </div>
-
-  <small>
-    &copy; {{ "now" | date: "%Y" }} Slayed Starter Theme
-  </small>
-  <div>
-    Alpine Demo Output (Should be removed in production)
-    <span x-text="$money(2000, 'amount')"></span>
+<div class="px-6 md:px-8 py-12">
+  <div class="container">
+    <div>
+      {% for link in linklists.footer.links %}
+        <a href="{{ link.url }}">
+          {{ link.title }}
+        </a>
+      {% endfor %}
+    </div>
+  
+    <small>
+      &copy; {{ "now" | date: "%Y" }} Slayed Starter Theme
+    </small>
+    <div>
+      Alpine Demo Output (Should be removed in production)
+      <span x-text="$money(2000, 'amount')"></span>
+    </div>
   </div>
 </div>
-
-<style>
-  footer {
-    padding-bottom: 70px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .footer-inner {}
-</style>

@@ -1,116 +1,61 @@
 {% schema %}
 {
-"name": "List Collections Section",
-"class": "section-list-collections"
+  "name": "Main List Collections",
+  "class": "section-main-list-collections",
+  "tag": "section"
 }
 {% endschema %}
 
 {% unless collection %}
-{% assign collection = collections.all %}
+  {% assign collection = collections.all %}
 {% endunless %}
 
-<div class="list-collections-inner">
-  <h1>
-    Collections
-  </h1>
-  {% render 'collections-list' %}
-
-  <div class="grid-wrapper">
-    {%- paginate collection.products by 12 -%}
-    <div class="product-grid">
-      {% for prod in collection.products %}
-      {% render 'product-grid-item', prod: prod %}
-      {% endfor %}
+<div class="px-6 md:px-8 py-12">
+  <div class="list-collections-inner container">
+    <h1 class="mb-8 mx-auto max-w-max">
+      Collections
+    </h1>
+    {% render 'collections-list' %}
+  
+    <div class="grid-wrapper">
+      {%- paginate collection.products by 12 -%}
+        <div class="product-grid">
+          {% for prod in collection.products %}
+            {% render 'product-grid-item', prod: prod %}
+          {% endfor %}
+        </div>
+  
+        {% render 'pagination-navigation', paginate: paginate %}
+      {% endpaginate %}
     </div>
-
-    {%- if paginate.pages > 1 -%}
-    <nav class="pagination-nav" role="navigation ">
-      <ol class="pagination">
-        {%- if paginate.previous-%}
-        <li>
-          <a href="{{ paginate.previous.url }}">
-            <span aria-hidden="true">&laquo;</span>
-            Previous
-            <span class="visuallyhidden"></span>
-          </a>
-        </li>
-        {%- else -%}
-        <li class="disabled">
-          <span aria-hidden="true">&laquo;</span>
-          Previous
-          <span class="visuallyhidden"></span>
-        </li>
-        {%- endif -%}
-
-        {%- for part in paginate.parts -%}
-        {%- if part.is_link -%}
-        <li>
-          <a href="{{ part.url }}">
-            <span class="visuallyhidden"></span>
-            {{ part.title }}
-          </a>
-        </li>
-        {%- else -%}
-        {%- if part.title == paginate.current_page -%}
-        <li aria-current="page" class="active">
-          <span class="visuallyhidden"></span>
-          {{ part.title }}
-        </li>
-        {%- else -%}
-        <li>
-          <span class="visuallyhidden"></span>
-          {{ part.title }}
-        </li>
-        {%- endif -%}
-        {%- endif -%}
-        {%- endfor -%}
-
-        {%- if paginate.next -%}
-        <li>
-          <a href="{{ paginate.next.url }}">
-            Next
-            <span class="visuallyhidden"></span>
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-        {%- else -%}
-        <li class="disabled">
-          Next
-          <span class="visuallyhidden"></span>
-          <span aria-hidden="true">&raquo;</span>
-        </li>
-        {%- endif -%}
-      </ol>
-    </nav>
-    {%- endif -%}
-    {% endpaginate %}
   </div>
+  
+  <style>
+    .list-collections h1 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+  
+    .list-collections {
+      padding: 20px;
+    }
+  
+    .product-grid {
+      display: grid;
+      grid-gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+  
+    .list-collections .pagination-nav {
+      margin-top: 40px;
+    }
+  
+    .list-collections .pagination-nav .pagination {
+      display: flex;
+      gap: 10px;
+      margin: auto;
+      max-width: max-content;
+    }
+  </style>
 </div>
 
-<style>
-  .list-collections h1 {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-
-  .list-collections {
-    padding: 20px;
-  }
-
-  .product-grid {
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
-
-  .list-collections .pagination-nav {
-    margin-top: 40px;
-  }
-
-  .list-collections .pagination-nav .pagination {
-    display: flex;
-    gap: 10px;
-    margin: auto;
-    max-width: max-content;
-  }
-</style>

@@ -1,151 +1,153 @@
 {% schema %}
 {
   "name": "header",
-  "class": "section-header bg-cloud-burst-500",
+  "class": "section-header bg-cloud-burst-500 shadow-md",
   "tag": "header",
   "settings": []
 }
 {% endschema %}
 
-<div class="flex items-center text-white relative mx-auto h-header-height-mobile md:h-header-height-desktop">
-  <nav
-    :class="$store.global.isMobileMenuVisible ? 'open' : 'closed'"
-    aria-label="Mobile Navigation Overlay"
-    class="block md:hidden"
-    style="transition: all 300ms;"
-    id="mobile-nav"
-    role="navigation"
-    x-cloak
-    x-data
-  >
-    <button
-      id="mobile-nav-trigger"
-      type="button"
-      @click="$store.global.toggleMobileMenu()"
-      :aria-expanded="$store.global.isMobileMenuVisible"
-      aria-label="Mobile Navigation Button"
-      aria-controls="mobile-menu-list"
+<div class="px-6 md:px-8">
+  <div class="container flex items-center text-white relative mx-auto h-header-height-mobile md:h-header-height-desktop">
+    <nav
+      :class="$store.global.isMobileMenuVisible ? 'open' : 'closed'"
+      aria-label="Mobile Navigation Overlay"
+      class="block md:hidden"
+      style="transition: all 300ms;"
+      id="mobile-nav"
+      role="navigation"
+      x-cloak
       x-data
     >
-      <span class="sr-only">Menu</span>
-      <span aria-hidden="true" x-show="!$store.global.isMobileMenuVisible">
-        {% render 'icon-hamburger' %}
-      </span>
-      <span aria-hidden="true" x-show="$store.global.isMobileMenuVisible">
-        {% render 'icon-close-x' %}
-      </span>
-    </button>
-    {% render 'mobile-menu' %}
-  </nav>
-
-  <a href="{{ routes.root_url }}" class="header-logo"> Logo </a>
-
-  <div class="hidden md:block">
-    {% render 'header-menu' %}
-  </div>
-
-  <a
-    href="{{ routes.cart_url }}"
-    class="cart-icon-wrapper"
-    x-cloak
-  >
-    {% render 'icon-cart' %}
-    <span data-ajax-cart-bind-state="cart.item_count" class="text-cloud-burst-500">{{ cart.item_count }}</span>
-  </a>
-
-  {% comment %}
-    // Output customer login links
-
-    <ul>
-    {% if shop.customer_accounts_enabled %}
-    {% if customer %}
-    <a href="{{ routes.account_url }}">
-    {{ 'action.account' | t }}
+      <button
+        id="mobile-nav-trigger"
+        type="button"
+        @click="$store.global.toggleMobileMenu()"
+        :aria-expanded="$store.global.isMobileMenuVisible"
+        aria-label="Mobile Navigation Button"
+        aria-controls="mobile-menu-list"
+        x-data
+      >
+        <span class="sr-only">Menu</span>
+        <span aria-hidden="true" x-show="!$store.global.isMobileMenuVisible">
+          {% render 'icon-hamburger' %}
+        </span>
+        <span aria-hidden="true" x-show="$store.global.isMobileMenuVisible">
+          {% render 'icon-close-x' %}
+        </span>
+      </button>
+      {% render 'mobile-menu' %}
+    </nav>
+  
+    <a href="{{ routes.root_url }}" class="header-logo"> Logo </a>
+  
+    <div class="hidden md:block">
+      {% render 'header-menu' %}
+    </div>
+  
+    <a
+      href="{{ routes.cart_url }}"
+      class="cart-icon-wrapper"
+      x-cloak
+    >
+      {% render 'icon-cart' %}
+      <span data-ajax-cart-bind-state="cart.item_count" class="text-cloud-burst-500">{{ cart.item_count }}</span>
     </a>
-    {{ 'action.log_out' | t | customer_logout_link }}
-    {% else %}
-    {{ 'action.log_in' | t | customer_login_link }}
-    {{ 'action.register' | t | customer_register_link }}
-    {% endif %}
-    {% endif %}
-    </ul>
-  {% endcomment %}
-</div>
-
-<style>
-  #shopify-section-header {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 10;
-    padding: 0 20px;
-  }
-
-  .section-header .header-logo {
-    color: white;
-    text-decoration: none;
-    font-size: 32px;
-    text-transform: uppercase;
-  }
-
-  #mobile-nav-trigger {
-    display: none;
-    -webkit-appearance: none;
-    appearance: none;
-    -moz-appearance: none;
-    background: transparent;
-    border: 0;
-  }
-
-  #mobile-nav-trigger svg {
-    fill: white;
-    width: 26px;
-    height: auto;
-  }
-
-  @media (max-width: 768px) {
+  
+    {% comment %}
+      // Output customer login links
+  
+      <ul>
+      {% if shop.customer_accounts_enabled %}
+      {% if customer %}
+      <a href="{{ routes.account_url }}">
+      {{ 'action.account' | t }}
+      </a>
+      {{ 'action.log_out' | t | customer_logout_link }}
+      {% else %}
+      {{ 'action.log_in' | t | customer_login_link }}
+      {{ 'action.register' | t | customer_register_link }}
+      {% endif %}
+      {% endif %}
+      </ul>
+    {% endcomment %}
+  </div>
+  
+  <style>
+    #shopify-section-header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 10;
+    }
+  
     .section-header .header-logo {
+      color: white;
+      text-decoration: none;
+      font-size: 32px;
+      text-transform: uppercase;
+    }
+  
+    #mobile-nav-trigger {
+      display: none;
+      -webkit-appearance: none;
+      appearance: none;
+      -moz-appearance: none;
+      background: transparent;
+      border: 0;
+    }
+  
+    #mobile-nav-trigger svg {
+      fill: white;
+      width: 26px;
+      height: auto;
+    }
+  
+    @media (max-width: 768px) {
+      .section-header .header-logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+  
+      #mobile-nav-trigger {
+        display: block;
+      }
+    }
+  
+    .cart-icon-wrapper {
+      text-decoration: none;
+      color: white;
+      margin-left: auto;
+      position: relative;
+    }
+  
+    .cart-icon-wrapper span {
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -35%);
+      z-index: 5;
+      font-size: 12px;
+      font-weight: bold;
     }
-
-    #mobile-nav-trigger {
+  
+    .bi-bag {
+      display: none;
+    }
+  
+    .js-ajax-cart-not-empty .header .bi-bag-fill {
       display: block;
     }
-  }
+  
+    .js-ajax-cart-empty .header .bi-bag-empty {
+      display: block;
+    }
+  
+    .js-ajax-cart-empty .header .bi-bag-fill {
+      display: none;
+    }
+  </style>
+</div>
 
-  .cart-icon-wrapper {
-    text-decoration: none;
-    color: white;
-    margin-left: auto;
-    position: relative;
-  }
-
-  .cart-icon-wrapper span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -35%);
-    z-index: 5;
-    font-size: 12px;
-    font-weight: bold;
-  }
-
-  .bi-bag {
-    display: none;
-  }
-
-  .js-ajax-cart-not-empty .header .bi-bag-fill {
-    display: block;
-  }
-
-  .js-ajax-cart-empty .header .bi-bag-empty {
-    display: block;
-  }
-
-  .js-ajax-cart-empty .header .bi-bag-fill {
-    display: none;
-  }
-</style>

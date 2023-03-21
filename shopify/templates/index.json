@@ -10,17 +10,10 @@
       "settings": {
         "featured_collection": "featured"
       }
-    },
-    "7c26c2f9-a1d1-4806-b912-4293572a669b": {
-      "type": "featured-product-grid",
-      "settings": {
-        "featured_collection": "accessories"
-      }
     }
   },
   "order": [
     "main",
-    "featured-product-grid",
-    "7c26c2f9-a1d1-4806-b912-4293572a669b"
+    "featured-product-grid"
   ]
 }

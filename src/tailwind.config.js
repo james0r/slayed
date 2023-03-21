@@ -23,10 +23,10 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: {
-        DEFAULT: '1rem',
-        sm: '2rem',
-      },
+      // padding: {
+      //   DEFAULT: '1rem',
+      //   sm: '2rem',
+      // },
       screens: {
         sm: `640px`,
         md: `768px`,

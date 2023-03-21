@@ -5,29 +5,36 @@
   %}
 {% endcomment %}
 
-<div class="product-grid-item" test4>
-  <div class="product-grid-item-inner">
-    <div class="image-wrapper" style="padding-top: 141%">
+<div class="product-grid-item relative group">
+    <div class="block image-wrapper relative pt-[140%]">
       <img
-        src="{{ prod.featured_image | image_url: width: 410 }}"
-        srcset="{{ prod.featured_image | image_url: width: 205 }} 1x, {{ prod.featured_image | image_url: width: 410 }} 2x"
-        loading="lazy"
         width="{{ prod.featured_image.width }}"
         height="{{ prod.featured_image.height }}"
+        src="{{ prod.featured_image | image_url: width: 410 }}"
+        srcset="{{ prod.featured_image | image_url: width: 205 }} 1x, {{ prod.featured_image | image_url: width: 410 }} 2x"
         alt="{{ prod.featured_image.alt }}"
+        class="absolute inset-0 object-cover h-full"
+        loading="lazy"
       >
     </div>
     <div class="content">
-      <a href="{{ prod.url }}">
-        <div class="h3 dark text-cloud-burst-500 hover:text-cloud-burst-300">{{ prod.title }}</div>
+      <a href="{{ prod.url }}" class="after:content-[''] after:inset-0 after:absolute">
+        <div class="h3 dark text-cloud-burst-500 hover:text-cloud-burst-300 mt-2 text-[14px] group-hover:underline">
+          {{ prod.title }}
+        </div>
       </a>
-      <p class="">
-        {% if prod.compare_at_price_max != blank and prod.compare_at_price_max > prod.price %}
-          <span class="compare-at-price">{{ prod.compare_at_price_max | money }}</span>
-          &nbsp;
+      <p class="flex flex-wrap items-center space-x-1 [&>*]:whitespace-nowrap">
+        {% if prod.price_varies %}
+          <span class="text-[14px]">
+            From
+          </span>
         {% endif %}
-
-        {{ prod.price | money }}
+        <span class="text-[14px]">
+          {{ prod.price | money_with_currency }}
+        </span>
+        {% if prod.compare_at_price_max != blank and prod.compare_at_price_max > prod.price %}
+          <s class="text-[13px]">{{ prod.compare_at_price_max | money_with_currency }}</s>
+        {% endif %}
       </p>
     </div>
     {% comment %}
@@ -41,24 +48,4 @@
         </button>
       {% endform %}
     {% endcomment %}
-  </div>
 </div>
-
-<style>
-  .product-grid-item .image-wrapper {
-    position: relative;
-    overflow: hidden;
-  }
-  .product-grid-item .image-wrapper img {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    object-fit: cover;
-    object-position: center;
-  }
-  .product-grid-item .compare-at-price {
-    text-decoration: line-through;
-  }
-</style>
