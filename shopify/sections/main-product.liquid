@@ -19,6 +19,12 @@
         }
       ],
       "default": "radio"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_image_zoom",
+      "label": "Enable Image Zoom",
+      "default": true
     }
   ]
 }
@@ -43,11 +49,14 @@
       <span style="position: absolute; top: 0; left: 0; z-index: 1; font-size: 10px;">
         {{ product.selected_or_first_available_variant.id }}
       </span>
-      <div class="image-wrapper" style="padding-top: 137%;">
+      <div class="image-wrapper" style="padding-top: 137%; overflow: hidden;" data-image-zoom-container>
         {% if product.selected_variant and product.selected_variant.image %}
           {% assign media = product.selected_variant.image %}
         {% else %}
           {% assign media = product.featured_image %}
+        {% endif %}
+        {% if section.settings.enable_image_zoom %}
+          {% render 'product-image-zoom-scripts', image: media, image_container: '[data-image-zoom-container]' %}
         {% endif %}
         <img
           src="{{ media | image_url }}"
@@ -58,6 +67,7 @@
           width="{{ media.width }}"
           class="absolute h-full w-full object-cover"
           loading="eager"
+          data-zoom="{{ media | image_url }}"
         >
       </div>
     </div>
