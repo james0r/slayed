@@ -74,4 +74,5 @@ for (const path in alpineMagic) {
 //   })
 // }
 
-Alpine.start() 
+Alpine.start()
+
