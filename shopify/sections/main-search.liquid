@@ -26,10 +26,10 @@
         placeholder="Search"
         name="q"
         value="{{ search.terms | escape }}"
-        class="py-2 px-4 border border-gray-500 rounded-lg"
+        class="slayed-input"
       >
       <!-- <input type="hidden" name="type" value="product" /> -->
-      <input type="submit" value="Search" class="bg-cloud-burst-500 text-white px-4 rounded-lg cursor-pointer">
+      <input type="submit" value="Search" class="pill-button" />
     </form>
 
     {% if search.performed %}

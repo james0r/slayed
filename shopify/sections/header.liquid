@@ -38,25 +38,49 @@
       </button>
       {% render 'mobile-menu' %}
     </nav>
-  
+
     <a href="{{ routes.root_url }}" class="header-logo"> Logo </a>
-  
+
     <div class="hidden md:block">
       {% render 'header-menu' %}
     </div>
-  
-    <a
-      href="{{ routes.cart_url }}"
-      class="cart-icon-wrapper"
-      x-cloak
-    >
-      {% render 'icon-cart' %}
-      <span data-ajax-cart-bind-state="cart.item_count" class="text-cloud-burst-500">{{ cart.item_count }}</span>
-    </a>
-  
+
+    <div class="flex items-center space-x-3 self-center ml-auto">
+      {% if settings.show_predictive_search %}
+        <a href="{{ routes.search_url }}" class="block md:hidden text-white fill-white p-2 [&>svg]:h-[28px]">
+          {% render 'icon-search' %}
+        </a>
+        <button
+          type="button"
+          class="text-white fill-white p-2 [&>svg]:h-[28px] hidden md:block"
+          @click="$store.global.isPredictiveSearchVisible = true"
+        >
+          {% render 'icon-search' %}
+        </button>
+      {% else %}
+        <a href="{{ routes.search_url }}" class="text-white fill-white p-2 [&>svg]:h-[28px]">
+          {% render 'icon-search' %}
+        </a>
+      {% endif %}
+
+      <a
+        href="{{ routes.cart_url }}"
+        class="[&>svg]:h-[22px] [&>svg]:w-auto relative text-white p-2"
+        x-cloak
+      >
+        {% render 'icon-cart' %}
+        <span
+          data-ajax-cart-bind-state="cart.item_count"
+          class="text-cloud-burst-500 absolute top-[58%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12px]"
+        >
+          {{- cart.item_count -}}
+        </span>
+      </a>
+    </div>
+
     {% comment %}
       // Output customer login links
-  
+
       <ul>
       {% if shop.customer_accounts_enabled %}
       {% if customer %}
@@ -72,7 +96,7 @@
       </ul>
     {% endcomment %}
   </div>
-  
+
   <style>
     #shopify-section-header {
       position: fixed;
@@ -80,14 +104,14 @@
       top: 0;
       z-index: 10;
     }
-  
+
     .section-header .header-logo {
       color: white;
       text-decoration: none;
       font-size: 32px;
       text-transform: uppercase;
     }
-  
+
     #mobile-nav-trigger {
       display: none;
       -webkit-appearance: none;
@@ -96,13 +120,13 @@
       background: transparent;
       border: 0;
     }
-  
+
     #mobile-nav-trigger svg {
       fill: white;
       width: 26px;
       height: auto;
     }
-  
+
     @media (max-width: 768px) {
       .section-header .header-logo {
         position: absolute;
@@ -110,19 +134,19 @@
         left: 50%;
         transform: translate(-50%, -50%);
       }
-  
+
       #mobile-nav-trigger {
         display: block;
       }
     }
-  
+
     .cart-icon-wrapper {
       text-decoration: none;
       color: white;
       margin-left: auto;
       position: relative;
     }
-  
+
     .cart-icon-wrapper span {
       position: absolute;
       top: 50%;
@@ -132,22 +156,21 @@
       font-size: 12px;
       font-weight: bold;
     }
-  
+
     .bi-bag {
       display: none;
     }
-  
+
     .js-ajax-cart-not-empty .header .bi-bag-fill {
       display: block;
     }
-  
+
     .js-ajax-cart-empty .header .bi-bag-empty {
       display: block;
     }
-  
+
     .js-ajax-cart-empty .header .bi-bag-fill {
       display: none;
     }
   </style>
 </div>
-

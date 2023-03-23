@@ -2,4 +2,12 @@
   .btn {
     @apply py-3 px-12 bg-cloud-burst-500 hover:bg-cloud-burst-600 text-white rounded-full transition;
   } 
+
+  .pill-button {
+    @apply bg-cloud-burst-500 text-white px-4 rounded-lg cursor-pointer;
+  }
+
+  .slayed-input {
+    @apply py-2 px-4 border border-gray-500 rounded-lg;
+  }
 }

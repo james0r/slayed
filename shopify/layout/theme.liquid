@@ -56,6 +56,9 @@
     </div>
 
     {% section 'header' %}
+    {% if settings.show_predictive_search %}
+      {% section 'predictive-search-main' %}
+    {% endif %}
 
     <main
       id="main-content"

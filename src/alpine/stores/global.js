@@ -4,6 +4,7 @@ export default {
     return {
       isMobileMenuVisible: false,
       isMinicartVisible: false,
+      isPredictiveSearchVisible: false,
       init() {
         console.log('Slayed Global Store Initialized.')
       },

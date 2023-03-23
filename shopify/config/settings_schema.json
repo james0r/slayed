@@ -8,18 +8,17 @@
     "theme_support_url": "https://THEME_SUPPORT_URL.com"
   },
   {
-    "name": "t:settings_schema.custom_settings.name",
+    "name": "Theme Settings",
     "settings": [
-      {
-        "type": "color",
-        "id": "brand_color",
-        "label": "Brand Color",
-        "default": "#31915f"
-      },
       {
         "type": "checkbox",
         "id": "show_promo_bar",
         "label": "Show Promo Bar"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_predictive_search",
+        "label": "Show Predictive Search"
       }
     ]
   }

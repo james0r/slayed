@@ -42,7 +42,7 @@
       <div class="flex gap-x-3 w-full relative">
         <input
           id="predictive-search-input"
-          class="smmt-input-tw-component w-full"
+          class="slayed-input w-full"
           type="search"
           name="q"
           value="{{ search.terms | escape }}"
@@ -56,7 +56,7 @@
         <label for="predictive-search-input" class="sr-only"> Search </label>
         <button
           for="predictive-search-input"
-          class="smmt-btn-small uppercase font-gravesend min-w-[112px] sm:min-w-[136px] flex justify-center items-center"
+          class="pill-button"
         >
           Search
         </button>
@@ -66,7 +66,7 @@
           class="absolute -right-[15px] top-1/2 -translate-y-1/2 translate-x-full"
           @click="$store.global.isPredictiveSearchVisible = false"
         >
-          {% render 'svg-smmt-mobile-menu-close-icon' %}
+          {% render 'icon-close-x' %}
         </button>
       </div>
       <input name="options[prefix]" type="hidden" value="last">
