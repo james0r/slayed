@@ -46,7 +46,7 @@
     </div>
 
     <div class="flex items-center space-x-3 self-center ml-auto">
-      {% if settings.show_predictive_search %}
+      {% if settings.enable_predictive_search %}
         <a href="{{ routes.search_url }}" class="block md:hidden text-white fill-white p-2 [&>svg]:h-[28px]">
           {% render 'icon-search' %}
         </a>

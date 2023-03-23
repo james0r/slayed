@@ -17,8 +17,8 @@
       },
       {
         "type": "checkbox",
-        "id": "show_predictive_search",
-        "label": "Show Predictive Search"
+        "id": "enable_predictive_search",
+        "label": "Enable Predictive Search"
       }
     ]
   }
