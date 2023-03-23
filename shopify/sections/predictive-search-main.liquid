@@ -19,8 +19,9 @@
   x-data
   x-cloak
   x-show="$store.global.isPredictiveSearchVisible"
-  x-trap="$store.global.isPredictiveSearchVisible"
+  x-trap.inert="$store.global.isPredictiveSearchVisible"
   x-transition.opacity
+  aria-modal="true"
   @keyup.escape="$store.global.isPredictiveSearchVisible = false"
 >
   <div

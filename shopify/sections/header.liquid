@@ -54,6 +54,7 @@
           type="button"
           class="text-white fill-white p-2 [&>svg]:h-[28px] hidden md:block"
           @click="$store.global.isPredictiveSearchVisible = true"
+          :aria-expanded="$store.global.isPredictiveSearchVisible ? 'true' : 'false'"
         >
           {% render 'icon-search' %}
         </button>
