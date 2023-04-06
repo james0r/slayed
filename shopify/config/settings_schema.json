@@ -11,9 +11,28 @@
     "name": "Theme Settings",
     "settings": [
       {
+        "type": "header",
+        "content": "Promo Bar"
+      },
+      {
         "type": "checkbox",
         "id": "show_promo_bar",
         "label": "Show Promo Bar"
+      },
+      {
+        "type": "checkbox",
+        "id": "promo_bar_height_fixed",
+        "label": "Promo Bar Fixed Height",
+        "default": true
+      },
+      {
+        "type": "richtext",
+        "id": "promo_bar_content",
+        "label": "Promo Bar Content"
+      },
+      {
+        "type": "header",
+        "content": "Predictive Search"
       },
       {
         "type": "checkbox",

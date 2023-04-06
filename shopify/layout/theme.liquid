@@ -30,12 +30,24 @@
     </script>
   </head>
 
+  {% liquid
+    assign bodyClasses = template | handleize | append: '-template'
+    assign bodyClasses = bodyClasses | append: ' antialiased using-mouse'
+
+    if settings.show_promo_bar 
+      assign bodyClasses = bodyClasses | append: ' promo-bar-visible'
+    endif
+  %}
+
   <body
-    class="{{ template | handleize }}-template using-mouse"
+    class="{{ bodyClasses }}"
     :class="$store.global.bodyClasses"
     x-data
   >
     <a class="skip-to-content-link sr-only" href="#main-content"> Skip to content </a>
+    {% if settings.show_promo_bar %}
+      {% render 'promo-bar' %}
+    {% endif %}
     <div
       class="minicart-wrapper"
       x-data
@@ -63,7 +75,7 @@
     <main
       id="main-content"
       role="main"
-      class="mt-header-height-mobile md:mt-header-height-desktop"
+      class="site-main-tw-component"
     >
       {{ content_for_layout }}
     </main>

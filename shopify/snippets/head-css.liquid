@@ -8,16 +8,17 @@
 
   {% if settings.show_promo_bar %}
   :root {
-    --header-height-mobile-offset: calc(100px + 40px);
+    --promo-bar-height: 40px;
+    --header-height-mobile-offset: calc(var(--header-height-mobile) + var(--promo-bar-height));
     --header-height-mobile-scrolled-offset: calc(82px);
-    --header-height-desktop-offset: calc(124px + 40px);
+    --header-height-desktop-offset: calc(var(--header-height-desktop) + var(--promo-bar-height));
     --header-height-desktop-scrolled-offset: calc(86px);
   }
   {% else %}
   :root {
-    --header-height-mobile-offset: 100px;
+    --header-height-mobile-offset: var(--header-height-mobile);
     --header-height-mobile-scrolled-offset: 82px;
-    --header-height-desktop-offset: 124px;
+    --header-height-desktop-offset: var(--header-height-desktop);
     --header-height-desktop-scrolled-offset: 86px;
   }
   {% endif %}

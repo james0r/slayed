@@ -1,0 +1,18 @@
+{% liquid
+  if settings.promo_bar_height_fixed
+    assign calcAndSet = false
+  else 
+    assign calcAndSet = true
+  endif
+%}
+
+<div
+  id="site-promo-bar"
+  class="site-promo-bar-tw-component"
+  x-data="promoBar"
+  x-init="calcAndSetPromoBarHeight({{ calcAndSet }})"
+>
+  <div class="text-white [&_a]:text-white font-bold text-base tracking-wide text-center">
+    {{ settings.promo_bar_content }}
+  </div>
+</div>

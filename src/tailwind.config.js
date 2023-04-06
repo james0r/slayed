@@ -65,15 +65,34 @@ module.exports = {
           800: '#000000',
           900: '#000000',
         },
+        woodland: {
+          DEFAULT: '#595425',
+          50: '#C4BC71',
+          100: '#BEB563',
+          200: '#AFA649',
+          300: '#938A3D',
+          400: '#766F31',
+          500: '#595425',
+          600: '#312F15',
+          700: '#0A0904',
+          800: '#000000',
+          900: '#000000',
+          950: '#000000',
+        }
       },
-      height: headerSizes,
-      spacing: headerSizes
+      height: {
+        ...headerSizes,
+      },
+      spacing: {
+        ...headerSizes,
+      },
     },
   },
   plugins: [
     require('@tailwindcss/typography'),
     plugin(function ({ addVariant }) {
-      addVariant('scrolled', '.scrolled &'), addVariant('mobile-menu-visible', '.mobile-menu-visible &')
+      addVariant('scrolled', '.scrolled &'),
+        addVariant('mobile-menu-visible', '.mobile-menu-visible &')
     }),
   ],
 }
