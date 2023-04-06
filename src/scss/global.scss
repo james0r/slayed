@@ -1,0 +1,8 @@
+// -----------------------------------------------------------------------------
+// Styles in this file will always be included in the final bundle.
+// -----------------------------------------------------------------------------
+
+/* Remove tap highlight on mobile chrome */
+html {
+  -webkit-tap-highlight-color: transparent;
+}

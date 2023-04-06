@@ -7,4 +7,4 @@
 @import 'tailwindcss/utilities';
 @import './utilities.css';
 
-/* @import './global.css'; */
+@import '../scss/global.scss';
