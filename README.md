@@ -37,3 +37,32 @@ For all other NPM scripts and Shopify CLI theme commands reference **package.jso
 > Shopify CLI is yet to be as feature filled as most would like. Configuring the dev
 > server to do things like not open a new window on initial run around available out of
 > the box. See the above link to see all that it can do.
+
+## Styling Slayed
+
+The standard Tailwind boilerplate is provided as well as SCSS compiled guaranteed-to-be-bundled styles at entry file **src/scss/global.scss**.
+
+If you choose to primarly style with SCSS, it's suggested that create your SCSS folders in **src/scss** and import all files within the SCSS entry file.
+
+## Javascript
+
+Set your project namespace variable within **src/main.js**.
+
+### Alpine.js
+[Alpine.js](https://alpinejs.dev/start-here) is included and Alpine magic properties, components, stores, and directives directories exist in **src/alpine**. The modules are auto-registered within **src/main.js**. Reference some of the existing files as to how to export your Alpine modules.
+
+### Vue.js
+See **Shopify Theme Lab**'s [example](https://github.com/uicrooks/shopify-theme-lab/blob/main/src/main.js) of how they register Vue.js.
+
+### Static Assets
+Static asset files MUST contain the **static** keyword or they will be overritten during the build process. Ex: `myfile.static.jpg`. This is unchanged, only reimplemented for Vite, from [Shopify Theme Labs Assets](https://uicrooks.github.io/shopify-theme-lab-docs/guide/assets.html#static-files).
+
+## Included Goodies
+
+### Predictive Search
+The Shopify provided predictive search is already included and just needed to be enabled in the themes customizer. To prevent it from being rendered remove the reference from **theme.liquid**.
+
+### Prodify
+Prodify is a Slayed rework of the Shopify Dawn theme's custom element logic for handling variant changes, **HATEOAS**-style content swapping, and more.
+
+The unminified script is found at **shopify/assets/prodify.static.js** and its required attributes are already applied within **shopify/sections/main-product.liquid**.
