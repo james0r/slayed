@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "start": "run-p -sr shopify:dev vite:watch",
-    "deploy": "run-s vite:build && shopify theme push --path shopify -e production",
+    "deploy": "run-s vite:build && shopify theme push --path shopify",
+    "deploy:dev": "run-s vite:build && shopify theme push --path shopify -e development",
+    "deploy:staging": "run-s vite:build && shopify theme push --path shopify -e staging",
     "deploy:new": "run-s vite:build && shopify theme push --unpublished --path shopify",
     "vite:watch": "cross-env NODE_ENV=development vite build --watch --mode 'development' --config .config/vite.config.js",
     "vite:build": "cross-env NODE_ENV=production vite build --mode 'production' --config .config/vite.config.js",
