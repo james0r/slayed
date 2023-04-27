@@ -12,7 +12,7 @@ store = "slayed-starter"
 theme = "123123123"
 
 [environments.staging]
-store = "smmtoutdoor"
+store = "slayed-starter"
 theme = "123123123"
 ignore = ["templates/*", "config/*"]
 
