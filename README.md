@@ -66,3 +66,8 @@ The Shopify provided predictive search is already included and just needed to be
 Prodify is a Slayed rework of the Shopify Dawn theme's custom element logic for handling variant changes, **HATEOAS**-style content swapping, and more.
 
 The unminified script is found at **shopify/assets/prodify.static.js** and its required attributes are already applied within **shopify/sections/main-product.liquid**.
+
+## Roadmap
+
+- Prodify as NPM module.
+- Improve README to include liquid AJAX Cart
