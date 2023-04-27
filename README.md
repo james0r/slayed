@@ -24,9 +24,9 @@ theme = "123123123"
 ### Commands
 
 | Command       | Purpose           | Notes  |
-| ------------- |:-------------:| -----:|
+| ------------- |:-------------:| :-----:|
 | `npm run start`   | Develop with local dev server with live reload| See [Development Themes](https://shopify.dev/docs/themes/tools/cli#development-themes) |
-| `npm run deploy`     | Build and push to Shopify theme (interactive)      |   $12 |
+| `npm run deploy`     | Build and push to Shopify theme (interactive)      | Command produces a menu to choose theme and confirm. This CAN overwrite the live theme! |
 | `npm run deploy:dev` | Build and push to development environment theme (non-interactive)     | Uses **shopify.theme.toml** config |
 | `npm run deploy:staging` | Build and push to staging environment theme (non-interactive)  | Does overrite remote themes section/theme content |
 | `npm run deploy:new` | Build and publish to new theme on Shopify (interactive) |     |
