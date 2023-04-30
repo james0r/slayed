@@ -8,7 +8,7 @@
     "featured-product-grid": {
       "type": "featured-product-grid",
       "settings": {
-        "featured_collection": "featured"
+        "featured_collection": "homepage-collection"
       }
     }
   },

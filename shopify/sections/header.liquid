@@ -1,14 +1,18 @@
 {% schema %}
 {
   "name": "header",
-  "class": "section-header site-header-tw-component bg-cloud-burst-500 shadow-md",
+  "class": "section-header sticky top-0 z-20 shadow-md",
   "tag": "header",
   "settings": []
 }
 {% endschema %}
 
-<div class="px-6 md:px-8">
-  <div class="container flex items-center text-white relative mx-auto h-header-height-mobile md:h-header-height-desktop">
+{% if settings.show_promo_bar %}
+  {% render 'promo-bar' %}
+{% endif %}
+
+<div class="px-6 md:px-8 bg-cloud-burst-500">
+  <div class="container flex items-center text-white relative mx-auto">
     <nav
       :class="$store.global.isMobileMenuVisible ? 'open' : 'closed'"
       aria-label="Mobile Navigation Overlay"
@@ -99,13 +103,6 @@
   </div>
 
   <style>
-    #shopify-section-header {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 10;
-    }
-
     .section-header .header-logo {
       color: white;
       text-decoration: none;

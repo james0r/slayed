@@ -121,11 +121,11 @@
       >
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
         <input type="hidden" name="quantity" value="1">
-        <div class="hover:after:border-offset-1 mb-[10px]">
+        <div class="mb-[10px]">
           <button
             type="submit"
             name="add"
-            class="border hover:border-2 hover:border-black border-primary px-6 text-cloud-burst-500 w-full h-12 cursor-pointer disabled:cursor-default mb-2"
+            class="px-6 hover:bg-cloud-burst-400 bg-cloud-burst-500 text-white w-full h-12 cursor-pointer disabled:cursor-default"
             {% if product.selected_or_first_available_variant.available == false %}
               disabled
             {% endif %}

@@ -21,8 +21,8 @@
       },
       {
         "type": "checkbox",
-        "id": "promo_bar_height_fixed",
-        "label": "Promo Bar Fixed Height",
+        "id": "collapse_promo_bar",
+        "label": "Collapse Promo Bar on Scroll",
         "default": true
       },
       {

@@ -1,4 +1,5 @@
 import Alpine from 'alpinejs'
+import collapse from '@alpinejs/collapse'
 import helpers from './helpers.js'
 import focus from '@alpinejs/focus'
 import './a11y.js'
@@ -17,6 +18,7 @@ for (const [key, value] of Object.entries(helpers)) {
 
 // Alpine plugins
 Alpine.plugin(focus)
+Alpine.plugin(collapse)
 
 // Alpine stores
 const alpineStores = import.meta.glob('./alpine/stores/*.js', { eager: true, import: 'default' })

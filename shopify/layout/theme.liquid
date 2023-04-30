@@ -45,9 +45,6 @@
     x-data
   >
     <a class="skip-to-content-link sr-only" href="#main-content"> Skip to content </a>
-    {% if settings.show_promo_bar %}
-      {% render 'promo-bar' %}
-    {% endif %}
     <div
       class="minicart-wrapper"
       x-data
@@ -68,6 +65,7 @@
     </div>
 
     {% section 'header' %}
+    
     {% if settings.enable_predictive_search %}
       {% section 'predictive-search-main' %}
     {% endif %}

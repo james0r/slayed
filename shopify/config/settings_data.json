@@ -1,5 +1,8 @@
 {
   "current": {
+    "show_promo_bar": true,
+    "promo_bar_content": "<p>Promo Content<\/p>",
+    "enable_predictive_search": true,
     "brand_color": "#242a5c",
     "sections": {
       "header": {
