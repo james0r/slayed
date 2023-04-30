@@ -1,7 +1,11 @@
 {
   "sections": {
     "main": {
-      "type": "main-product"
+      "type": "main-product",
+      "settings": {
+        "picker_type": "radio",
+        "enable_image_zoom": true
+      }
     }
   },
   "order": [
