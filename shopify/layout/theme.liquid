@@ -7,7 +7,7 @@
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-    <title>
+    <title>  
       {{ page_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{%- endif -%}
       {%- if current_page != 1 %} &ndash; Page {{ current_page -}}{%- endif -%}
@@ -43,7 +43,7 @@
     class="{{ bodyClasses }}"
     :class="$store.global.bodyClasses"
     x-data
-  >
+  >  
     <a class="skip-to-content-link sr-only" href="#main-content"> Skip to content </a>
     <div
       class="minicart-wrapper"
