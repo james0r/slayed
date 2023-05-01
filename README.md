@@ -40,9 +40,9 @@ For all other NPM scripts and Shopify CLI theme commands reference **package.jso
 
 ## Styling Slayed
 
-The standard Tailwind boilerplate is provided as well as SCSS compiled guaranteed-to-be-bundled styles at entry file **src/scss/global.scss**.
+The standard Tailwind boilerplate is provided.
 
-If you choose to primarly style with SCSS, it's suggested that create your SCSS folders in **src/scss** and import all files within the SCSS entry file.
+Additionally, **src/css/global.css** can be used for global styles and is not tree-shaken. Layers and @apply can also be used in this file. This is made possible via [@tailwindcss/nesting](https://www.npmjs.com/package/@tailwindcss/nesting).
 
 ## Javascript
 

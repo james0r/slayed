@@ -1,0 +1,7 @@
+body {
+  box-sizing: border-box;
+
+  header {
+    @apply antialiased;
+  }
+}
