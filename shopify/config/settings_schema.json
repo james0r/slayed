@@ -38,6 +38,27 @@
         "type": "checkbox",
         "id": "enable_predictive_search",
         "label": "Enable Predictive Search"
+      },
+      {
+        "type": "header",
+        "content": "Modal"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_modal",
+        "label": "Enable Modal"
+      },
+      {
+        "type": "text",
+        "id": "modal_title",
+        "label": "Title",
+        "default": "Modal Title"
+      },
+      {
+        "type": "text",
+        "id": "modal_description",
+        "label": "Description",
+        "default": "Modal Description. Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque totam cum cupiditate officia et quaerat blanditiis culpa? Hic, nesciunt id."
       }
     ]
   }

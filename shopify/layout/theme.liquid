@@ -7,7 +7,7 @@
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-    <title>  
+    <title>
       {{ page_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{%- endif -%}
       {%- if current_page != 1 %} &ndash; Page {{ current_page -}}{%- endif -%}
@@ -23,7 +23,7 @@
     {{ 'bundle.css' | asset_url | stylesheet_tag: preload: true }}
 
     <script>
-      document.documentElement.className = document.documentElement.className.replace('no-js', 'js')
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
       if (Shopify.designMode) {
         document.documentElement.classList.add('shopify-design-mode');
       }
@@ -34,7 +34,7 @@
     assign bodyClasses = template | handleize | append: '-template'
     assign bodyClasses = bodyClasses | append: ' antialiased using-mouse'
 
-    if settings.show_promo_bar 
+    if settings.show_promo_bar
       assign bodyClasses = bodyClasses | append: ' promo-bar-visible'
     endif
   %}
@@ -43,8 +43,22 @@
     class="{{ bodyClasses }}"
     :class="$store.global.bodyClasses"
     x-data
-  >  
+  >
     <a class="skip-to-content-link sr-only" href="#main-content"> Skip to content </a>
+
+    {% section 'header' %}
+
+
+    <main
+      id="main-content"
+      role="main"
+      class="site-main-tw-component relative"
+    >
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+
     <div
       class="minicart-wrapper"
       x-data
@@ -64,21 +78,13 @@
       {% section 'minicart' %}
     </div>
 
-    {% section 'header' %}
-    
     {% if settings.enable_predictive_search %}
       {% section 'predictive-search-main' %}
     {% endif %}
-
-    <main
-      id="main-content"
-      role="main"
-      class="site-main-tw-component relative"
-    >
-      {{ content_for_layout }}
-    </main>
-
-    {% section 'footer' %}
+    
+    {% if settings.enable_modal %}
+      {% section 'modal' %}
+    {% endif %}
 
     {% render 'liquid-ajax-cart' %}
 

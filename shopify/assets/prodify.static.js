@@ -16,8 +16,6 @@ class Prodify {
     this.el.querySelector(this.quantityWrapperSelector)
     this.pickerType = this.el.dataset.prodify
 
-    this.el.addEventListener('change', this.onVariantChange)
-
     this.quantityIncrement = this.el.querySelector(this.quantityIncrementSelector)
     this.quantityDecrement = this.el.querySelector(this.quantityDecrementSelector)
     this.quantityPresentation = this.el.querySelector(this.quantityPresentationSelector)
@@ -26,6 +24,8 @@ class Prodify {
     if (this.quantityIncrement && this.quantityDecrement && this.quantityPresentation) {
       this.initQuantityControls()
     }
+    
+    this.el.addEventListener('change', this.onVariantChange)
   }
 
   initQuantityControls = () => {

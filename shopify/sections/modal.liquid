@@ -1,0 +1,53 @@
+{% schema %}
+  {
+    "name": "Modal",
+    "class": "section-modal",
+    "settings": []
+  }
+{% endschema %}
+
+<dialog x-data="modal" x-init="init($el)" class="max-w-md">
+  <form action="">
+    <div>
+      <h1>{{ settings.modal_title }}</h1>
+      <p>{{ settings.modal_description }}</p>
+      <button type="button" @click="open = false">
+        Close
+      </button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('modal', () => ({
+      open: false,
+      init(dialog) {
+        if (!dialog) {
+          return
+        }
+
+        Alpine.effect(() => {
+          if (this.open) {
+            dialog.showModal()
+          } else {
+            dialog.close()
+          }
+        })
+
+        document.addEventListener('show-modal', () => {
+          this.open = true
+        })
+
+        document.addEventListener('close-modal', () => {
+          this.open = false
+        })
+      },
+      toggle() {
+        this.open = !this.open
+      },
+    }))
+  })
+</script>
+
+

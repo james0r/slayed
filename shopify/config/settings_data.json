@@ -3,6 +3,7 @@
     "show_promo_bar": true,
     "promo_bar_content": "<p>Promo Content<\/p>",
     "enable_predictive_search": true,
+    "enable_modal": false,
     "brand_color": "#242a5c",
     "sections": {
       "header": {
@@ -17,6 +18,17 @@
       },
       "footer": {
         "type": "footer",
+        "settings": {
+        }
+      },
+      "predictive-search-main": {
+        "type": "predictive-search-main",
+        "settings": {
+          "prompt_text": "What can we help you find?"
+        }
+      },
+      "modal": {
+        "type": "modal",
         "settings": {
         }
       }
