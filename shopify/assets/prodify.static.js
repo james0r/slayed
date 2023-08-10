@@ -25,22 +25,40 @@ class SlayedProdify {
     this.quantityPresentationInput = this.el.querySelector(this.selectors.quantityPresentation)
     this.quantityHiddenInput = this.el.querySelector('input[name="quantity"]')
 
-    if (this.quantityIncrementButton && this.quantityDecrementButton && this.quantityPresentationInput) {
-      this.initQuantityControls()
-    }
-    
+    this.initEventListeners()
+  }
+
+  initEventListeners = () => {
     this.el.addEventListener('change', this.onVariantChange)
+
+    if (
+      this.quantityIncrementButton &&
+      this.quantityDecrementButton &&
+      this.quantityPresentationInput
+    ) {
+      this.quantityIncrementButton.addEventListener('click', () => {
+        this.updateQuantity('up')
+      })
+
+      this.quantityDecrementButton.addEventListener('click', () => {
+        this.updateQuantity('down')
+      })
+    }
   }
 
-  initQuantityControls = () => {
-    this.quantityIncrementButton.addEventListener('click', () => {
-      this.updateQuantity('up')
-    })
+  updateMasterId = () => {
+    // Find and return a variant where every option matches the variant option in the lopp. 
 
-    this.quantityDecrementButton.addEventListener('click', () => {
-      this.updateQuantity('down')
-    })
-  }
+    const matchingVariant = this.getVariantData().find(variant => {
+      const optionMatches = variant.options.map((option, index) => {
+        return this.options[index] === option;
+      });
+
+      return !optionMatches.includes(false);
+    });
+
+    this.currentVariant = matchingVariant;
+  };
 
   updateQuantity = (stepDirection) => {
     const previousQuantity = parseInt(this.quantityPresentationInput.value)
@@ -52,29 +70,17 @@ class SlayedProdify {
     }
   }
 
-  onVariantChange = () => {
-    this.updateOptions()
-    this.updateMasterId()
-    this.toggleAddButton(true, '', false)
-    this.updateVariantStatuses()
-
-    if (!this.currentVariant) {
-      this.toggleAddButton(true, '', true)
-      this.setUnavailable()
-    } else {
-      this.updateURL()
-      this.updateVariantInput()
-      this.swapProductInfo()
+  updateCurrentOptions = () => {
+    if (this.pickerType == 'select') {
+      this.options = Array.from(this.el.querySelectorAll('select'), (select) => select.value)
+      return
     }
-  }
 
-  onQuantityClick = (event) => {
-    console.log(event.currentTarget)
-  }
-
-  updateURL() {
-    if (!this.currentVariant || this.el.dataset.updateUrl === 'false') return
-    window.history.replaceState({}, '', `${this.el.dataset.url}?variant=${this.currentVariant.id}`)
+    this.optionContainers = Array.from(this.el.querySelectorAll(this.selectors.optionContainer))
+    this.options = this.optionContainers.map((optionContainer) => {
+      return Array.from(optionContainer.querySelectorAll('input')).find((radio) => radio.checked)
+        .value
+    })
   }
 
   updateVariantInput() {
@@ -86,24 +92,66 @@ class SlayedProdify {
     })
   }
 
-  setUnavailable() {
-    const productForm = document.querySelector(this.selectors.productForm)
-    const addButton = productForm.querySelector('[name="add"]')
-    const addButtonText = productForm.querySelector('[name="add"] > span')
-    const price = document.querySelector(this.selectors.priceContainer)
-
-    if (!addButton) return
-    addButtonText.textContent = this.textStrings.addButtonTextUnavailable
-    if (price) price.classList.add('visibility-hidden')
+  updateURL() {
+    if (!this.currentVariant || this.el.dataset.updateUrl === 'false') return
+    window.history.replaceState({}, '', `${this.el.dataset.url}?variant=${this.currentVariant.id}`)
   }
 
-  updateMasterId = () => {
-    this.currentVariant = this.getVariantData().find((variant) => {
-      return !variant.options
-        .map((option, index) => {
-          return this.options[index] === option
-        })
-        .includes(false)
+  updateAddButtonDom(disable = true, text, modifyClass = true) {
+    const productForm = document.querySelector(this.selectors.productForm)
+    if (!productForm) return
+    const addButton = productForm.querySelector('[name="add"]')
+    const addButtonText = productForm.querySelector('[name="add"] > span')
+    if (!addButton) return
+
+    if (disable) {
+      addButton.setAttribute('disabled', 'disabled')
+      if (text) addButtonText.textContent = text
+    } else {
+      addButton.removeAttribute('disabled')
+      addButtonText.textContent = this.textStrings.addButtonTextUnavailable
+    }
+
+    if (!modifyClass) return
+
+    if (disable) {
+      addButton.classList.add('disabled')
+    } else {
+      addButton.classList.remove('disabled')
+    }
+  }
+
+  onVariantChange = () => {
+    this.updateCurrentOptions()
+    this.updateMasterId()
+    this.updateAddButtonDom(true, '', false)
+    this.updateVariantsDom()
+
+    if (!this.currentVariant) {
+      this.updateAddButtonDom(true, this.textStrings.addButtonTextUnavailable, true)
+    } else {
+      this.updateURL()
+      this.updateVariantInput()
+      this.swapProductInfo()
+    }
+  }
+
+  updateVariantsDom() {
+    const variantsMatchingOptionOneSelected = this.variantData.filter(
+      (variant) => this.el.querySelector(':checked').value === variant.option1
+    )
+    const inputWrappers = [...this.el.querySelectorAll(this.selectors.optionContainer)]
+    inputWrappers.forEach((option, index) => {
+      if (index === 0) return
+      const optionInputs = [...option.querySelectorAll('input[type="radio"], option')]
+      const previousOptionSelected = inputWrappers[index - 1].querySelector(':checked').value
+      const availableOptionInputsValues = variantsMatchingOptionOneSelected
+        .filter(
+          (variant) => variant.available && variant[`option${index}`] === previousOptionSelected
+        )
+        .map((variantOption) => variantOption[`option${index + 1}`])
+
+      this.setInputAvailability(optionInputs, availableOptionInputsValues)
     })
   }
 
@@ -154,25 +202,6 @@ class SlayedProdify {
     }
   }
 
-  updateVariantStatuses() {
-    const variantsMatchingOptionOneSelected = this.variantData.filter(
-      (variant) => this.el.querySelector(':checked').value === variant.option1
-    )
-    const inputWrappers = [...this.el.querySelectorAll(this.selectors.optionContainer)]
-    inputWrappers.forEach((option, index) => {
-      if (index === 0) return
-      const optionInputs = [...option.querySelectorAll('input[type="radio"], option')]
-      const previousOptionSelected = inputWrappers[index - 1].querySelector(':checked').value
-      const availableOptionInputsValues = variantsMatchingOptionOneSelected
-        .filter(
-          (variant) => variant.available && variant[`option${index}`] === previousOptionSelected
-        )
-        .map((variantOption) => variantOption[`option${index + 1}`])
-
-      this.setInputAvailability(optionInputs, availableOptionInputsValues)
-    })
-  }
-
   setInputAvailability(listOfOptions, listOfAvailableOptions) {
     listOfOptions.forEach((input) => {
       if (listOfAvailableOptions.includes(input.getAttribute('value'))) {
@@ -200,36 +229,7 @@ class SlayedProdify {
     return this.variantData
   }
 
-  updateOptions = () => {
-    if (this.pickerType == 'select') {
-      this.options = Array.from(this.el.querySelectorAll('select'), (select) => select.value)
-      return
-    }
 
-    this.optionContainers = Array.from(this.el.querySelectorAll(this.selectors.optionContainer))
-    this.options = this.optionContainers.map((optionContainer) => {
-      return Array.from(optionContainer.querySelectorAll('input')).find((radio) => radio.checked)
-        .value
-    })
-  }
-
-  toggleAddButton(disable = true, text, modifyClass = true) {
-    const productForm = document.querySelector(this.selectors.productForm)
-    if (!productForm) return
-    const addButton = productForm.querySelector('[name="add"]')
-    const addButtonText = productForm.querySelector('[name="add"] > span')
-    if (!addButton) return
-
-    if (disable) {
-      addButton.setAttribute('disabled', 'disabled')
-      if (text) addButtonText.textContent = text
-    } else {
-      addButton.removeAttribute('disabled')
-      addButtonText.textContent = this.textStrings.addButtonTextUnavailable
-    }
-
-    if (!modifyClass) return
-  }
 }
 
 if (window.slayedNamespace && window[slayedNamespace]) {
