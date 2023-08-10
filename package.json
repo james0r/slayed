@@ -25,13 +25,12 @@
     "fix:shopify": "shopify theme check -a --path shopify"
   },
   "devDependencies": {
-    "@alpinejs/collapse": "^3.12.0",
-    "@alpinejs/focus": "^3.11.1",
-    "@modyqyw/vite-plugin-eslint": "^2.0.3",
+    "@alpinejs/collapse": "^3.12.3",
+    "@alpinejs/focus": "^3.12.3",
+    "@modyqyw/vite-plugin-eslint": "^3.1.6",
     "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.9",
-    "@vitejs/plugin-vue": "^3.0.0",
-    "alpinejs": "^3.11.1",
+    "alpinejs": "^3.12.3",
     "autoprefixer": "^10.4.14",
     "cross-env": "^7.0.3",
     "eslint": "^8.20.0",
@@ -39,13 +38,13 @@
     "fast-glob": "^3.3.1",
     "liquid-ajax-cart": "^1.10.3",
     "npm-run-all": "^4.1.5",
-    "postcss": "^8.4.23",
+    "postcss": "^8.4.27",
     "postcss-import": "^14.1.0",
     "rollup-plugin-delete": "^2.0.0",
-    "stylelint": "^14.9.1",
-    "stylelint-config-recommended": "^8.0.0",
-    "tailwindcss": "^3.3.2",
-    "vite": "^3.0.0",
-    "vite-plugin-stylelint": "^3.0.2"
+    "stylelint": "^15.10.2",
+    "stylelint-config-recommended": "^13.0.0",
+    "tailwindcss": "^3.3.3",
+    "vite": "^4.4.9",
+    "vite-plugin-stylelint": "^4.3.0"
   }
 }
