@@ -9,6 +9,7 @@ import './css/site.css'
 
 const ns = 'slayed' 
 
+window.slayedNamespace = ns
 window[ns] = (window[ns] || {})
 window[ns].helpers = helpers
 

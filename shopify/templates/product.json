@@ -4,7 +4,7 @@
       "type": "main-product",
       "settings": {
         "picker_type": "select",
-        "enable_image_zoom": false
+        "enable_image_zoom": true
       }
     }
   },

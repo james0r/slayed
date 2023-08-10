@@ -1,27 +1,31 @@
-class Prodify {
+class SlayedProdify {
   constructor() {
-    this.priceContainerSelector = '[data-prodify-price-container]'
-    this.mediaContainerSelector = '[data-prodify-media-container]'
-    this.variantsJsonSelector = '[data-prodify-variants-json]'
-    this.optionContainerSelector = '[data-prodify-option-container]'
-    this.productFormSelector = '[data-prodify-product-form]'
-    this.addButtonTextUnavailable = 'Unavailable'
-    this.unavailableVariantLabel = '[value] - Unavailable'
-
-    this.quantityIncrementSelector = '[data-prodify-quantity-increment]'
-    this.quantityDecrementSelector = '[data-prodify-quantity-decrement]'
-    this.quantityPresentationSelector = '[data-prodify-quantity-presentation]'
-
     this.el = document.querySelector('[data-prodify]')
-    this.el.querySelector(this.quantityWrapperSelector)
     this.pickerType = this.el.dataset.prodify
 
-    this.quantityIncrement = this.el.querySelector(this.quantityIncrementSelector)
-    this.quantityDecrement = this.el.querySelector(this.quantityDecrementSelector)
-    this.quantityPresentation = this.el.querySelector(this.quantityPresentationSelector)
-    this.quantityInput = this.el.querySelector('input[name="quantity"]')
+    this.selectors = {
+      priceContainer: '[data-prodify-price-container]',
+      mediaContainer: '[data-prodify-media-container]',
+      variantsJson: '[data-prodify-variants-json]',
+      optionContainer: '[data-prodify-option-container]',
+      productForm: '[data-prodify-product-form]',
+      quantityIncrement: '[data-prodify-quantity-increment]',
+      quantityDecrement: '[data-prodify-quantity-decrement]',
+      quantityPresentation: '[data-prodify-quantity-presentation]',
+    }
 
-    if (this.quantityIncrement && this.quantityDecrement && this.quantityPresentation) {
+    this.textStrings = {
+      addToCart: 'Add to Cart',
+      unavailableVariantLabel: '[value] - Unavailable',
+      addButtonTextUnavailable: 'Unavailable',
+    }
+
+    this.quantityIncrementButton = this.el.querySelector(this.selectors.quantityIncrement)
+    this.quantityDecrementButton = this.el.querySelector(this.selectors.quantityDecrement)
+    this.quantityPresentationInput = this.el.querySelector(this.selectors.quantityPresentation)
+    this.quantityHiddenInput = this.el.querySelector('input[name="quantity"]')
+
+    if (this.quantityIncrementButton && this.quantityDecrementButton && this.quantityPresentationInput) {
       this.initQuantityControls()
     }
     
@@ -29,22 +33,22 @@ class Prodify {
   }
 
   initQuantityControls = () => {
-    this.quantityIncrement.addEventListener('click', () => {
+    this.quantityIncrementButton.addEventListener('click', () => {
       this.updateQuantity('up')
     })
 
-    this.quantityDecrement.addEventListener('click', () => {
+    this.quantityDecrementButton.addEventListener('click', () => {
       this.updateQuantity('down')
     })
   }
 
   updateQuantity = (stepDirection) => {
-    const previousQuantity = parseInt(this.quantityPresentation.value)
+    const previousQuantity = parseInt(this.quantityPresentationInput.value)
 
     if (stepDirection == 'up') {
-      this.quantityInput.value = this.quantityPresentation.value = previousQuantity + 1
+      this.quantityHiddenInput.value = this.quantityPresentationInput.value = previousQuantity + 1
     } else {
-      this.quantityInput.value = this.quantityPresentation.value = Math.max(1, previousQuantity - 1)
+      this.quantityHiddenInput.value = this.quantityPresentationInput.value = Math.max(1, previousQuantity - 1)
     }
   }
 
@@ -74,7 +78,7 @@ class Prodify {
   }
 
   updateVariantInput() {
-    const productForms = document.querySelectorAll(this.productFormSelector)
+    const productForms = document.querySelectorAll(this.selectors.productForm)
     productForms.forEach((productForm) => {
       const input = productForm.querySelector('input[name="id"]')
       input.value = this.currentVariant.id
@@ -83,13 +87,13 @@ class Prodify {
   }
 
   setUnavailable() {
-    const productForm = document.querySelector(this.productFormSelector)
+    const productForm = document.querySelector(this.selectors.productForm)
     const addButton = productForm.querySelector('[name="add"]')
     const addButtonText = productForm.querySelector('[name="add"] > span')
-    const price = document.querySelector(this.priceContainerSelector)
+    const price = document.querySelector(this.selectors.priceContainer)
 
     if (!addButton) return
-    addButtonText.textContent = this.addButtonTextUnavailable
+    addButtonText.textContent = this.textStrings.addButtonTextUnavailable
     if (price) price.classList.add('visibility-hidden')
   }
 
@@ -109,14 +113,14 @@ class Prodify {
         `${this.el.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.el.dataset.section}`
       )
       .then((responseHTML) => {
-        const priceSource = responseHTML.querySelector(this.priceContainerSelector)
-        const priceTarget = this.el.querySelector(this.priceContainerSelector)
-        const mediaSource = responseHTML.querySelector(this.mediaContainerSelector)
-        const mediaTarget = this.el.querySelector(this.mediaContainerSelector)
+        const priceSource = responseHTML.querySelector(this.selectors.priceContainer)
+        const priceTarget = this.el.querySelector(this.selectors.priceContainer)
+        const mediaSource = responseHTML.querySelector(this.selectors.mediaContainer)
+        const mediaTarget = this.el.querySelector(this.selectors.mediaContainer)
         const addButtonSource = responseHTML.querySelector(
-          `${this.productFormSelector} [name="add"]`
+          `${this.selectors.productForm} [name="add"]`
         )
-        const addButtonTarget = this.el.querySelector(`${this.productFormSelector} [name="add"]`)
+        const addButtonTarget = this.el.querySelector(`${this.selectors.productForm} [name="add"]`)
 
         if (priceSource && priceTarget) {
           priceTarget.replaceWith(priceSource)
@@ -154,7 +158,7 @@ class Prodify {
     const variantsMatchingOptionOneSelected = this.variantData.filter(
       (variant) => this.el.querySelector(':checked').value === variant.option1
     )
-    const inputWrappers = [...this.el.querySelectorAll(this.optionContainerSelector)]
+    const inputWrappers = [...this.el.querySelectorAll(this.selectors.optionContainer)]
     inputWrappers.forEach((option, index) => {
       if (index === 0) return
       const optionInputs = [...option.querySelectorAll('input[type="radio"], option')]
@@ -179,7 +183,7 @@ class Prodify {
         input.classList.remove('disabled')
       } else {
         if (this.pickerType == 'select') {
-          input.innerText = this.unavailableVariantLabel.replace(
+          input.innerText = this.textStrings.unavailableVariantLabel.replace(
             '[value]',
             input.getAttribute('value')
           )
@@ -192,7 +196,7 @@ class Prodify {
 
   getVariantData = () => {
     this.variantData =
-      this.variantData || JSON.parse(this.el.querySelector(this.variantsJsonSelector).textContent)
+      this.variantData || JSON.parse(this.el.querySelector(this.selectors.variantsJson).textContent)
     return this.variantData
   }
 
@@ -202,7 +206,7 @@ class Prodify {
       return
     }
 
-    this.optionContainers = Array.from(this.el.querySelectorAll(this.optionContainerSelector))
+    this.optionContainers = Array.from(this.el.querySelectorAll(this.selectors.optionContainer))
     this.options = this.optionContainers.map((optionContainer) => {
       return Array.from(optionContainer.querySelectorAll('input')).find((radio) => radio.checked)
         .value
@@ -210,7 +214,7 @@ class Prodify {
   }
 
   toggleAddButton(disable = true, text, modifyClass = true) {
-    const productForm = document.querySelector(this.productFormSelector)
+    const productForm = document.querySelector(this.selectors.productForm)
     if (!productForm) return
     const addButton = productForm.querySelector('[name="add"]')
     const addButtonText = productForm.querySelector('[name="add"] > span')
@@ -221,11 +225,17 @@ class Prodify {
       if (text) addButtonText.textContent = text
     } else {
       addButton.removeAttribute('disabled')
-      addButtonText.textContent = this.addButtonTextUnavailable
+      addButtonText.textContent = this.textStrings.addButtonTextUnavailable
     }
 
     if (!modifyClass) return
   }
 }
 
-new Prodify()
+if (window.slayedNamespace && window[slayedNamespace]) {
+  window[slayedNamespace].SlayedProdify = new SlayedProdify()
+} else {
+  window.SlayedProdify = new SlayedProdify()
+}
+
+
