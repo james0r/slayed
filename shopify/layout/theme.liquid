@@ -5,13 +5,19 @@
 
     <link rel="icon" href="{{ 'favicon.static.ico' | asset_url }}">
     <link rel="canonical" href="{{ canonical_url }}">
-    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link
+      rel="preconnect"
+      href="https://cdn.shopify.com"
+      crossorigin>
 
     <title>
       {{ page_title }}
-      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{%- endif -%}
-      {%- if current_page != 1 %} &ndash; Page {{ current_page -}}{%- endif -%}
-      {%- unless page_title contains shop.name %} &ndash; {{ shop.name -}}{%- endunless -%}
+      {%- if current_tags %}
+        &ndash; tagged "{{ current_tags | join: ', ' }}"{%- endif -%}
+      {%- if current_page != 1 %}
+        &ndash; Page {{ current_page -}}{%- endif -%}
+      {%- unless page_title contains shop.name %}
+        &ndash; {{ shop.name -}}{%- endunless -%}
     </title>
 
     <!-- header hook for Shopify plugins -->
@@ -42,18 +48,18 @@
   <body
     class="{{ bodyClasses }}"
     :class="$store.global.bodyClasses"
-    x-data
-  >
-    <a class="skip-to-content-link sr-only" href="#main-content"> Skip to content </a>
+    x-data>
+
+    <a class="skip-to-content-link" href="#main-content">
+      Skip to content
+    </a>
 
     {% section 'header' %}
-
 
     <main
       id="main-content"
       role="main"
-      class="site-main-tw-component relative"
-    >
+      class="site-main-tw-component relative">
       {{ content_for_layout }}
     </main>
 
@@ -73,15 +79,14 @@
       x-cloak
       :aria-hidden="$store.global.isMinicartVisible ? 'false' : 'true'"
       aria-modal="true"
-      role="dialog"
-    >
+      role="dialog">
       {% section 'minicart' %}
     </div>
 
     {% if settings.enable_predictive_search %}
       {% section 'predictive-search-main' %}
     {% endif %}
-    
+
     {% if settings.enable_modal %}
       {% section 'modal' %}
     {% endif %}

@@ -8,7 +8,10 @@ const path = require('path')
 let plugin = require('tailwindcss/plugin')
 
 module.exports = {
-  content: [path.resolve(__dirname, '**/*.js'), path.resolve(__dirname, '../shopify/**/*.liquid')],
+  content: require('fast-glob').sync([path.resolve(__dirname, '**/*.js'), path.resolve(__dirname, '../shopify/**/*.liquid')]),
+  safelist: [
+    'skip-to-content-link'
+  ],
   theme: {
     container: {
       center: true,

@@ -1,10 +1,10 @@
 {% schema %}
-{
-  "name": "header",
-  "class": "section-header sticky top-0 z-20 shadow-md",
-  "tag": "header",
-  "settings": []
-}
+  {
+    "name": "header",
+    "class": "section-header sticky top-0 z-20 shadow-md",
+    "tag": "header",
+    "settings": []
+  }
 {% endschema %}
 
 {% if settings.show_promo_bar %}
@@ -21,8 +21,7 @@
       id="mobile-nav"
       role="navigation"
       x-cloak
-      x-data
-    >
+      x-data>
       <button
         id="mobile-nav-trigger"
         type="button"
@@ -30,8 +29,7 @@
         :aria-expanded="$store.global.isMobileMenuVisible"
         aria-label="Mobile Navigation Button"
         aria-controls="mobile-menu-list"
-        x-data
-      >
+        x-data>
         <span class="sr-only">Menu</span>
         <span aria-hidden="true" x-show="!$store.global.isMobileMenuVisible">
           {% render 'icon-hamburger' %}
@@ -41,10 +39,10 @@
         </span>
       </button>
       {% render 'mobile-menu' %}
-    </nav>  
+    </nav>
 
-    <a href="{{ routes.root_url }}" class="header-logo"> 
-      Slayed 
+    <a href="{{ routes.root_url }}" class="header-logo">
+      Slayed
     </a>
 
     <div class="hidden md:block">
@@ -60,8 +58,7 @@
           type="button"
           class="text-white fill-white p-2 [&>svg]:h-[28px] hidden md:block"
           @click="$store.global.isPredictiveSearchVisible = true"
-          :aria-expanded="$store.global.isPredictiveSearchVisible ? 'true' : 'false'"
-        >
+          :aria-expanded="$store.global.isPredictiveSearchVisible ? 'true' : 'false'">
           {% render 'icon-search' %}
         </button>
       {% else %}
@@ -70,39 +67,40 @@
         </a>
       {% endif %}
 
+      {% if shop.customer_accounts_enabled %}
+        <a href="{{ routes.account_url }}" class="text-white fill-white p-2 [&>svg]:h-[28px]">
+          {% render 'icon-user' %}
+        </a>
+      {% endif %}
+
       <a
         href="{{ routes.cart_url }}"
         class="[&>svg]:h-[22px] [&>svg]:w-auto relative text-white p-2"
-        x-cloak
-      >
+        x-cloak>
         {% render 'icon-cart' %}
-        <span
-          data-ajax-cart-bind-state="cart.item_count"
-          class="text-cloud-burst-500 absolute top-[58%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12px]"
-        >
+        <span data-ajax-cart-bind-state="cart.item_count" class="text-cloud-burst-500 absolute top-[58%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12px]">
           {{- cart.item_count -}}
         </span>
       </a>
     </div>
 
     {% comment %}
-      // Output customer login links
+    // Output customer login links
 
-      <ul>
-      {% if shop.customer_accounts_enabled %}
-      {% if customer %}
-      <a href="{{ routes.account_url }}">
-      {{ 'action.account' | t }}
-      </a>
-      {{ 'action.log_out' | t | customer_logout_link }}
-      {% else %}
-      {{ 'action.log_in' | t | customer_login_link }}
-      {{ 'action.register' | t | customer_register_link }}
-      {% endif %}
-      {% endif %}
-      </ul>
-    {% endcomment %}
-  </div>
+    <ul>
+    {% if shop.customer_accounts_enabled %}
+    {% if customer %}
+    <a href="{{ routes.account_url }}">
+    {{ 'action.account' | t }}
+    </a>
+    {{ 'action.log_out' | t | customer_logout_link }}
+    {% else %}
+    {{ 'action.log_in' | t | customer_login_link }}
+    {{ 'action.register' | t | customer_register_link }}
+    {% endif %}
+    {% endif %}
+    </ul>
+    {% endcomment %}</div>
 
   <style>
     .section-header .header-logo {
@@ -127,7 +125,7 @@
       height: auto;
     }
 
-    @media (max-width: 768px) {
+    @media(max-width: 768px) {
       .section-header .header-logo {
         position: absolute;
         top: 50%;
