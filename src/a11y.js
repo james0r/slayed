@@ -11,7 +11,7 @@ document.body.addEventListener('keydown', function(event) {
 });
 
 // Switch this flag to true to enable a11y debugging
-const a11yDebug = true
+const a11yDebug = false
 
 function getKeyboardFocusableElements (element = document) {
  return [...element.querySelectorAll(
