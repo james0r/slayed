@@ -68,6 +68,7 @@
   {%- else -%}
     <option
       value="{{ value | escape }}"
+      data-option-position="option{{ option.position }}"
       {% if option.selected_value == value %}
         selected="selected"
       {% endif %}

@@ -54,6 +54,28 @@ class Prodify {
     }
   }
 
+  getAvailableVariantsOptions(array, option, value) {
+    let availableOptions = array.filter(item => item[option] === value && item.available === true).map(item => {
+      let options = {};
+      for (let i = 1; i <= 3; i++) {
+        options[`option${i}`] = item[`option${i}`];
+      }
+      return options;
+    });
+    return availableOptions;
+  }
+
+  getAllMatchingVariantsOptions(array, option, value) {
+    let allVariants = array.filter(item => item[option] === value).map(item => {
+      let options = {};
+      for (let i = 1; i <= 3; i++) {
+        options[`option${i}`] = item[`option${i}`];
+      }
+      return options;
+    });
+    return allVariants;
+  }
+
   updateCurrentVariant = () => {
     const variants = this.getVariantData();
     const matchingVariant = variants.find(variant => {
@@ -126,11 +148,40 @@ class Prodify {
   }
 
   onVariantChange = (event) => {
+    this.lastSelectedOption = event.target.querySelector('option:checked')
+
+    this.latestOptionPosition = this.lastSelectedOption.dataset.optionPosition
+    this.latestOptionValue = this.lastSelectedOption.value
+
+    const allOptionElements = Array.from(this.el.querySelectorAll(`option`))
+
+    allOptionElements.forEach((option) => {
+      option.innerHTML = option.value + ' - Unavailable'
+    })
+
+    const allMatchingVariantsOptions = this.getAllMatchingVariantsOptions(this.getVariantData(), `${this.latestOptionPosition}`, this.latestOptionValue)
+
+    allMatchingVariantsOptions.forEach((option) => {
+
+      for (const [key, value] of Object.entries(option)) {
+        const optionEl = document.querySelector(`option[data-option-position="${key}"][value="${value}"]`)
+        optionEl.innerHTML = value + ' - Sold out'
+      }
+    })
+
+    const availableVariantsOptions = this.getAvailableVariantsOptions(this.getVariantData(), `${this.latestOptionPosition}`, this.latestOptionValue)
+
+    availableVariantsOptions.forEach((option) => {
+      
+      for (const [key, value] of Object.entries(option)) {
+        const optionEl = document.querySelector(`option[data-option-position="${key}"][value="${value}"]`)
+        optionEl.innerHTML = value
+      }
+    })
+
     this.updateCurrentOptions()
     this.updateCurrentVariant()
     this.updateAddButtonDom(true, '', false)
-    this.compareInputValues()
-    this.setOptionSelected(event.target)
 
     if (!this.currentVariant) {
       this.updateAddButtonDom(true, this.textStrings.addButtonTextUnavailable, true)
@@ -139,83 +190,6 @@ class Prodify {
 
       this.swapProductInfo()
     }
-  }
-
-  setOptionSelected(select) {
-    if (this.pickerType == 'select') {
-      const options = Array.from(select.querySelectorAll('option'))
-      const currentValue = select.value
-
-      options.forEach((option) => {
-        if (option.value === currentValue) {
-          option.setAttribute('selected', 'selected')
-        } else {
-          option.removeAttribute('selected')
-        }
-      })
-    }
-  }
-
-  compareInputValues() {
-    const variantsMatchingOptionOneSelected = this.variantData.filter(
-      // Grab the first checked input and compare it to the variant option1
-      // return an array of variants where the option1 matches the checked input
-      (variant) => this.el.querySelector(':checked').value === variant.option1
-    )
-
-    const inputWrappers = [...this.el.querySelectorAll(this.selectors.optionContainer)]
-    inputWrappers.forEach((option, index) => {
-      if (index === 0) return
-      const optionInputs = [...option.querySelectorAll('input[type="radio"], option')]
-      const previousOptionSelected = inputWrappers[index - 1].querySelector(':checked').value
-      const availableOptionInputsValues = variantsMatchingOptionOneSelected
-        .filter(
-          // 
-          (variant) => variant.available && variant[`option${index}`] === previousOptionSelected
-        )
-        .map((variantOption) => variantOption[`option${index + 1}`])
-
-      const existingOptionInputsValues = variantsMatchingOptionOneSelected
-        .filter(
-          // 
-          (variant) => variant[`option${index}`] === previousOptionSelected
-        )
-        .map((variantOption) => variantOption[`option${index + 1}`])
-
-      this.setInputAvailability(optionInputs, availableOptionInputsValues, existingOptionInputsValues)
-    })
-  }
-
-  setInputAvailability(optionInputs, availableOptionValues, existingOptionInputsValues) {
-    optionInputs.forEach((input) => {
-      if (availableOptionValues.includes(input.getAttribute('value'))) {
-        if (this.pickerType == 'select') {
-          input.innerText = input.getAttribute('value')
-          return
-        }
-        input.classList.remove('disabled')
-      } else {
-        if (existingOptionInputsValues.includes(input.getAttribute('value')) && this.settings.showSoldOutLabels) {
-          if (this.pickerType == 'select') {
-            input.innerText = this.textStrings.soldOutVariantValueLabel.replace(
-              '[value]',
-              input.getAttribute('value')
-            )
-            return
-          }
-          input.classList.add('disabled')
-        } else {
-          if (this.pickerType == 'select') {
-            input.innerText = this.textStrings.unavailableVariantValueLabel.replace(
-              '[value]',
-              input.getAttribute('value')
-            )
-            return
-          }
-          input.classList.add('disabled')
-        }
-      }
-    })
   }
 
   swapProductInfo = () => {

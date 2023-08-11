@@ -1,36 +1,35 @@
 {% schema %}
-{
-  "name": "Product Section",
-  "class": "section-main-product",
-  "tag": "section",
-  "settings": [
-    {
-      "type": "radio",
-      "id": "picker_type",
-      "label": "Variant Picker Type",
-      "options": [
-        {
-          "value": "radio",
-          "label": "Radio Buttons"
-        },
-        {
-          "value": "select",
-          "label": "Select Dropdowns"
-        }
-      ],
-      "default": "radio"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_image_zoom",
-      "label": "Enable Image Zoom",
-      "default": true
-    }
-  ]
-}
+  {
+    "name": "Product Section",
+    "class": "section-main-product",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "radio",
+        "id": "picker_type",
+        "label": "Variant Picker Type",
+        "options": [
+          {
+            "value": "radio",
+            "label": "Radio Buttons"
+          }, {
+            "value": "select",
+            "label": "Select Dropdowns"
+          }
+        ],
+        "default": "radio"
+      }, {
+        "type": "checkbox",
+        "id": "enable_image_zoom",
+        "label": "Enable Image Zoom",
+        "default": true
+      }
+    ]
+  }
 {% endschema %}
 
 <script defer src="{{ 'prodify.static.js' | asset_url }}"></script>
+
 
 <div
   class="shopify-section-main-product-inner max-w-[1200px] mx-auto"
@@ -38,18 +37,23 @@
   data-id="{{ product.id }}"
   data-url="{{ product.url }}"
   data-section="{{ section.id }}"
-  data-prodify="{{ section.settings.picker_type }}"
->
+  data-prodify="{{ section.settings.picker_type }}">
   <script type="application/json" data-prodify-variants-json>
     {{ product.variants | json }}
   </script>
-  <a class="skip-to-content-link" href="#product-info-{{ section.id }}"> Skip to product info </a>
+
+  <a class="skip-to-content-link" href="#product-info-{{ section.id }}">
+    Skip to product info
+  </a>
   <div class="flex pdp-main" style="position: relative;">
     <div class="media" data-prodify-media-container>
       <span style="position: absolute; top: 0; left: 0; z-index: 1; font-size: 10px;">
         {{ product.selected_or_first_available_variant.id }}
       </span>
-      <div class="image-wrapper" style="padding-top: 137%; overflow: hidden;" data-image-zoom-container>
+      <div
+        class="image-wrapper"
+        style="padding-top: 137%; overflow: hidden;"
+        data-image-zoom-container>
         {% if product.selected_variant and product.selected_variant.image %}
           {% assign media = product.selected_variant.image %}
         {% else %}
@@ -67,10 +71,9 @@
           width="{{ media.width }}"
           class="absolute h-full w-full object-cover"
           loading="eager"
-          data-zoom="{{ media | image_url }}"
-        >
+          data-zoom="{{ media | image_url }}">
         <h1 class="text-4xl z-50 relative">
-          {{  product.selected_or_first_available_variant.options  }}
+          {{ product.selected_or_first_available_variant.options }}
         </h1>
       </div>
     </div>
@@ -78,7 +81,7 @@
       <p class="caption">{{ product.type | upcase }}</p>
       <h1>{{ product.title }}</h1>
       <div class="flex items-center py-2" data-prodify-price-container>
-        <span class="sr-only">Regular Price</span> 
+        <span class="sr-only">Regular Price</span>
         {% if product.selected_or_first_available_variant.compare_at_price %}
           <span class="line-through">
             {{ product.selected_or_first_available_variant.compare_at_price | money }}
@@ -89,11 +92,10 @@
         </span>
       </div>
 
-      {% render 'product-variant-picker',
-        product: product,
-        product_form_id: 'product-form-id',
-        picker_type: section.settings.picker_type
-      %}
+      {% render 'product-variant-picker'
+       , product: product,
+       product_form_id: 'product-form-id',
+       picker_type: section.settings.picker_type %}
 
       <div class="quantity-row">
         <label for="quantity-control-input">Quantity</label>
@@ -107,8 +109,7 @@
             id="quantity-control-input"
             value="1"
             disabled=""
-            data-prodify-quantity-presentation
-          >
+            data-prodify-quantity-presentation>
           <button type="button" data-prodify-quantity-increment>
             {% render 'icon-plus' %}
           </button>
@@ -120,19 +121,23 @@
         id="product_form_id"
         class="product-form"
         novalidate="novalidate"
-        data-prodify-product-form
-      >
-        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-        <input type="hidden" name="quantity" value="1">
+        data-prodify-product-form>
+        <input
+          type="hidden"
+          name="id"
+          value="{{ product.selected_or_first_available_variant.id }}">
+        <input
+          type="hidden"
+          name="quantity"
+          value="1">
         <div class="mb-[10px]">
           <button
             type="submit"
             name="add"
             class="px-6 hover:bg-cloud-burst-400 bg-cloud-burst-500 text-white w-full h-12 cursor-pointer disabled:cursor-default disabled:bg-gray-200 disabled:text-black"
             {% if product.selected_or_first_available_variant.available == false %}
-              disabled
-            {% endif %}
-          >
+            disabled
+            {% endif %}>
             <span>
               {%- if product.selected_or_first_available_variant.available -%}
                 Add to cart
@@ -142,20 +147,19 @@
             </span>
           </button>
         </div>
-        <div data-ajax-cart-messages="form">
-          <!-- Error messages appear here -->
+        <div data-ajax-cart-messages="form"><!-- Error messages appear here -->
         </div>
         {% comment %}
-          {%- if product.selected_or_first_available_variant.available -%}
-            <a
-              type="button"
-              class="w-full h-12 px-6 text-white bg-cloud-burst-500 flex items-center justify-center hover:after:border-offset-1"
-              :href="`/cart/${selectedVariant}:1`"
-              x-show="showBuyNow"
-            >
-              Buy it now
-            </a>
-          {%- endif -%}
+        {%- if product.selected_or_first_available_variant.available -%}
+        <a
+        type="button"
+        class="w-full h-12 px-6 text-white bg-cloud-burst-500 flex items-center justify-center hover:after:border-offset-1"
+        :href="`/cart/${selectedVariant}:1`"
+        x-show="showBuyNow"
+        >
+        Buy it now
+        </a>
+        {%- endif -%}
         {% endcomment %}
       </form>
 
@@ -173,11 +177,10 @@
 
   .section-main-product {
     padding: 50px;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Ubuntu, Helvetica Neue, sans-serif,
-      Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Ubuntu, Helvetica Neue, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   }
 
-  @media (max-width: 576px) {
+  @media(max-width: 576px) {
     .section-main-product {
       padding: 15px;
     }
@@ -260,14 +263,7 @@
     cursor: pointer;
   }
 
-  body:not(.using-mouse)
-    .section-main-product
-    .shopify-section-main-product-inner
-    .flex
-    .info
-    fieldset
-    input:focus
-    + label {
+  body:not(.using-mouse) .section-main-product .shopify-section-main-product-inner .flex .info fieldset input:focus + label {
     outline: #08f auto 2px;
   }
 
@@ -296,13 +292,7 @@
     font-size: 14px;
   }
 
-  .section-main-product
-    .shopify-section-main-product-inner
-    .flex
-    .info
-    .quantity-row
-    .quantity-control-container
-    button {
+  .section-main-product .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container button {
     width: 45px;
     height: 45px;
     appearance: none;
@@ -316,24 +306,11 @@
     cursor: pointer;
   }
 
-  .section-main-product
-    .shopify-section-main-product-inner
-    .flex
-    .info
-    .quantity-row
-    .quantity-control-container
-    button
-    svg {
+  .section-main-product .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container button svg {
     width: 10px;
   }
 
-  .section-main-product
-    .shopify-section-main-product-inner
-    .flex
-    .info
-    .quantity-row
-    .quantity-control-container
-    input {
+  .section-main-product .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container input {
     appearance: none;
     -webkit-appearance: none;
     border: none;
@@ -343,20 +320,8 @@
     padding: 0;
   }
 
-  .section-main-product
-    .shopify-section-main-product-inner
-    .flex
-    .info
-    .quantity-row
-    .quantity-control-container
-    input[type='number']::-webkit-inner-spin-button,
-  .section-main-product
-    .shopify-section-main-product-inner
-    .flex
-    .info
-    .quantity-row
-    .quantity-control-container
-    input[type='number']::-webkit-outer-spin-button {
+  .section-main-product .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container input[type='number']::-webkit-inner-spin-button,
+  .section-main-product .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
