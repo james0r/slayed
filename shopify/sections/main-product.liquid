@@ -78,10 +78,10 @@
       <p class="caption">{{ product.type | upcase }}</p>
       <h1>{{ product.title }}</h1>
       <div class="flex items-center py-2" data-prodify-price-container>
-        <span class="sr-only">Regular Price</span>
+        <span class="sr-only">Regular Price</span> 
         {% if product.selected_or_first_available_variant.compare_at_price %}
           <span class="line-through">
-            {{ product.selected_or_first_available_variant.compare_at_price }}
+            {{ product.selected_or_first_available_variant.compare_at_price | money }}
           </span>
         {% endif %}
         <span>

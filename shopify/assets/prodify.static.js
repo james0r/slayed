@@ -33,7 +33,7 @@ class Prodify {
 
     this.initEventListeners()
 
-    this.el.dispatchEvent(new Event('change'));
+    // this.el.dispatchEvent(new Event('change'));
   }
 
   initEventListeners = () => {
@@ -54,17 +54,13 @@ class Prodify {
     }
   }
 
-  updateMasterId = () => {
-    // Find and return a variant where every option matches the variant option in the lopp. 
-
-    const matchingVariant = this.getVariantData().find(variant => {
-      const optionMatches = variant.options.map((option, index) => {
+  updateCurrentVariant = () => {
+    const variants = this.getVariantData();
+    const matchingVariant = variants.find(variant => {
+      return variant.options.every((option, index) => {
         return this.options[index] === option;
       });
-
-      return !optionMatches.includes(false);
     });
-
     this.currentVariant = matchingVariant;
   };
 
@@ -129,11 +125,12 @@ class Prodify {
     }
   }
 
-  onVariantChange = () => {
+  onVariantChange = (event) => {
     this.updateCurrentOptions()
-    this.updateMasterId()
+    this.updateCurrentVariant()
     this.updateAddButtonDom(true, '', false)
-    this.updateVariantsDom()
+    this.compareInputValues()
+    this.setOptionSelected(event.target)
 
     if (!this.currentVariant) {
       this.updateAddButtonDom(true, this.textStrings.addButtonTextUnavailable, true)
@@ -144,12 +141,30 @@ class Prodify {
     }
   }
 
-  updateVariantsDom() {
+  setOptionSelected(select) {
+    console.log(select)
+
+    if (this.pickerType == 'select') {
+      const options = Array.from(select.querySelectorAll('option'))
+      const currentValue = select.value
+
+      options.forEach((option) => {
+        if (option.value === currentValue) {
+          option.setAttribute('selected', 'selected')
+        } else {
+          option.removeAttribute('selected')
+        }
+      })
+    }
+  }
+
+  compareInputValues() {
     const variantsMatchingOptionOneSelected = this.variantData.filter(
       // Grab the first checked input and compare it to the variant option1
       // return an array of variants where the option1 matches the checked input
       (variant) => this.el.querySelector(':checked').value === variant.option1
     )
+
     const inputWrappers = [...this.el.querySelectorAll(this.selectors.optionContainer)]
     inputWrappers.forEach((option, index) => {
       if (index === 0) return
@@ -161,8 +176,6 @@ class Prodify {
           (variant) => variant.available && variant[`option${index}`] === previousOptionSelected
         )
         .map((variantOption) => variantOption[`option${index + 1}`])
-
-      console.log(availableOptionInputsValues)
 
       const existingOptionInputsValues = variantsMatchingOptionOneSelected
         .filter(
