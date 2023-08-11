@@ -24,6 +24,7 @@
     {{ content_for_header }}
 
     {% render 'head-css' %}
+    {% render 'head-scripts' %}
 
     {{ 'bundle.js' | asset_url | preload_tag: as: 'script' }}
     {{ 'bundle.css' | asset_url | stylesheet_tag: preload: true }}

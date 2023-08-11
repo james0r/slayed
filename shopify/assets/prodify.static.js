@@ -1,5 +1,10 @@
-class SlayedProdify {
-  constructor() {
+class Prodify {
+  constructor(settings) {
+    this.settings = {
+      showSoldOutLabels: false,
+      ...settings
+    }
+
     this.el = document.querySelector('[data-prodify]')
     this.pickerType = this.el.dataset.prodify
 
@@ -16,7 +21,8 @@ class SlayedProdify {
 
     this.textStrings = {
       addToCart: 'Add to Cart',
-      unavailableVariantLabel: '[value] - Unavailable',
+      unavailableVariantValueLabel: '[value] - Unavailable',
+      soldOutVariantValueLabel: '[value] - Sold Out',
       addButtonTextUnavailable: 'Unavailable',
     }
 
@@ -26,6 +32,8 @@ class SlayedProdify {
     this.quantityHiddenInput = this.el.querySelector('input[name="quantity"]')
 
     this.initEventListeners()
+
+    this.el.dispatchEvent(new Event('change'));
   }
 
   initEventListeners = () => {
@@ -138,6 +146,8 @@ class SlayedProdify {
 
   updateVariantsDom() {
     const variantsMatchingOptionOneSelected = this.variantData.filter(
+      // Grab the first checked input and compare it to the variant option1
+      // return an array of variants where the option1 matches the checked input
       (variant) => this.el.querySelector(':checked').value === variant.option1
     )
     const inputWrappers = [...this.el.querySelectorAll(this.selectors.optionContainer)]
@@ -147,11 +157,53 @@ class SlayedProdify {
       const previousOptionSelected = inputWrappers[index - 1].querySelector(':checked').value
       const availableOptionInputsValues = variantsMatchingOptionOneSelected
         .filter(
+          // 
           (variant) => variant.available && variant[`option${index}`] === previousOptionSelected
         )
         .map((variantOption) => variantOption[`option${index + 1}`])
 
-      this.setInputAvailability(optionInputs, availableOptionInputsValues)
+      console.log(availableOptionInputsValues)
+
+      const existingOptionInputsValues = variantsMatchingOptionOneSelected
+        .filter(
+          // 
+          (variant) => variant[`option${index}`] === previousOptionSelected
+        )
+        .map((variantOption) => variantOption[`option${index + 1}`])
+
+      this.setInputAvailability(optionInputs, availableOptionInputsValues, existingOptionInputsValues)
+    })
+  }
+
+  setInputAvailability(optionInputs, availableOptionValues, existingOptionInputsValues) {
+    optionInputs.forEach((input) => {
+      if (availableOptionValues.includes(input.getAttribute('value'))) {
+        if (this.pickerType == 'select') {
+          input.innerText = input.getAttribute('value')
+          return
+        }
+        input.classList.remove('disabled')
+      } else {
+        if (existingOptionInputsValues.includes(input.getAttribute('value')) && this.settings.showSoldOutLabels) {
+          if (this.pickerType == 'select') {
+            input.innerText = this.textStrings.soldOutVariantValueLabel.replace(
+              '[value]',
+              input.getAttribute('value')
+            )
+            return
+          }
+          input.classList.add('disabled')
+        } else {
+          if (this.pickerType == 'select') {
+            input.innerText = this.textStrings.unavailableVariantValueLabel.replace(
+              '[value]',
+              input.getAttribute('value')
+            )
+            return
+          }
+          input.classList.add('disabled')
+        }
+      }
     })
   }
 
@@ -202,40 +254,18 @@ class SlayedProdify {
     }
   }
 
-  setInputAvailability(listOfOptions, listOfAvailableOptions) {
-    listOfOptions.forEach((input) => {
-      if (listOfAvailableOptions.includes(input.getAttribute('value'))) {
-        if (this.pickerType == 'select') {
-          input.innerText = input.getAttribute('value')
-          return
-        }
-        input.classList.remove('disabled')
-      } else {
-        if (this.pickerType == 'select') {
-          input.innerText = this.textStrings.unavailableVariantLabel.replace(
-            '[value]',
-            input.getAttribute('value')
-          )
-          return
-        }
-        input.classList.add('disabled')
-      }
-    })
-  }
-
   getVariantData = () => {
     this.variantData =
       this.variantData || JSON.parse(this.el.querySelector(this.selectors.variantsJson).textContent)
     return this.variantData
   }
-
-
 }
 
-if (window.slayedNamespace && window[slayedNamespace]) {
-  window[slayedNamespace].SlayedProdify = new SlayedProdify()
-} else {
-  window.SlayedProdify = new SlayedProdify()
-}
+document.addEventListener('DOMContentLoaded', () => {
+  window.prodify = new Prodify({
+    showSoldOutLabels: false
+  })
+})
+
 
 
