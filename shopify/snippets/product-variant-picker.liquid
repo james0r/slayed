@@ -33,6 +33,7 @@
             class="select__select p-2 my-2 border border-gray-500 rounded-lg w-full"
             name="options[{{ option.name | escape }}]"
             form="{{ product_form_id }}"
+            data-option-position="{{ forloop.index }}"
           >
             {% render 'product-variant-options', product: product, option: option, picker_type: picker_type %}
           </select>

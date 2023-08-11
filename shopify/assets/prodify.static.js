@@ -20,10 +20,10 @@ class Prodify {
     }
 
     this.textStrings = {
-      addToCart: 'Add to Cart',
-      unavailableVariantValueLabel: '[value] - Unavailable',
+      addToCart: window.variantStrings.addToCart,
+      unavailableVariantValueLabel: this-variantStrings.unavailable_with_option,
       soldOutVariantValueLabel: '[value] - Sold Out',
-      addButtonTextUnavailable: 'Unavailable',
+      addButtonTextUnavailable: window.variantStrings.unavailable,
     }
 
     this.quantityIncrementButton = this.el.querySelector(this.selectors.quantityIncrement)
@@ -136,14 +136,12 @@ class Prodify {
       this.updateAddButtonDom(true, this.textStrings.addButtonTextUnavailable, true)
     } else {
       this.updateURL()
-      this.updateVariantInput()
+
       this.swapProductInfo()
     }
   }
 
   setOptionSelected(select) {
-    console.log(select)
-
     if (this.pickerType == 'select') {
       const options = Array.from(select.querySelectorAll('option'))
       const currentValue = select.value
@@ -279,6 +277,3 @@ document.addEventListener('DOMContentLoaded', () => {
     showSoldOutLabels: false
   })
 })
-
-
-
