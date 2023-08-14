@@ -128,15 +128,15 @@ class Prodify {
   onVariantChange = (event) => {
     this.updateCurrentOptions()
     this.updateCurrentVariant()
-    this.updateVariantIdInput()
     this.updateAddButtonDom(true, '', false)
     this.compareInputValues()
     this.setOptionSelected(event.target)
-
+    
     if (!this.currentVariant) {
       this.updateAddButtonDom(true, this.textStrings.addButtonTextUnavailable, true)
     } else {
       this.updateURL()
+      this.updateVariantIdInput()
       this.swapProductInfo()
     }
   }
