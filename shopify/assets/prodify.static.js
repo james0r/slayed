@@ -87,7 +87,7 @@ class Prodify {
     })
   }
 
-  updateVariantInput() {
+  updateVariantIdInput() {
     const productForms = document.querySelectorAll(this.selectors.productForm)
     productForms.forEach((productForm) => {
       const input = productForm.querySelector('input[name="id"]')
@@ -128,6 +128,7 @@ class Prodify {
   onVariantChange = (event) => {
     this.updateCurrentOptions()
     this.updateCurrentVariant()
+    this.updateVariantIdInput()
     this.updateAddButtonDom(true, '', false)
     this.compareInputValues()
     this.setOptionSelected(event.target)
@@ -136,7 +137,6 @@ class Prodify {
       this.updateAddButtonDom(true, this.textStrings.addButtonTextUnavailable, true)
     } else {
       this.updateURL()
-
       this.swapProductInfo()
     }
   }

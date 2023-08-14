@@ -31,8 +31,8 @@ export default {
       },
       onWindowScrollHandler() {
         var scrollTop =
-          window.pageYOffset !== undefined
-            ? window.pageYOffset
+          window.scrollY !== undefined
+            ? window.scrollY
             : (document.documentElement || document.body.parentNode || document.body).scrollTop
 
         if (scrollTop > 0) {

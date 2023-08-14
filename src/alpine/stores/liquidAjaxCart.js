@@ -9,30 +9,24 @@ export default {
   store() {
     return {
       init() {
-        document.addEventListener('alpine:init', () => {
+        subscribeToCartAjaxRequests((requestState, subscribeToResult) => {
+          if (requestState.requestType === 'add') {
 
-          subscribeToCartAjaxRequests((requestState, subscribeToResult) => {
-            if (requestState.requestType === 'add') {
-              document
-                .querySelectorAll('[data-ajax-cart-messages="form"]')
-                .forEach((element) => (element.innerHTML = ''))
-
-              subscribeToResult((requestState) => {
-                if (requestState.responseData?.ok) {
-                  window.Alpine.store('global').isMinicartVisible = true
-                }
-              })
-            }
-          })
-
-          subscribeToCartStateUpdate((state) => {
-            window.Alpine.store('liquidAjaxCart', {
-              state: state,
+            subscribeToResult((requestState) => {
+              if (requestState.responseData?.ok) {
+                window.Alpine.store('global').isMinicartVisible = true
+              }
             })
-          })
-
-          cartRequestGet()
+          }
         })
+
+        subscribeToCartStateUpdate((state) => {
+          window.Alpine.store('liquidAjaxCart', {
+            state: state,
+          })
+        })
+
+        cartRequestGet()
       },
     }
   },

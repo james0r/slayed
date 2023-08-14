@@ -205,7 +205,8 @@ class Prodify {
         const addButtonSource = responseHTML.querySelector(
           `${this.selectors.productForm} [name="add"]`
         )
-        const addButtonTarget = this.el.querySelector(`${this.selectors.productForm} [name="add"]`)
+        const addButtonTarget = this.el.
+        querySelector(`${this.selectors.productForm} [name="add"]`)
 
         if (priceSource && priceTarget) {
           priceTarget.replaceWith(priceSource)
