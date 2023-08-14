@@ -28,13 +28,6 @@
 
     {{ 'bundle.js' | asset_url | preload_tag: as: 'script' }}
     {{ 'bundle.css' | asset_url | stylesheet_tag: preload: true }}
-
-    <script>
-      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
-      if (Shopify.designMode) {
-        document.documentElement.classList.add('shopify-design-mode');
-      }
-    </script>
   </head>
 
   {% liquid
