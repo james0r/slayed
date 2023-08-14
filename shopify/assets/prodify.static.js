@@ -32,8 +32,6 @@ class Prodify {
     this.quantityHiddenInput = this.el.querySelector('input[name="quantity"]')
 
     this.initEventListeners()
-
-    // this.el.dispatchEvent(new Event('change'));
   }
 
   initEventListeners = () => {

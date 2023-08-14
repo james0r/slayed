@@ -36,7 +36,9 @@
   data-id="{{ product.id }}"
   data-url="{{ product.url }}"
   data-section="{{ section.id }}"
-  data-prodify="{{ section.settings.picker_type }}">
+  data-prodify="{{ section.settings.picker_type }}"
+  >
+
   <script type="application/json" data-prodify-variants-json>
     {{ product.variants | json }}
   </script>
