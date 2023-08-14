@@ -239,6 +239,7 @@
         "title": "Contact form",
         "name": "Name",
         "email": "Email",
+        "subject": "Subject",
         "phone": "Phone number",
         "comment": "Comment",
         "send": "Send",
