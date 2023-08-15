@@ -1,14 +1,15 @@
 import Alpine from 'alpinejs'
 import AlpineCollapse from '@alpinejs/collapse'
 import AlpineFocus from '@alpinejs/focus'
-import AlpineTest from './alpine/plugins/test'
+import AlpinePredictify from './alpine/plugins/predictify'
+import AlpineScrolled from './alpine/plugins/scrolled'
 import AlpineGlobals from './alpine/index.js'
 
 import helpers from './helpers.js'
 import './a11y.js'
 import './css/site.css'
 
-const ns = 'slayed' 
+const ns = 'slayed'
 
 window.slayedNamespace = ns
 window[ns] = (window[ns] || {})
@@ -21,7 +22,14 @@ for (const [key, value] of Object.entries(helpers)) {
 // Register and initialize AlpineJS
 window.Alpine = Alpine
 
-Alpine.plugin([AlpineCollapse, AlpineFocus, AlpineTest])
+Alpine.plugin(
+  [
+    AlpineCollapse,
+    AlpineFocus,
+    AlpinePredictify,
+    AlpineScrolled
+  ]
+)
 AlpineGlobals.register(Alpine)
 Alpine.start()
 

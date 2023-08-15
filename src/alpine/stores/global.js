@@ -36,10 +36,10 @@ export default {
             : (document.documentElement || document.body.parentNode || document.body).scrollTop
 
         if (scrollTop > 0) {
-          document.body.classList.add('scrolled')
+          // document.body.classList.add('scrolled') 
           this.isWindowScrolled = true
         } else {
-          document.body.classList.remove('scrolled')
+          // document.body.classList.remove('scrolled')
           this.isWindowScrolled = false
         }
       },

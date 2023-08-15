@@ -15,6 +15,7 @@
 {% endschema %}
 
 <script src="{{ 'predictive-search.static.js' | asset_url }}" defer="defer"></script>
+
 <predictive-search
   x-data
   x-cloak
@@ -72,7 +73,7 @@
         </button>
       </div>
       <input name="options[prefix]" type="hidden" value="last">
-      <div id="predictive-search" tabindex="-1"></div>
+      <div id="predictive-search-target" tabindex="-1"></div>
     </form>
   </div>
 </predictive-search>

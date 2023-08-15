@@ -3,7 +3,7 @@ class PredictiveSearch extends HTMLElement {
     super();
 
     this.input = this.querySelector('input[type="search"]');
-    this.predictiveSearchResults = this.querySelector('#predictive-search-target');
+    this.predictiveSearchResults = this.querySelector('#predictive-search');
 
     this.input.addEventListener('input', this.debounce((event) => {
       this.onChange(event);
@@ -61,4 +61,21 @@ class PredictiveSearch extends HTMLElement {
     };
   }
 }
-customElements.define('predictive-search', PredictiveSearch);
+
+export default function (Alpine) {
+  Alpine.directive('predictify', (
+    el,
+    { value, modifiers, expression },
+    { Alpine, effect, cleanup, evaluate, evaluateLater }
+  ) => {
+    if (value) return
+
+    const inputSelector = el.getAttribute('x-test:input') ? el.getAttribute('x-test:input') : 'input[type="search"]'
+    const targetSelector = el.getAttribute('x-test:target') ? el.getAttribute('x-test:target') : '#predictive-search-target'
+
+    console.log(inputSelector, targetSelector)
+
+    const input = el.querySelector('input[type="search"]')
+  })
+}
+

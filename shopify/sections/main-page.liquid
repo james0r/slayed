@@ -4,11 +4,11 @@
     "class": "section-main-page",
     "tag": "section",
     "settings": [
-       {
-         "type": "image_picker", 
-         "id": "featured_image_esc",
-         "label": "Featured Image"
-       }
+      {
+        "type": "image_picker",
+        "id": "featured_image_esc",
+        "label": "Featured Image"
+      }
     ]
   }
 {% endschema %}
@@ -16,8 +16,13 @@
 <div class="px-6 md:px-8">
   <div class="container py-6 md:py-8">
 
-    <div class="py-8">
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem, beatae.
+    <div class="py-8" x-data="{ message: 'some message' }">
+      <div
+        x-predictify="'message'">
+        I'm the test plugin element.
+      </div>
+      <input type="search">
+      <div></div>
     </div>
 
     <div class="rte">
