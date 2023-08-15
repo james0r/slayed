@@ -22,119 +22,109 @@
     <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 sm:text-xl">
       Got a technical issue? Want to send feedback about a beta feature? Need details about our Business plan? Let us know.
     </p>
-
-    {% comment %}
-      {% form 'contact' %}
-        <input type="text" name="contact[email]" placeholder="Email">
-        <input type="text" name="contact[body]" placeholder="Body">
-        <input type="submit" value="Submit">
-      {% endform %}
-    {% endcomment %}
-
-      {%- form 'contact', id: 'contact-form', class: 'space-y-4' -%}
-        {%- if form.posted_successfully? -%}
-          <div
-            class="text-center"
+    {%- form 'contact', id: 'contact-form', class: 'space-y-4' -%}
+      {%- if form.posted_successfully? -%}
+        <div
+          class="text-center"
+          tabindex="-1"
+          autofocus>
+          {{ 'templates.contact.form.post_success' | t }}
+        </div>
+      {%- elsif form.errors -%}
+        <div class="flex items-center">
+          <div class="mr-2">
+            {% render 'icon-error' %}
+          </div>
+          <h2
+            class=""
+            role="alert"
             tabindex="-1"
             autofocus>
-            {{ 'templates.contact.form.post_success' | t }}
-          </div>
-        {%- elsif form.errors -%}
-          <div class="flex items-center">
-            <div class="mr-2">
-              {% render 'icon-error' %}
-            </div>
-            <h2
-              class=""
-              role="alert"
-              tabindex="-1"
-              autofocus>
-              {{ 'templates.contact.form.error_heading' | t }}
-            </h2>
-          </div>
-          <ul class="form-status-list caption-large" role="list">
-            <li>
-              <a href="#ContactForm-email" class="">
-                {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
-              </a>
-            </li>
-          </ul>
-        {%- endif -%}
-  
-        <div>
-          <label for="ContactForm-name" class="block mb-2 text-sm font-medium text-gray-900">
-            {{ 'templates.contact.form.name' | t }}
-          </label>
-          <input
-            type="name"
-            name="contact[name]"
-            id="ContactForm-name"
-            value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
-            placeholder="{{ 'templates.contact.form.name' | t }}"
-            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-            required>
+            {{ 'templates.contact.form.error_heading' | t }}
+          </h2>
         </div>
-        <div>
-          <label for="ContactForm-email" class="block mb-2 text-sm font-medium text-gray-900">
-            {{ 'templates.contact.form.email' | t }}
-            <span aria-hidden="true" class="text-red-500">*</span>
-          </label>
-          <input
-            autocomplete="email"
-            type="email"
-            id="ContactForm-email"
-            name="contact[email]"
-            spellcheck="false"
-            autocapitalize="off"
-            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-            value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
-            aria-required="true"
-            {% if form.errors contains 'email' %}
-            aria-invalid="true"
-            aria-describedby="ContactForm-email-error"
-            {% endif %}
-            placeholder="{{ 'templates.contact.form.email' | t }}">
-          {%- if form.errors contains 'email' -%}
-            <small class="block mt-2" id="ContactForm-email-error">
-              <span class="visually-hidden sr-only">{{ 'accessibility.error' | t }}</span>
-              <span class="flex items-center">
-                <div class="mr-2">
-                  {% render 'icon-error' %}
-                </div>
-                <span>
-                  {{ form.errors.translated_fields['email'] | capitalize }}
-                  {{ form.errors.messages['email'] }}
-                </span>
-              </span>
-            </small>
-          {%- endif -%}
-        </div>
-        <div>
-          <label for="contact-form-subject" class="block mb-2 text-sm font-medium text-gray-900">Subject</label>
-          <input
-            autocomplete="subject"
-            type="text"
-            id="contact-form-subject"
-            name="contact[subject]"
-            class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500"
-            placeholder="Let us know how we can help you">
-        </div>
-        <div class="sm:col-span-2">
-          <label for="contact-form-comment" class="block mb-2 text-sm font-medium text-gray-900">
-            {{ 'templates.contact.form.comment' | t }}
-          </label>
-          <textarea
-            id="contact-form-comment"
-            name="contact[body]"
-            rows="6"
-            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
-            placeholder="Leave a comment..."></textarea>
-        </div>
-  
-        <button type="submit" class="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-blue-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300">
-          {{ 'templates.contact.form.send' | t }}
-        </button>
-      {%- endform -%}
+        <ul class="form-status-list caption-large" role="list">
+          <li>
+            <a href="#ContactForm-email" class="">
+              {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+            </a>
+          </li>
+        </ul>
+      {%- endif -%}
 
+      <div>
+        <label for="ContactForm-name" class="block mb-2 text-sm font-medium text-gray-900">
+          {{ 'templates.contact.form.name' | t }}
+        </label>
+        <input
+          type="name"
+          name="contact[name]"
+          id="ContactForm-name"
+          value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+          placeholder="{{ 'templates.contact.form.name' | t }}"
+          class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+          required>
+      </div>
+      <div>
+        <label for="ContactForm-email" class="block mb-2 text-sm font-medium text-gray-900">
+          {{ 'templates.contact.form.email' | t }}
+          <span aria-hidden="true" class="text-red-500">*</span>
+        </label>
+        <input
+          autocomplete="email"
+          type="email"
+          id="ContactForm-email"
+          name="contact[email]"
+          spellcheck="false"
+          autocapitalize="off"
+          class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+          value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+          aria-required="true"
+          {% if form.errors contains 'email' %}
+          aria-invalid="true"
+          aria-describedby="ContactForm-email-error"
+          {% endif %}
+          placeholder="{{ 'templates.contact.form.email' | t }}">
+        {%- if form.errors contains 'email' -%}
+          <small class="block mt-2" id="ContactForm-email-error">
+            <span class="visually-hidden sr-only">{{ 'accessibility.error' | t }}</span>
+            <span class="flex items-center">
+              <div class="mr-2">
+                {% render 'icon-error' %}
+              </div>
+              <span>
+                {{ form.errors.translated_fields['email'] | capitalize }}
+                {{ form.errors.messages['email'] }}
+              </span>
+            </span>
+          </small>
+        {%- endif -%}
+      </div>
+      <div>
+        <label for="contact-form-subject" class="block mb-2 text-sm font-medium text-gray-900">Subject</label>
+        <input
+          autocomplete="subject"
+          type="text"
+          id="contact-form-subject"
+          name="contact[subject]"
+          class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500"
+          placeholder="Let us know how we can help you">
+      </div>
+      <div class="sm:col-span-2">
+        <label for="contact-form-comment" class="block mb-2 text-sm font-medium text-gray-900">
+          {{ 'templates.contact.form.comment' | t }}
+        </label>
+        <textarea
+          id="contact-form-comment"
+          name="contact[body]"
+          rows="6"
+          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
+          placeholder="Leave a comment..."></textarea>
+      </div>
+
+      <button type="submit" class="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-blue-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300">
+        {{ 'templates.contact.form.send' | t }}
+      </button>
+    {%- endform -%}
   </div>
 </div>

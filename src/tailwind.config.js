@@ -43,6 +43,25 @@ module.exports = {
       fontFamily: {
         'open-sans': ['"Open Sans"', 'sans-serif'],
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            color: 'var(--color-neutral-400)',
+            iframe: {
+              width: '100%',
+              height: '100%',
+              aspectRatio: '16/9'
+            },
+            a: {
+              color: 'var(--color-secondary-500)',
+              '&:hover': {
+                color: 'var(--color-secondary-200)',
+              },
+            },
+          },
+        },
+      },
       colors: {
         'cloud-burst': {
           DEFAULT: '#252A59',
@@ -75,7 +94,9 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/typography'),
+    require('@tailwindcss/typography')({
+      className: 'rte'
+    }),
     plugin(function ({ addVariant }) {
       addVariant('scrolled', '.scrolled &'),
         addVariant('mobile-menu-visible', '.mobile-menu-visible &')

@@ -1,6 +1,7 @@
 import Alpine from 'alpinejs'
 import AlpineCollapse from '@alpinejs/collapse'
 import AlpineFocus from '@alpinejs/focus'
+import AlpineTest from './alpine/plugins/test'
 import AlpineGlobals from './alpine/index.js'
 
 import helpers from './helpers.js'
@@ -20,7 +21,7 @@ for (const [key, value] of Object.entries(helpers)) {
 // Register and initialize AlpineJS
 window.Alpine = Alpine
 
-Alpine.plugin([AlpineCollapse, AlpineFocus])
+Alpine.plugin([AlpineCollapse, AlpineFocus, AlpineTest])
 AlpineGlobals.register(Alpine)
 Alpine.start()
 
