@@ -1,4 +1,4 @@
-{% schema %}
+{%- schema -%}
   {
     "name": "Contact Section",
     "class": "section-main-contact",
@@ -12,7 +12,7 @@
       }
     ]
   }
-{% endschema %}
+{%- endschema -%}
 
 <div class="bg-white">
   <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
@@ -33,7 +33,7 @@
       {%- elsif form.errors -%}
         <div class="flex items-center">
           <div class="mr-2">
-            {% render 'icon-error' %}
+            {%- render 'icon-error' -%}
           </div>
           <h2
             class=""
@@ -68,7 +68,8 @@
       <div>
         <label for="ContactForm-email" class="block mb-2 text-sm font-medium text-gray-900">
           {{ 'templates.contact.form.email' | t }}
-          <span aria-hidden="true" class="text-red-500">*</span>
+          <span aria-hidden="true" class="text-red-500">*
+          </span>
         </label>
         <input
           autocomplete="email"
@@ -80,17 +81,19 @@
           class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
           value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
           aria-required="true"
-          {% if form.errors contains 'email' %}
+          {%- if form.errors contains 'email' -%}
           aria-invalid="true"
           aria-describedby="ContactForm-email-error"
-          {% endif %}
+          {%- endif -%}
           placeholder="{{ 'templates.contact.form.email' | t }}">
         {%- if form.errors contains 'email' -%}
           <small class="block mt-2" id="ContactForm-email-error">
-            <span class="visually-hidden sr-only">{{ 'accessibility.error' | t }}</span>
+            <span class="visually-hidden sr-only">
+              {{ 'accessibility.error' | t }}
+            </span>
             <span class="flex items-center">
               <div class="mr-2">
-                {% render 'icon-error' %}
+                {%- render 'icon-error' -%}
               </div>
               <span>
                 {{ form.errors.translated_fields['email'] | capitalize }}
@@ -101,7 +104,8 @@
         {%- endif -%}
       </div>
       <div>
-        <label for="contact-form-subject" class="block mb-2 text-sm font-medium text-gray-900">Subject</label>
+        <label for="contact-form-subject" class="block mb-2 text-sm font-medium text-gray-900">Subject
+        </label>
         <input
           autocomplete="subject"
           type="text"
