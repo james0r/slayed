@@ -26,6 +26,7 @@ export default {
     },
   },
   build: {
+    sourcemap: true,
     rollupOptions: {
       input: {
         bundle: resolve(__dirname, '../src/main.js'),
