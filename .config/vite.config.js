@@ -26,7 +26,7 @@ export default {
     },
   },
   build: {
-    sourcemap: true,
+    sourcemap: process.env.NODE_ENV != 'production',
     rollupOptions: {
       input: {
         bundle: resolve(__dirname, '../src/main.js'),
@@ -41,9 +41,12 @@ export default {
       },
       plugins: [
         process.env.NODE_ENV == 'production' &&
-          del({
-            targets: ['../shopify/assets/**/*', '!../shopify/assets/*static*'],
-          }),
+        del({
+          targets: [
+            resolve(__dirname, '../shopify/assets/!(*.static.*)'),
+          ],
+          verbose: true
+        }),
       ],
     },
     outDir: resolve(__dirname, '../shopify/assets'),
