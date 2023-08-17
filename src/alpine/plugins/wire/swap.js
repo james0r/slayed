@@ -15,6 +15,8 @@ export function SwapOuterHTML(target, fragment, onSettleCallback) {
       target.replaceWith(fragment)
     }
   }
+
+  return onSettleCallback()
 }
 
 export function SwapAfterBegin(target, fragment, onSettleCallback) {
