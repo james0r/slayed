@@ -7,25 +7,9 @@ import {
   SwapAfterEnd,
 } from './swap'
 
+import { fetchHTML } from './xhr'
+
 export default function (Alpine) {
-
-  const getFragment = async (endpoint) => {
-    return await fetch(endpoint)
-      .then((response) => response.text())
-      .then((responseText) => {
-        return new DOMParser().parseFromString(responseText, 'text/html')
-      })
-  }
-
-  function isValidCSSSelector(selector) {
-    try {
-      document.createDocumentFragment().querySelector(selector);
-    } catch (e) {
-      console.error(e)
-      return false;
-    }
-    return true;
-  }
 
   function swap(swapStyle, target, fragment, onSettleCallback) {
     switch (swapStyle) {
@@ -52,15 +36,12 @@ export default function (Alpine) {
     }
   }
 
-  Alpine.magic('wire', (el, { Alpine }) => (endpoint, select, target, swapStyle = 'innerHTML', onSettleCallback = () => {}) => {
-
+  Alpine.magic('wire', (el, { Alpine }) => (endpoint, select, target, swapStyle = 'innerHTML', onSettleCallback = () => { }) => {
     endpoint = endpoint || window.location.href
-    target = isValidCSSSelector(target) ? document.querySelector(target) : el
+    target = target ? document.querySelector(target) : el
 
-    getFragment(endpoint).then((response) => {
-      const fragment = isValidCSSSelector(select) ? response.querySelector(select) : response
-
-      console.log(fragment)
+    fetchHTML(endpoint).then((response) => {
+      const fragment = select && response.querySelector(select) ? response.querySelector(select) : response.body
 
       swap(swapStyle, target, fragment, onSettleCallback)
     })

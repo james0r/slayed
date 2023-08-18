@@ -17,14 +17,17 @@
   <div class="container py-6 md:py-8">
 
     <div class="py-8" x-data="{ url: 'https://google.com' }">
-      <ul id="source-container" @click="console.log('im source')">
+      <ul id="source-container">
         <li>source 1</li>
         <li>source 2</li>
         <li>source 3</li>
       </ul>
-      <button @click="$wire(null, '#source-container', '#target-container', 'outerHTML', () => {
-        console.log($el)
-      })">
+      <button @click="$wire(
+          null, 
+          '#source-container', 
+          '#target-container', 
+          'outerHTML'
+        )">
         Click me
       </button>
       <ul id="target-container">

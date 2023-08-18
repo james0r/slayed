@@ -1,6 +1,4 @@
-import {
-  insertNodesBefore
-} from './dom';
+import { insertNodesBefore } from './dom';
 import Alpine from 'alpinejs'
 
 export function SwapOuterHTML(target, fragment, onSettleCallback) {
