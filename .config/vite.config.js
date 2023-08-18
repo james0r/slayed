@@ -45,7 +45,7 @@ export default {
           targets: [
             resolve(__dirname, '../shopify/assets/!(*.static.*)'),
           ],
-          verbose: true
+          verbose: false
         }),
       ],
     },
