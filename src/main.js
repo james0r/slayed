@@ -3,7 +3,6 @@ import Alpine from 'alpinejs'
 import AlpineCollapse from '@alpinejs/collapse'
 import AlpineFocus from '@alpinejs/focus'
 import AlpineMorph from '@alpinejs/morph'
-import AlpinePredictify from './alpine/plugins/predictify'
 import AlpineScrolled from './alpine/plugins/scrolled'
 import AlpineWire from './alpine/plugins/wire'
 
@@ -30,7 +29,6 @@ Alpine.plugin(
   [
     AlpineCollapse,
     AlpineFocus,
-    AlpinePredictify,
     AlpineScrolled,
     AlpineWire,
     AlpineMorph
