@@ -2,6 +2,7 @@ import { resolve } from 'path'
 import del from 'rollup-plugin-delete'
 import ESLintPlugin from '@modyqyw/vite-plugin-eslint'
 import StylelintPlugin from 'vite-plugin-stylelint'
+import FullReload from 'vite-plugin-full-reload'
 
 export default {
   plugins: [
@@ -12,6 +13,10 @@ export default {
     StylelintPlugin({
       files: '../src/**/*.{css,sass,scss}',
       configFile: resolve(__dirname, './.stylelintrc.js'),
+    }),
+    FullReload("/tmp/theme.update", {
+      delay: 2000,
+      root: "/",
     }),
   ],
   clearScreen: false,
