@@ -1,7 +1,5 @@
 import { resolve } from 'path'
-import del from 'rollup-plugin-delete'
 import shopify from 'vite-plugin-shopify'
-import basicSsl from '@vitejs/plugin-basic-ssl'
 import pageReload from 'vite-plugin-page-reload'
 
 export default {
