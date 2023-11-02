@@ -3,7 +3,7 @@
   <head>
     {% render 'head-meta' %}
 
-    <link rel="icon" href="{{ 'favicon.static.ico' | asset_url }}">
+    <link rel="icon" href="{{ 'favicon.ico' | asset_url }}">
     <link rel="canonical" href="{{ canonical_url }}">
     <link
       rel="preconnect"
@@ -26,8 +26,10 @@
     {% render 'head-css' %}
     {% render 'head-scripts' %}
 
-    {{ 'bundle.js' | asset_url | preload_tag: as: 'script' }}
-    {{ 'bundle.css' | asset_url | stylesheet_tag: preload: true }}
+    {% liquid
+      render 'vite-tag' with 'site.css'
+      render 'vite-tag' with 'main.js'
+    %}
   </head>
 
   {% liquid
@@ -45,6 +47,10 @@
     x-data
     x-scrolled
     >
+
+    <div class="bg-purple-500">
+      something 
+    </div>
     
     <a class="skip-to-content-link" href="#main-content">
       Skip to content
@@ -88,7 +94,5 @@
     {% endif %}
 
     {% render 'liquid-ajax-cart' %}
-
-    <script defer src="{{ 'bundle.js' | asset_url }}"></script>
   </body>
 </html>
