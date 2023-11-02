@@ -55,7 +55,7 @@ Set your project namespace variable within **src/main.js**.
 See **Shopify Theme Lab**'s [example](https://github.com/uicrooks/shopify-theme-lab/blob/main/src/main.js) of how they register Vue.js.
 
 ### Static Assets
-Static asset files MUST contain the **static** keyword or they will be overritten during the build process. Ex: `myfile.static.jpg`. This is unchanged, only reimplemented for Vite, from [Shopify Theme Labs Assets](https://uicrooks.github.io/shopify-theme-lab-docs/guide/assets.html#static-files).
+Static asset files MUST contain the **static** keyword or they will be overritten during the build process. Ex: `myfile.jpg`. This is unchanged, only reimplemented for Vite, from [Shopify Theme Labs Assets](https://uicrooks.github.io/shopify-theme-lab-docs/guide/assets.html#static-files).
 
 ## Included Goodies
 
@@ -65,7 +65,7 @@ The Shopify provided predictive search is already included and just needed to be
 ### Prodify
 Prodify is a Slayed rework of the Shopify Dawn theme's custom element logic for handling variant changes, **HATEOAS**-style content swapping, and more.
 
-The unminified script is found at **shopify/assets/prodify.static.js** and its required attributes are already applied within **shopify/sections/main-product.liquid**.
+The unminified script is found at **shopify/assets/prodify.js** and its required attributes are already applied within **shopify/sections/main-product.liquid**.
 
 ## Roadmap
 

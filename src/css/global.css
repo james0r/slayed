@@ -1,7 +1,7 @@
 body {
   box-sizing: border-box;
 
-  header {
+  :is(header) {
     @apply antialiased;
   }
 }

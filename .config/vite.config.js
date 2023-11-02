@@ -1,61 +1,35 @@
 import { resolve } from 'path'
 import del from 'rollup-plugin-delete'
-import ESLintPlugin from '@modyqyw/vite-plugin-eslint'
-import StylelintPlugin from 'vite-plugin-stylelint'
-import FullReload from 'vite-plugin-full-reload'
+import shopify from 'vite-plugin-shopify'
+import basicSsl from '@vitejs/plugin-basic-ssl'
+import pageReload from 'vite-plugin-page-reload'
 
 export default {
+  server: {
+    host: true,
+    https: false,
+    port: 3000
+  },
+  publicDir: resolve(__dirname, '../public'),
   plugins: [
-    ESLintPlugin({
-      overrideConfigFile: resolve(__dirname, './.eslintrc.js'),
-      include: '../src/**/*.{js}',
+    shopify({
+      // Root path to your Shopify theme directory (location of snippets, sections, templates, etc.)
+      themeRoot: resolve(__dirname, '../shopify'),
+      sourceCodeDir: resolve(__dirname, '../src'),
+      // Additional files to use as entry points (accepts an array of file paths or glob patterns)
+      entrypointsDir: resolve(__dirname, '../src/entrypoints'),
+      // additionalEntrypoints: [],
+      // Specifies the file name of the snippet that loads your assets
+      snippetFile: 'vite-tag.liquid'
     }),
-    StylelintPlugin({
-      files: '../src/**/*.{css,sass,scss}',
-      configFile: resolve(__dirname, './.stylelintrc.js'),
-    }),
-    FullReload("/tmp/theme.update", {
-      delay: 2000,
-      root: "/",
-    }),
+    pageReload('/tmp/theme.update', {
+      delay: 1600
+    })
   ],
-  clearScreen: false,
   css: {
     postcss: resolve(__dirname, '../.config/postcss.config.js'),
   },
-  resolve: {
-    extensions: ['*', '.js', '.json'],
-    alias: {
-      '@': resolve(__dirname, '../src/'),
-      '@shopify-directory': resolve(__dirname, '../shopify/'),
-    },
-  },
   build: {
-    sourcemap: process.env.NODE_ENV != 'production',
-    rollupOptions: {
-      input: {
-        bundle: resolve(__dirname, '../src/main.js'),
-      },
-      output: {
-        entryFileNames: `[name].js`,
-        chunkFileNames: `[name].js`,
-        assetFileNames: (assetInfo) =>
-          assetInfo.name.split('/').pop().split('.').shift() == 'main'
-            ? 'bundle.css'
-            : '[name].[ext]',
-      },
-      plugins: [
-        process.env.NODE_ENV == 'production' &&
-        del({
-          targets: [
-            resolve(__dirname, '../shopify/assets/!(*.static.*)'),
-          ],
-          verbose: false
-        }),
-      ],
-    },
-    outDir: resolve(__dirname, '../shopify/assets'),
-    assetsDir: '.',
-    emptyOutDir: false,
-  },
+    sourcemap: true
+  }
 }
