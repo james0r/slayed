@@ -78,7 +78,7 @@
         class="[&>svg]:h-[22px] [&>svg]:w-auto relative text-white p-2"
         x-cloak>
         {% render 'icon-cart' %}
-        <span data-ajax-cart-bind-state="cart.item_count" class="text-cloud-burst-500 absolute top-[58%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12px]">
+        <span data-ajax-cart-bind="item_count" class="text-cloud-burst-500 absolute top-[58%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12px]">
           {{- cart.item_count -}}
         </span>
       </a>
