@@ -8,7 +8,13 @@ const path = require('path')
 let plugin = require('tailwindcss/plugin')
 
 module.exports = {
-  content: require('fast-glob').sync([path.resolve(__dirname, '**/*.js'), path.resolve(__dirname, '../shopify/**/*.liquid')]),
+  content: [
+    './layout/*.liquid',
+    './sections/*.liquid',
+    './snippets/*.liquid',
+    './templates/*.liquid',
+    './frontend/**/*.{js,jsx,ts,tsx}'
+  ],
   safelist: [
     'skip-to-content-link'
   ],

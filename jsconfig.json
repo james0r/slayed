@@ -2,8 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@shopify-directory/*": ["./shopify/*"]
+      "@/*": ["frontend/*"],
+      "~/*": ["frontend/*"],
     }
   }
 }

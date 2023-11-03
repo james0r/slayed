@@ -117,52 +117,54 @@
         </div>
       </div>
 
-      <form
-        action="{{ routes.cart_add_url }}"
-        id="product_form_id"
-        class="product-form"
-        novalidate="novalidate"
-        data-prodify-product-form>
-        <input
-          type="hidden"
-          name="id"
-          value="{{ product.selected_or_first_available_variant.id }}">
-        <input
-          type="hidden"
-          name="quantity"
-          value="1">
-        <div class="mb-[10px]">
-          <button
-            type="submit"
-            name="add"
-            class="px-6 hover:bg-cloud-burst-400 bg-cloud-burst-500 text-white w-full h-12 cursor-pointer disabled:cursor-default disabled:bg-gray-200 disabled:text-black"
-            {% if product.selected_or_first_available_variant.available == false %}
-            disabled
-            {% endif %}>
-            <span>
-              {%- if product.selected_or_first_available_variant.available -%}
-                Add to cart
-              {%- else -%}
-                Sold out
-              {%- endif -%}
-            </span>
-          </button>
-        </div>
-        <div data-ajax-cart-messages="form"><!-- Error messages appear here -->
-        </div>
-        {% comment %}
-        {%- if product.selected_or_first_available_variant.available -%}
-        <a
-        type="button"
-        class="w-full h-12 px-6 text-white bg-cloud-burst-500 flex items-center justify-center hover:after:border-offset-1"
-        :href="`/cart/${selectedVariant}:1`"
-        x-show="showBuyNow"
-        >
-        Buy it now
-        </a>
-        {%- endif -%}
-        {% endcomment %}
-      </form>
+      <ajax-cart-product-form>
+        <form
+          action="{{ routes.cart_add_url }}"
+          id="product_form_id"
+          class="product-form"
+          novalidate="novalidate"
+          data-prodify-product-form>
+          <input
+            type="hidden"
+            name="id"
+            value="{{ product.selected_or_first_available_variant.id }}">
+          <input
+            type="hidden"
+            name="quantity"
+            value="1">
+          <div class="mb-[10px]">
+            <button
+              type="submit"
+              name="add"
+              class="px-6 hover:bg-cloud-burst-400 bg-cloud-burst-500 text-white w-full h-12 cursor-pointer disabled:cursor-default disabled:bg-gray-200 disabled:text-black"
+              {% if product.selected_or_first_available_variant.available == false %}
+              disabled
+              {% endif %}>
+              <span>
+                {%- if product.selected_or_first_available_variant.available -%}
+                  Add to cart
+                {%- else -%}
+                  Sold out
+                {%- endif -%}
+              </span>
+            </button>
+          </div> 
+          <div data-ajax-cart-errors="form"><!-- Error messages appear here -->
+          </div>
+          {% comment %}
+          {%- if product.selected_or_first_available_variant.available -%}
+          <a
+          type="button"
+          class="w-full h-12 px-6 text-white bg-cloud-burst-500 flex items-center justify-center hover:after:border-offset-1"
+          :href="`/cart/${selectedVariant}:1`"
+          x-show="showBuyNow"
+          >
+          Buy it now
+          </a>
+          {%- endif -%}
+          {% endcomment %}
+        </form>
+      </ajax-cart-product-form>
 
       <div class="description rte">
         {{ product.description }}

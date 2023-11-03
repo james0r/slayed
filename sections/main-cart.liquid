@@ -1,0 +1,185 @@
+{% schema %}
+  {
+    "name": "Cart Section",
+    "class": "section-main-collection",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "summary-message",
+        "label": "Cart Summary Message",
+        "default": "Taxes and shipping calculated at checkout"
+      }
+    ]
+  }
+{% endschema %}
+
+<div class="cart px-6 md:px-8 py-12" data-ajax-cart-section>
+  <div class="cart-inner container">
+    {% if cart.item_count > 0 %}
+      <table style="width:100%">
+        <tr style="text-align: left;">
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th></th>
+          <th>Total</th>
+        </tr>
+        {% for line_item in cart.items %}
+          <tr>
+            <td>
+              {{ line_item.title }}
+              <div data-ajax-cart-errors="{{ line_item.key }}" style="color: red; font-size: 10px;">
+                <!-- Error messages appear here -->
+              </div>
+            </td>
+            <td>
+              {{ line_item.price | money }}
+            </td>
+            <td>
+              <ajax-cart-quantity class="flex">
+                <a href="{{ routes.cart_change_url }}?id={{ line_item.key }}&quantity={{ line_item.quantity | minus: 1 | at_least: 1 }}" data-ajax-cart-quantity-minus>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="w-6 h-6">
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.25 12a.75.75 0 01.75-.75h12a.75.75 0 010 1.5H6a.75.75 0 01-.75-.75z"
+                      clip-rule="evenodd" />
+                  </svg>
+
+                </a>   
+                <input
+                  type="number"
+                  value="{{ line_item.quantity }}"
+                  name="updates[]"
+                  data-ajax-cart-quantity-input="{{ line_item.key }}"
+                  style="width: 40px;"
+                  class="noscroll"
+                  readonly>
+                <img
+                  class="loading-indicator"
+                  src="{{ 'loading.gif' | asset_url }}"
+                  alt="Loading Indicator"
+                  role="alert"
+                  aria-busy="false">
+                <a href="{{ routes.cart_change_url }}?id={{ line_item.key }}&quantity={{ line_item.quantity | plus: 1 }}" data-ajax-cart-quantity-plus>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="w-6 h-6">
+                    <path
+                      fill-rule="evenodd"
+                      d="M12 5.25a.75.75 0 01.75.75v5.25H18a.75.75 0 010 1.5h-5.25V18a.75.75 0 01-1.5 0v-5.25H6a.75.75 0 010-1.5h5.25V6a.75.75 0 01.75-.75z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </a>
+              </ajax-cart-quantity>
+            </td>
+            <td>
+              <a href="{{ line_item.url_to_remove }}">Remove</a>
+            </td>
+            <td>
+              {{ line_item.final_line_price | money }}
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+
+      <div class="cart-summary-row">
+        <div class="totals">
+          <h3>Subtotal</h3>
+          <p>{{ cart.original_total_price | money }}</p>
+        </div>
+        <small>{{ section.settings['summary-message'] }}</small>
+        <button
+          class="btn inverted"
+          type="submit"
+          name="checkout"
+          form="cart">
+          {{ 'sections.cart.checkout' | t }}
+        </button>
+      </div>
+    {% else %}
+      <h2>You have no items in your cart.</h2>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener("wheel", function(event){
+    if(document.activeElement.type === "number" &&
+       document.activeElement.classList.contains("noscroll"))
+    {
+        event.preventDefault();
+        document.activeElement.blur();
+    }
+  });
+</script>
+
+<style>
+  .cart .cart-inner .cart-summary-row {
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-line_items: flex-end;
+  }
+
+  .cart a {
+    text-decoration: none;
+  }
+
+  .cart .cart-inner .cart-summary-row .totals {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .cart .cart-inner .cart-summary-row .totals h3 {
+    margin-right: 30px;
+  }
+
+  .cart .cart-inner .cart-summary-row small {
+    margin-bottom: 10px;
+  }
+
+  .cart .cart-inner .cart-summary-row .btn {
+    max-width: 350px;
+  }
+
+  .cart .error-notif {
+    display: block;
+    font-size: 12px;
+    color: red;
+  }
+
+  .cart tr > td,
+  .cart tr > th {
+    padding-bottom: 1em;
+  }
+
+  .cart .loading-indicator {
+    display: none;
+    height: 16px;
+    width: 16px;
+  }
+
+  .cart input[type="number"] {
+    text-align: center;
+  }
+
+  .cart input::-webkit-outer-spin-button,
+  .cart input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
+  .cart input[type=number] {
+    -moz-appearance: textfield;
+    /* Firefox */
+  }
+</style>

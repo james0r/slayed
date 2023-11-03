@@ -1,0 +1,10 @@
+frontend/
+modules/
+package.json
+package-lock.json
+.pnpm-debug.log
+vite.config.ts
+tsconfig.json
+README.md
+jsconfig.json
+postcss.config.cjs

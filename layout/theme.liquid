@@ -3,7 +3,7 @@
   <head>
     {% render 'head-meta' %}
 
-    <link rel="icon" href="{{ 'favicon.static.ico' | asset_url }}">
+    <link rel="icon" href="{{ 'favicon.ico' | asset_url }}">
     <link rel="canonical" href="{{ canonical_url }}">
     <link
       rel="preconnect"
@@ -27,10 +27,10 @@
     {% render 'head-scripts' %}
 
     {% liquid
-      render 'vite-tag' with 'theme.css'
-      render 'vite-tag' with 'theme.js'
-    %}
-  </head>
+      render 'vite' with 'theme.css'
+      render 'vite' with 'theme.js'
+    %} 
+  </head> 
 
   {% liquid
     assign bodyClasses = template | handleize | append: '-template'
