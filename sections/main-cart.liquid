@@ -50,7 +50,7 @@
                       clip-rule="evenodd" />
                   </svg>
 
-                </a>   
+                </a>
                 <input
                   type="number"
                   value="{{ line_item.quantity }}"
@@ -80,7 +80,7 @@
               </ajax-cart-quantity>
             </td>
             <td>
-              <a href="{{ line_item.url_to_remove }}">Remove</a>
+              <a href="{{ line_item.url_to_remove }}" @click.prevent="window.location.replace($el.href)">Remove</a>
             </td>
             <td>
               {{ line_item.final_line_price | money }}
@@ -109,6 +109,7 @@
   </div>
 </div>
 
+{% comment %} Remove to allow user to key in quantity {% endcomment %}
 <script>
   document.addEventListener("wheel", function(event){
     if(document.activeElement.type === "number" &&
