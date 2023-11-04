@@ -22,24 +22,24 @@
   </div>
   <hr/>
   <ul class="items-list" data-ajax-cart-section-scroll>
-    {% for item in cart.items %}
+    {% for line_item in cart.items %}
       <li class="item">
         <div class="product-thumb-wrapper">
           <img 
-            src="{{ item.image | image_url: width: 100, height: 120, crop: 'center' }}" 
-            alt="{{ item.title }}" 
-            srcset="{{ item.image | image_url: width: 100, height: 120, crop: 'center' }} 1x, {{ item.image | image_url: width: 200, height: 240, crop: 'center' }} 2x"
-            width="{{ item.image.width }}"
-            height="{{ item.image.height }}"
+            src="{{ line_item.image | image_url: width: 100, height: 120, crop: 'center' }}" 
+            alt="{{ line_item.title }}" 
+            srcset="{{ line_item.image | image_url: width: 100, height: 120, crop: 'center' }} 1x, {{ line_item.image | image_url: width: 200, height: 240, crop: 'center' }} 2x"
+            width="{{ line_item.image.width }}"
+            height="{{ line_item.image.height }}"
             loading="lazy"
           >
         </div>
         <div class="item-details">
           <h4 class="title">
-            {{ item.title | truncatewords: 5 }}
+            {{ line_item.title | truncatewords: 5 }}
           </h4>
           <div class="options">
-            {% for option in item.options_with_values %}
+            {% for option in line_item.options_with_values %}
               <p class="option" data-option-name="{{ option.name }}">
                 <span style="font-weight: 600">{{ option.name }} :
                 </span>
@@ -51,13 +51,13 @@
           <div class="quantity-row">
             <span style="font-weight: bold;">Quantity:
             </span>
-            <span>{{ item.quantity }}
+            <span>{{ line_item.quantity }}
             </span>
           </div>
-          <p class="price">{{ item.price | money }}
+          <p class="price">{{ line_item.price | money }}
           </p>
           <p class="remove">
-            <a href="{{ item.url_to_remove }}" data-ajax-cart-request-button>
+            <a href="{{ line_item.url_to_remove }}" data-ajax-cart-request-button>
               <i class="fa fa-trash-o"></i>
               Remove from cart
             </a>
@@ -74,7 +74,8 @@
     <p class="amount">{{ cart.items_subtotal_price | money }}
     </p>
   </div>
-  <a class="cart-link hover:bg-cloud-burst-500" href="{{ routes.cart_url }}">View Cart Details
+  <a class="view-cart-details-link" href="{{ routes.cart_url }}">
+    View Cart Details
   </a>
 
 </div>
@@ -137,7 +138,7 @@
     box-shadow: 0 30px 130px -8px rgba(0, 0, 0, 0.25);
   }
 
-  .minicart .cart-link {
+  .minicart .view-cart-details-link {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -146,14 +147,15 @@
     height: 43px;
     font-weight: 600;
     background: white;
-    border: 2px solid #000;
+    border: 2px solid black;
     outline: none;
     text-decoration: none;
   }
 
-  .minicart .cart-link:hover {
+  .minicart .view-cart-details-link:hover {
     cursor: pointer;
-    color: #fff;
+    color: white;
+    background: black;
   }
 
   .minicart hr {

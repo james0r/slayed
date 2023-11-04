@@ -56,12 +56,16 @@
         checked
       {% endif %}
       {% if option_disabled %}
-        class="disabled hidden variant-radio-input"
+        class="disabled hidden [&:checked+label]:bg-indigo-900 [&:checked+label]:text-white"
       {% else %}
-        class="hidden variant-radio-input"
+        class="hidden [&:checked+label]:bg-indigo-900 [&:checked+label]:text-white"
       {% endif %}
     >
-    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" @keyup.enter="$el.click()">
+    <label 
+      for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" 
+      @keyup.enter="$el.click()"
+      class="bg-slate-100 text-black"
+      >
       {{ value -}}
       <span class="visually-hidden sr-only">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
     </label>

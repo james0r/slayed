@@ -8,9 +8,6 @@ import AlpineWire from '../alpine/plugins/wire'
 import AlpineGlobals from '../alpine/index.js'
 
 import helpers from '../includes/helpers.js'
-import '../includes/a11y.js'
-
-// import '../css/theme.css'
 
 const ns = 'slayed'
 
