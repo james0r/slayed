@@ -17,11 +17,18 @@ export default {
     shopify({
       snippetFile: 'vite.liquid'
     }),
-    pageReload('/tmp/theme.update', {
-      delay: 2000
-    })
+    // pageReload('/tmp/theme.update', {
+    //   delay: 2000
+    // })
   ],
   build: {
-    sourcemap: true
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        entryFileNames: '[name].[hash].min.js',
+        chunkFileNames: '[name].[hash].min.js',
+        assetFileNames: '[name].[hash].min[extname]',
+      },
+    }
   }
 }

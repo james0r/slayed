@@ -46,18 +46,10 @@ export default {
         });
       },
       onWindowScrollHandler() {
-        var scrollTop =
-          window.scrollY !== undefined
-            ? window.scrollY
-            : (document.documentElement || document.body.parentNode || document.body).scrollTop
+        const isScrolled = window.scrollY > 0
 
-        if (scrollTop > 0) {
-          // document.body.classList.add('scrolled') 
-          this.isWindowScrolled = true
-        } else {
-          // document.body.classList.remove('scrolled')
-          this.isWindowScrolled = false
-        }
+        this.isWindowScrolled = isScrolled
+        document.body.classList[isScrolled ? 'add' : 'remove']('scrolled')
       },
     }
   }

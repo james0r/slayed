@@ -6,7 +6,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "run-p -sr shopify:dev vite:watch",
+    "dev": "concurrently --raw --kill-others --passthrough-arguments \"npm run shopify:dev {@}\" \"npm run vite:watch\" --",
     "build": "run-s vite:build",
     "deploy": "run-s vite:build && shopify theme push -e production",
     "deploy:dev": "run-s vite:build && shopify theme push -e development",
@@ -14,7 +14,7 @@
     "deploy:new": "run-s vite:build && shopify theme push --unpublished",
     "vite:watch": "cross-env NODE_ENV=development vite",
     "vite:build": "cross-env NODE_ENV=production vite build",
-    "shopify:dev": "shopify theme dev --theme-editor-sync -e development --notify /tmp/theme.update --live-reload=off",
+    "shopify:dev": "shopify theme dev --live-reload full-page --notify /tmp/theme.update",
     "shopify:pull": "shopify theme pull",
     "shopify:pull-dev": "shopify theme pull -d"
   },
@@ -26,6 +26,7 @@
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "alpinejs": "^3.13.2",
     "autoprefixer": "^10.4.16",
+    "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
     "liquid-ajax-cart": "^2.0.1",
     "npm-run-all": "^4.1.5",
