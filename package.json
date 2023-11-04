@@ -21,6 +21,7 @@
   "devDependencies": {
     "@alpinejs/collapse": "^3.13.2",
     "@alpinejs/focus": "^3.13.2",
+    "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.10",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
