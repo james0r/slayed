@@ -19,26 +19,25 @@ ignore = ["templates/*", "config/*"]
 [environments.production]
 store = "slayed-starter"
 theme = "123123123"
+ignore = ["templates/*", "config/*"]
 ```
 
 ### Commands
 
 | Command       | Purpose           | Notes  |
 | ------------- |:-------------:| :-----:|
-| `npm run start`   | Develop with local dev server with live reload| See [Development Themes](https://shopify.dev/docs/themes/tools/cli#development-themes) |
-| `npm run deploy`     | Build and push to Shopify theme (interactive)      | Command produces a menu to choose theme and confirm. This CAN overwrite the live theme! |
+| `npm run dev`   | Develop with local dev server with live reload| See [Development Themes](https://shopify.dev/docs/themes/tools/cli#development-themes) |
+| `npm run deploy`     | Build and push to production environment theme (interactive)      | Command produces a menu to choose theme and confirm. This CAN overwrite the live theme! |
 | `npm run deploy:dev` | Build and push to development environment theme (non-interactive)     | Uses **shopify.theme.toml** config |
 | `npm run deploy:staging` | Build and push to staging environment theme (non-interactive)  | Does overrite remote themes section/theme content |
 | `npm run deploy:new` | Build and publish to new theme on Shopify (interactive) |     |
 
 For all other NPM scripts and Shopify CLI theme commands reference **package.json** and [Shopify CLI commands for themes](https://shopify.dev/docs/themes/tools/cli/commands)
 
-> As of Apr 27, 2023:
-> Shopify CLI is yet to be as feature filled as most would like. Configuring the dev
-> server to do things like not open a new window on initial run around available out of
-> the box. See the above link to see all that it can do.
+## Vite
+Slayed uses [Vite](https://vitejs.dev/) and the [Shopify Vite Plugin](https://github.com/barrel/shopify-vite) and uses the Shopify Vite Plugin default directory locations except for rendering the generated snippet `vite-tag.liquid` as `vite.liquid`.
 
-## Styling Slayed
+## CSS
 
 The standard Tailwind boilerplate is provided.
 
@@ -46,18 +45,20 @@ Additionally, **src/css/global.css** can be used for global styles and is not tr
 
 ## Javascript
 
-Set your project namespace variable within **src/main.js**.
-
 ### Alpine.js
-[Alpine.js](https://alpinejs.dev/start-here) is included and Alpine magic properties, components, stores, and directives directories exist in **src/alpine**. The modules are auto-registered within **src/main.js**. Reference some of the existing files as to how to export your Alpine modules.
+[Alpine.js](https://alpinejs.dev/start-here) is included and Alpine magic properties, components, stores, and directives directories exist in **frontend/alpine**. The modules are auto-registered within **frontend/alpine/index.js**. Reference **frontend/alpine/components/dropdown.js** to see an example of how to export your module.
 
-### Vue.js
-See **Shopify Theme Lab**'s [example](https://github.com/uicrooks/shopify-theme-lab/blob/main/src/main.js) of how they register Vue.js.
+> By no means do you need to register your Alpine components in this way, and to reduce bundle size it would be advantageous to register components within a section or snippet.
 
-### Static Assets
-Static asset files MUST contain the **static** keyword or they will be overritten during the build process. Ex: `myfile.jpg`. This is unchanged, only reimplemented for Vite, from [Shopify Theme Labs Assets](https://uicrooks.github.io/shopify-theme-lab-docs/guide/assets.html#static-files).
+## Public Directory
+The **public** directory in the project root is a [Vite convention](https://vitejs.dev/guide/assets.html#the-public-directory) for placing your static assets. The *vite-plugin-shopify* Vite plugin moves these static files over to the **assets** on build, so you can serve them up just as you would if you placed them in **assets**. 
 
 ## Included Goodies
+
+### Liquid Ajax Cart
+[Liquid Ajax Cart]() library is installed and its directives are used throughout the Slayed sections. With the help of Liquid Ajax Cart you have an out-of-the-box working AJAX cart, aka "minicart".
+
+> Slayed uses v2 of Liquid Ajax Cart which has slightly different API than v1. See [differences-from-v1](https://liquid-ajax-cart.js.org/v2/differences-from-v1/)
 
 ### Predictive Search
 The Shopify provided predictive search is already included and just needed to be enabled in the themes customizer. To prevent it from being rendered remove the reference from **theme.liquid**.
@@ -66,8 +67,3 @@ The Shopify provided predictive search is already included and just needed to be
 Prodify is a Slayed rework of the Shopify Dawn theme's custom element logic for handling variant changes, **HATEOAS**-style content swapping, and more.
 
 The unminified script is found at **shopify/assets/prodify.js** and its required attributes are already applied within **shopify/sections/main-product.liquid**.
-
-## Roadmap
-
-- Prodify as NPM module.
-- Improve README to include liquid AJAX Cart

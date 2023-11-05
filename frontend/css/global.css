@@ -1,7 +1,3 @@
 body {
-  box-sizing: border-box;
-
-  :is(header) {
-    @apply antialiased;
-  }
+  --im-not-tree-shaken: 1;
 }
