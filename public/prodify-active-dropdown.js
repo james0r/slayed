@@ -220,24 +220,7 @@ class Prodify {
           addButtonTarget.replaceWith(addButtonSource)
         }
 
-        if (window.Drift) {
-          this.reInitProductZoom()
-        }
       })
-  }
-
-  reInitProductZoom() {
-    if (window.productZoom) {
-      window.productZoom.destroy()
-
-      window.productZoom = new Drift(
-        document.querySelector(`${window.productZoomContainerSelector} [data-zoom]`),
-        {
-          paneContainer: document.querySelector(`${window.productZoomContainerSelector}`),
-          inlinePane: false,
-        }
-      )
-    }
   }
 
   getVariantData = () => {

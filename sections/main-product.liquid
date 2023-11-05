@@ -18,12 +18,7 @@
           }
         ],
         "default": "radio"
-      }, {
-        "type": "checkbox",
-        "id": "enable_image_magnification",
-        "label": "Enable Image Magnification",
-        "default": true
-      } 
+      }
     ]
   }
 {% endschema %}
@@ -53,15 +48,11 @@
       </span>
       <div
         class="image-wrapper"
-        style="padding-top: 137%; overflow: hidden;"
-        data-image-zoom-container>
+        style="padding-top: 137%; overflow: hidden;">
         {% if product.selected_variant and product.selected_variant.image %}
           {% assign media = product.selected_variant.image %}
         {% else %}
           {% assign media = product.featured_image %}
-        {% endif %}
-        {% if section.settings.enable_image_magnification %}
-          {% render 'product-image-zoom-scripts', image: media, image_container: '[data-image-zoom-container]' %}
         {% endif %}
         <img
           src="{{ media | image_url }}"
@@ -72,7 +63,7 @@
           width="{{ media.width }}"
           class="absolute h-full w-full object-cover"
           loading="eager"
-          data-zoom="{{ media | image_url }}">
+          >
         <h1 class="text-4xl z-50 relative">
           {{ product.selected_or_first_available_variant.options }}
         </h1>
