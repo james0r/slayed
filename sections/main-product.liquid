@@ -20,10 +20,10 @@
         "default": "radio"
       }, {
         "type": "checkbox",
-        "id": "enable_image_zoom",
-        "label": "Enable Image Zoom",
+        "id": "enable_image_magnification",
+        "label": "Enable Image Magnification",
         "default": true
-      }
+      } 
     ]
   }
 {% endschema %}
@@ -60,7 +60,7 @@
         {% else %}
           {% assign media = product.featured_image %}
         {% endif %}
-        {% if section.settings.enable_image_zoom %}
+        {% if section.settings.enable_image_magnification %}
           {% render 'product-image-zoom-scripts', image: media, image_container: '[data-image-zoom-container]' %}
         {% endif %}
         <img
