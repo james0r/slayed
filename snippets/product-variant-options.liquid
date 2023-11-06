@@ -22,23 +22,40 @@
   assign product_form_id = 'product-form-' | append: section.id
 -%}
 
+{% comment %} <script>
+  console.log({{ product.variants | json }})
+</script> {% endcomment %}
+
 {%- for value in option.values -%}
   {%- liquid
-    assign option_disabled = true
+    assign option_not_exist = true
+    assign option_unavailable = true
 
     for option1_name in variants_option1_arr
       case option.position
         when 1
-          if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
-            assign option_disabled = false
+          if variants_option1_arr[forloop.index0] == value
+            assign option_not_exist = false
+
+            if variants_available_arr[forloop.index0]
+              assign option_unavailable = false
+            endif
           endif
         when 2
-          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
-            assign option_disabled = false
+          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value
+            assign option_not_exist = false
+
+            if variants_available_arr[forloop.index0]
+              assign option_unavailable = false
+            endif
           endif
         when 3
-          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
-            assign option_disabled = false
+          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value
+            assign option_not_exist = false
+
+            if variants_available_arr[forloop.index0]
+              assign option_unavailable = false
+            endif
           endif
       endcase
     endfor
@@ -77,8 +94,12 @@
         selected="selected"
       {% endif %}
     >
-      {% if option_disabled -%}
-        {{- 'products.product.value_unavailable' | t: option_value: value -}}
+      {% if option_unavailable -%}
+        {% if option_not_exist %}
+          {{- 'products.product.value_unavailable' | t: option_value: value -}}
+        {% else %}
+          {{- 'products.product.value_sold_out' | t: option_value: value -}}
+        {% endif %}
       {%- else -%}
         {{- value -}}
       {%- endif %}

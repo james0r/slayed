@@ -1,3 +1,7 @@
+export const hasBodyClass = (className) => {
+  return document.body.classList.contains(className)
+}
+
 export default {
   /**
    * Emit a custom event

@@ -4,10 +4,12 @@ import Alpine from 'alpinejs'
 import AlpineCollapse from '@alpinejs/collapse'
 import AlpineFocus from '@alpinejs/focus'
 import AlpineMorph from '@alpinejs/morph'
-import AlpineWire from '../alpine/plugins/wire'
-import AlpineGlobals from '../alpine/index.js'
+import AlpineWire from '../js/alpine/plugins/wire'
+import AlpineGlobals from '../js/alpine/index.js'
+import helpers, { hasBodyClass } from '../js/helpers.js'
 
-import helpers from '../includes/helpers.js'
+// Dynamic imports
+hasBodyClass('product-template') && import('../js/prodify.js')
 
 const ns = 'slayed'
 

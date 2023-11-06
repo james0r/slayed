@@ -21,6 +21,7 @@
   "devDependencies": {
     "@alpinejs/collapse": "^3.13.2",
     "@alpinejs/focus": "^3.13.2",
+    "@alpinejs/morph": "^3.13.2",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.10",
@@ -37,8 +38,5 @@
     "vite": "^4.5.0",
     "vite-plugin-page-reload": "^0.1.0",
     "vite-plugin-shopify": "^2.2.1"
-  },
-  "dependencies": {
-    "@alpinejs/morph": "^3.12.3"
   }
 }
