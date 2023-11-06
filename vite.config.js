@@ -3,7 +3,6 @@ import shopify from 'vite-plugin-shopify'
 import pageReload from 'vite-plugin-page-reload'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 import fs from 'fs'
-import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default {
 

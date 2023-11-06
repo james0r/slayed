@@ -4,8 +4,6 @@ class Prodify {
       ...settings
     }
 
-    console.log('prodify init')
-
     this.el = document.querySelector('[data-prodify]')
     this.pickerType = this.el.dataset.prodify
 
@@ -125,7 +123,6 @@ class Prodify {
   }
 
   onVariantChange = (event) => {
-    console.log('onVariantChange called')
 
     this.updateCurrentOptions()
     this.updateCurrentVariant()
@@ -188,7 +185,6 @@ class Prodify {
   }
 
   setInputAvailability(optionInputs, availableOptionInputValues, existingOptionInputsValues) {
-    console.log('setInputAvailability called')
     optionInputs.forEach((input) => {
       if (availableOptionInputValues.includes(input.getAttribute('value'))) {
         if (this.pickerType == 'select') {
@@ -197,9 +193,7 @@ class Prodify {
         }
         input.classList.remove('disabled')
       } else {
-        console.log('not available', input.getAttribute('value'))
         if (existingOptionInputsValues.includes(input.getAttribute('value'))) {
-          console.log('not exist', input.getAttribute('value'))
           if (this.pickerType == 'select') {
             input.innerText = this.textStrings.soldOutVariantValueLabel.replace(
               '[value]',
@@ -209,7 +203,6 @@ class Prodify {
           }
           input.classList.add('disabled')
         } else {
-          console.log('unavailable', input.getAttribute('value'))
           if (this.pickerType == 'select') {
             input.innerText = this.textStrings.unavailableVariantValueLabel.replace(
               '[value]',
@@ -260,8 +253,4 @@ class Prodify {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  window.prodify = new Prodify({
-    showSoldOutLabels: false
-  })
-})
+window.prodify = new Prodify()
