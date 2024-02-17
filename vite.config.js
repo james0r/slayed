@@ -1,5 +1,4 @@
 import shopify from 'vite-plugin-shopify'
-import pageReload from 'vite-plugin-page-reload'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 import { watch } from 'chokidar';
 import fs from 'fs-extra'
@@ -36,12 +35,7 @@ export default {
   plugins: [
     basicSsl(),
     watchStaticAssets(),
-    shopify({
-      snippetFile: 'vite.liquid'
-    }),
-    // pageReload('/tmp/theme.update', {
-    //   delay: 2000
-    // })
+    shopify()
   ],
   build: {
     sourcemap: true,
