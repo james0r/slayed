@@ -39,7 +39,7 @@ ignore = ["templates/*", "config/*"]
 For all other NPM scripts and Shopify CLI theme commands reference **package.json** and [Shopify CLI commands for themes](https://shopify.dev/docs/themes/tools/cli/commands)
 
 ## Vite
-Slayed uses [Vite](https://vitejs.dev/) and the [Shopify Vite Plugin](https://github.com/barrel/shopify-vite). See vite-plugin-shopify (config options)[https://github.com/barrel/shopify-vite/tree/main/packages/vite-plugin-shopify#usage].
+Slayed uses [Vite](https://vitejs.dev/) and the [Shopify Vite Plugin](https://github.com/barrel/shopify-vite). See vite-plugin-shopify [config options](https://github.com/barrel/shopify-vite/tree/main/packages/vite-plugin-shopify#usage).
 
 ## CSS
 
