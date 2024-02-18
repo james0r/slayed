@@ -77,3 +77,5 @@ The Shopify provided predictive search is already included and just needed to be
 Prodify is a Slayed rework of the Shopify Dawn theme's custom element logic for handling variant changes, **HATEOAS**-style content swapping, and more.
 
 The Prodify script is dynamically imported on the product template within **frontend/entrypoints/theme.js**.
+
+test push
