@@ -1,5 +1,7 @@
 # Slayed Shopify Starter Theme
 
+Discord chat at #slayed on [![](https://dcbadge.vercel.app/api/server/INVITEID)](https://discord.gg/shopify-developers-597504637167468564)
+
 ## Shopify CLI
 
 To easily log into your preferred store and theme, create a `shopify.theme.toml` in the root directory and define your environement details.
