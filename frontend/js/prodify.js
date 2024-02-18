@@ -217,7 +217,7 @@ class Prodify {
   }
 
   swapProductInfo = () => {
-    window.slayed.helpers
+    window[window.slayedNamespace].helpers
       .fetchHTML(
         `${this.el.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.el.dataset.section}`
       )

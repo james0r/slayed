@@ -41,6 +41,14 @@ For all other NPM scripts and Shopify CLI theme commands reference **package.jso
 ## Vite
 Slayed uses [Vite](https://vitejs.dev/) and the [Shopify Vite Plugin](https://github.com/barrel/shopify-vite). See vite-plugin-shopify [config options](https://github.com/barrel/shopify-vite/tree/main/packages/vite-plugin-shopify#usage).
 
+### HTTPS/SSL
+
+Slayed uses [@vitejs/plugin-basic-ssl](https://www.npmjs.com/package/@vitejs/plugin-basic-ssl). This plugin generates an untrusted certificate which allows access to the Vite client form the Shopify dev server after proceeding past the browsers warning screen.
+
+If you're assets aren't loading due to ssl errors, visit https://127.0.0.1:3000/, click Advanced and proceed.
+
+Then navigate back to your Shopify CLI dev server at http://127.0.0.1:9292 and you should see your assets loaded properly.
+
 ## CSS
 
 The standard Tailwind boilerplate is provided.
