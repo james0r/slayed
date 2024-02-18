@@ -1,6 +1,6 @@
 # Slayed Shopify Starter Theme
 
-Discord chat at #slayed on [![](https://dcbadge.vercel.app/api/server/INVITEID)](https://discord.gg/shopify-developers-597504637167468564)
+Discord chat at #slayed on [![](https://dcbadge.vercel.app/api/server/shopify-developers-597504637167468564)](https://discord.gg/shopify-developers-597504637167468564)
 
 ## Shopify CLI
 
