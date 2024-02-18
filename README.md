@@ -51,12 +51,12 @@ If your assets aren't loading due to ssl errors, visit https://127.0.0.1:3000, c
 
 The standard Tailwind boilerplate is provided.
 
-Additionally, **src/css/global.css** can be used for global styles and is not tree-shaken. Layers and @apply can also be used in this file. This is made possible via [@tailwindcss/nesting](https://www.npmjs.com/package/@tailwindcss/nesting).
+Additionally, **frontend/css/global.css** can be used for global styles and is not tree-shaken. Layers and @apply can also be used in this file. This is made possible via [@tailwindcss/nesting](https://www.npmjs.com/package/@tailwindcss/nesting).
 
 ## Javascript
 
 ### Alpine.js
-[Alpine.js](https://alpinejs.dev/start-here) is included and Alpine magic properties, components, stores, and directives directories exist in **frontend/alpine**. The modules are auto-registered within **frontend/alpine/index.js**. Reference **frontend/alpine/components/dropdown.js** to see an example of how to export your module.
+[Alpine.js](https://alpinejs.dev/start-here) is included and Alpine magic properties, components, stores, and directives directories exist in **frontend/js/alpine**. The modules are auto-registered within **frontend/js/alpine/index.js**. Reference **frontend/js/alpine/components/dropdown.js** to see an example of how to export your module.
 
 > By no means do you need to register your Alpine components in this way, and to reduce bundle size it would be advantageous to register components within a section or snippet.
 
