@@ -45,9 +45,7 @@ Slayed uses [Vite](https://vitejs.dev/) and the [Shopify Vite Plugin](https://gi
 
 Slayed uses [@vitejs/plugin-basic-ssl](https://www.npmjs.com/package/@vitejs/plugin-basic-ssl). This plugin generates an untrusted certificate which allows access to the Vite client form the Shopify dev server after proceeding past the browsers warning screen.
 
-If you're assets aren't loading due to ssl errors, visit https://127.0.0.1:3000/, click Advanced and proceed.
-
-Then navigate back to your Shopify CLI dev server at http://127.0.0.1:9292 and you should see your assets loaded properly.
+If your assets aren't loading due to ssl errors, visit https://127.0.0.1:3000, click Advanced and proceed, then navigate back to your Shopify CLI dev server at http://127.0.0.1:9292 and you should see your assets loaded properly.
 
 ## CSS
 
