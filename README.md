@@ -1,5 +1,13 @@
 # Slayed Shopify Starter Theme
 
+## Demo
+
+[https://slayed-starter.myshopify.com/](https://slayed-starter.myshopify.com/)
+
+Password: sprite
+
+## Chat
+
 Discord chat at #slayed on 
 
 [![](https://dcbadge.vercel.app/api/server/shopify-developers-597504637167468564)](https://discord.gg/shopify-developers-597504637167468564)
