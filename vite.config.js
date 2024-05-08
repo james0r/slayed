@@ -38,6 +38,7 @@ export default {
     shopify()
   ],
   build: {
+    manifest: 'manifest.json',
     sourcemap: true,
     rollupOptions: {
       output: {
