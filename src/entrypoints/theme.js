@@ -33,17 +33,17 @@ Alpine.plugin(
 AlpineGlobals.register(Alpine)
 Alpine.start()
 
-// Hide the Shopify preview bar when in development
-// if (process.env.NODE_ENV === 'development') {
-//   //
-//   window.addEventListener('DOMContentLoaded', () => {
-//     var css = '#preview-bar-iframe { display: none !important; }',
-//       head = document.head || document.getElementsByTagName('head')[0],
-//       style = document.createElement('style')
+// Hide the Shopify preview bar in development
+if (process.env.NODE_ENV === 'development') {
+  //
+  window.addEventListener('DOMContentLoaded', () => {
+    var css = '#preview-bar-iframe { display: none !important; }',
+      headEl = document.head || document.getElementsByTagName('head')[0],
+      styleEl = document.createElement('style')
 
-//     head.appendChild(style)
+    headEl.appendChild(styleEl)
 
-//     style.appendChild(document.createTextNode(css))
-//   })
-// }
+    styleEl.appendChild(document.createTextNode(css))
+  })
+}
 

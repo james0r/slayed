@@ -1,4 +1,5 @@
 import shopify from 'vite-plugin-shopify'
+import pageReload from 'vite-plugin-page-reload'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 import { watch } from 'chokidar';
 import fs from 'fs-extra'
@@ -29,17 +30,25 @@ export default {
   server: {
     host: '127.0.0.1',
     https: true,
-    port: 3000
+    port: 3000,
+    hmr: false
   },
-  publicDir: true,
+  publicDir: 'public',
   plugins: [
     basicSsl(),
     watchStaticAssets(),
-    shopify()
+    shopify({
+      sourceCodeDir: "src",
+      entrypointsDir: 'src/entrypoints',
+      snippetFile: "vite.liquid"
+    }),
+    pageReload('/tmp/theme.update', {
+      delay: 2000
+    })
   ],
   build: {
-    manifest: 'manifest.json',
-    sourcemap: true,
+    manifest: false,
+    emptyOutDir: false,
     rollupOptions: {
       output: {
         entryFileNames: '[name].[hash].min.js',

@@ -12,7 +12,7 @@
       }
     }
   },
-  "order": [
+  "order": [ 
     "main",
     "featured-product-grid"
   ]
