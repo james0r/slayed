@@ -23,146 +23,149 @@
   }
 {% endschema %}
 
-<div
-  class="shopify-section-main-product-inner max-w-[1200px] mx-auto"
-  data-handle="{{ product.handle }}"
-  data-id="{{ product.id }}"
-  data-url="{{ product.url }}"
-  data-section="{{ section.id }}"
-  data-prodify="{{ section.settings.picker_type }}"
-  >
-
-  <script type="application/json" data-prodify-variants-json>
-    {{ product.variants | json }}
-  </script>
-
-  <a class="skip-to-content-link" href="#product-info-{{ section.id }}">
-    Skip to product info
-  </a>
-  <div class="flex pdp-main" style="position: relative;">
-    <div class="media" data-prodify-media-container>
-      <span style="position: absolute; top: 0; left: 0; z-index: 1; font-size: 10px;">
-        {{ product.selected_or_first_available_variant.id }}
-      </span>
-      <div
-        class="image-wrapper"
-        style="padding-top: 137%; overflow: hidden;">
-        {% if product.selected_variant and product.selected_variant.image %}
-          {% assign media = product.selected_variant.image %}
-        {% else %}
-          {% assign media = product.featured_image %}
-        {% endif %}
-        <img
-          src="{{ media | image_url }}"
-          alt="{{ media.alt }}"
-          srcset="{{ media | image_url: width: 1000 }} 800w, {{ media | image_url: width: 1000 }} 1000w, {{ media | image_url: width: 1426 }} 1426w"
-          sizes="(min-width: 830px) 55vw, 100vw"
-          height="{{ media.height }}"
-          width="{{ media.width }}"
-          class="absolute h-full w-full object-cover"
-          loading="eager"
-          >
-        <h1 class="text-4xl z-50 relative">
-          {{ product.selected_or_first_available_variant.options }}
-        </h1>
-      </div>
-    </div>
-    <div class="info" id="product-info-{{ section.id }}">
-      <p class="caption">{{ product.type | upcase }}</p>
-      <h1>{{ product.title }}</h1>
-      <div class="flex items-center py-2" data-prodify-price-container>
-        <span class="sr-only">Regular Price</span>
-        {% if product.selected_or_first_available_variant.compare_at_price %}
-          <span class="line-through">
-            {{ product.selected_or_first_available_variant.compare_at_price | money }}
-          </span>
-        {% endif %}
-        <span>
-          {{ product.selected_or_first_available_variant.price | money }}
+<div class="px-6 md:px-8 py-12">
+  <div
+    class="shopify-section-main-product-inner container mx-auto"
+    data-handle="{{ product.handle }}"
+    data-id="{{ product.id }}"
+    data-url="{{ product.url }}"
+    data-section="{{ section.id }}"
+    data-prodify="{{ section.settings.picker_type }}"
+    >
+  
+    <script type="application/json" data-prodify-variants-json>
+      {{ product.variants | json }}
+    </script>
+  
+    <a class="skip-to-content-link" href="#product-info-{{ section.id }}">
+      Skip to product info
+    </a>
+    <div class="flex pdp-main" style="position: relative;">
+      <div class="media flex-1" data-prodify-media-container>
+        <span style="position: absolute; top: 0; left: 0; z-index: 1; font-size: 10px;">
+          {{ product.selected_or_first_available_variant.id }}
         </span>
-      </div>
-
-      {% render 'product-variant-picker'
-       , product: product,
-       product_form_id: 'product-form-id',
-       picker_type: section.settings.picker_type %}
-
-      <div class="quantity-row">
-        <label for="quantity-control-input">Quantity</label>
-        <div class="quantity-control-container">
-          <button type="button" data-prodify-quantity-decrement>
-            {% render 'icon-minus' %}
-          </button>
-          <input
-            tabindex="-1"
-            type="number"
-            id="quantity-control-input"
-            value="1"
-            disabled=""
-            data-prodify-quantity-presentation>
-          <button type="button" data-prodify-quantity-increment>
-            {% render 'icon-plus' %}
-          </button>
+        <div
+          class="image-wrapper"
+          style="padding-top: 137%; overflow: hidden;">
+          {% if product.selected_variant and product.selected_variant.image %}
+            {% assign media = product.selected_variant.image %}
+          {% else %}
+            {% assign media = product.featured_image %}
+          {% endif %}
+          <img
+            src="{{ media | image_url }}"
+            alt="{{ media.alt }}"
+            srcset="{{ media | image_url: width: 1000 }} 800w, {{ media | image_url: width: 1000 }} 1000w, {{ media | image_url: width: 1426 }} 1426w"
+            sizes="(min-width: 830px) 55vw, 100vw"
+            height="{{ media.height }}"
+            width="{{ media.width }}"
+            class="absolute h-full w-full object-cover"
+            loading="eager"
+            >
+          <h1 class="text-4xl z-50 relative">
+            {{ product.selected_or_first_available_variant.options }}
+          </h1>
         </div>
       </div>
-
-      <ajax-cart-product-form>
-        <form
-          action="{{ routes.cart_add_url }}"
-          id="product_form_id"
-          class="product-form"
-          novalidate="novalidate"
-          data-prodify-product-form>
-          <input
-            type="hidden"
-            name="id"
-            value="{{ product.selected_or_first_available_variant.id }}">
-          <input
-            type="hidden"
-            name="quantity"
-            value="1">
-          <div class="mb-[10px]">
-            <button
-              type="submit"
-              name="add"
-              class="px-6 hover:bg-cloud-burst-400 bg-indigo-900 text-white w-full h-12 cursor-pointer disabled:cursor-default disabled:bg-gray-200 disabled:text-black"
-              {% if product.selected_or_first_available_variant.available == false %}
-              disabled
-              {% endif %}>
-              <span class="[[processing]_&]:hidden">
-                {%- if product.selected_or_first_available_variant.available -%}
-                  Add to cart
-                {%- else -%}
-                  Sold out
-                {%- endif -%}
-              </span>
-              <span class="hidden [[processing]_&]:block">
-                Adding to cart...
-              </span>
+      <div class="info flex-1" id="product-info-{{ section.id }}">
+        <p class="caption">{{ product.type | upcase }}</p>
+        <h1>{{ product.title }}</h1>
+        <div class="flex items-center py-2" data-prodify-price-container>
+          <span class="sr-only">Regular Price</span>
+          {% if product.selected_or_first_available_variant.compare_at_price %}
+            <span class="line-through">
+              {{ product.selected_or_first_available_variant.compare_at_price | money }}
+            </span>
+          {% endif %}
+          <span>
+            {{ product.selected_or_first_available_variant.price | money }}
+          </span>
+        </div>
+  
+        {% render 'product-variant-picker'
+         , product: product,
+         product_form_id: 'product-form-id',
+         picker_type: section.settings.picker_type %}
+  
+        <div class="quantity-row">
+          <label for="quantity-control-input">Quantity</label>
+          <div class="quantity-control-container">
+            <button type="button" data-prodify-quantity-decrement>
+              {% render 'icon-minus' %}
             </button>
-          </div> 
-          <div data-ajax-cart-errors="form"><!-- Error messages appear here -->
+            <input
+              tabindex="-1"
+              type="number"
+              id="quantity-control-input"
+              value="1"
+              disabled=""
+              data-prodify-quantity-presentation>
+            <button type="button" data-prodify-quantity-increment>
+              {% render 'icon-plus' %}
+            </button>
           </div>
-          {% comment %}
-          {%- if product.selected_or_first_available_variant.available -%}
-          <a
-          type="button"
-          class="w-full h-12 px-6 text-white bg-indigo-900 flex items-center justify-center hover:after:border-offset-1"
-          :href="`/cart/${selectedVariant}:1`"
-          x-show="showBuyNow"
-          >
-          Buy it now
-          </a>
-          {%- endif -%}
-          {% endcomment %}
-        </form>
-      </ajax-cart-product-form>
-
-      <div class="description rte">
-        {{ product.description }}
+        </div>
+  
+        <ajax-cart-product-form>
+          <form
+            action="{{ routes.cart_add_url }}"
+            id="product_form_id"
+            class="product-form"
+            novalidate="novalidate"
+            data-prodify-product-form>
+            <input
+              type="hidden"
+              name="id"
+              value="{{ product.selected_or_first_available_variant.id }}">
+            <input
+              type="hidden"
+              name="quantity"
+              value="1">
+            <div class="mb-[10px]">
+              <button
+                type="submit"
+                name="add"
+                class="px-6 hover:bg-cloud-burst-400 bg-indigo-900 text-white w-full h-12 cursor-pointer disabled:cursor-default disabled:bg-gray-200 disabled:text-black"
+                {% if product.selected_or_first_available_variant.available == false %}
+                disabled
+                {% endif %}>
+                <span class="[[processing]_&]:hidden">
+                  {%- if product.selected_or_first_available_variant.available -%}
+                    Add to cart
+                  {%- else -%}
+                    Sold out
+                  {%- endif -%}
+                </span>
+                <span class="hidden [[processing]_&]:block">
+                  Adding to cart...
+                </span>
+              </button>
+            </div> 
+            <div data-ajax-cart-errors="form" class="text-red-500"><!-- Error messages appear here -->
+            </div>
+            {% comment %}
+            {%- if product.selected_or_first_available_variant.available -%}
+            <a
+            type="button"
+            class="w-full h-12 px-6 text-white bg-indigo-900 flex items-center justify-center hover:after:border-offset-1"
+            :href="`/cart/${selectedVariant}:1`"
+            x-show="showBuyNow"
+            >
+            Buy it now
+            </a>
+            {%- endif -%}
+            {% endcomment %}
+          </form>
+        </ajax-cart-product-form>
+  
+        <div class="description prose">
+          {{ product.description }}
+        </div>
       </div>
     </div>
   </div>
+
 </div>
 
 <style>
@@ -171,7 +174,6 @@
   }
 
   .section-main-product {
-    padding: 50px;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Ubuntu, Helvetica Neue, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   }
 
@@ -189,7 +191,6 @@
 
   .section-main-product .shopify-section-main-product-inner .flex .media {
     width: 100%;
-    flex: 2 1 400px;
   }
 
   .section-main-product .shopify-section-main-product-inner .flex .media .image-wrapper {
@@ -207,10 +208,6 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-  }
-
-  .section-main-product .shopify-section-main-product-inner .flex .info {
-    flex: 1 1 300px;
   }
 
   .section-main-product .shopify-section-main-product-inner .flex .info .caption {

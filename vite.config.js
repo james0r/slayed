@@ -43,7 +43,7 @@ export default {
       snippetFile: "vite.liquid"
     }),
     pageReload('/tmp/theme.update', {
-      delay: 2000
+      delay: 1500
     })
   ],
   build: {

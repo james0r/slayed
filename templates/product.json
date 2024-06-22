@@ -3,8 +3,7 @@
     "main": {
       "type": "main-product",
       "settings": {
-        "picker_type": "select",
-        "enable_image_zoom": true
+        "picker_type": "radio"
       }
     }
   },

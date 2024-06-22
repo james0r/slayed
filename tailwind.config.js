@@ -13,7 +13,7 @@ module.exports = {
     './sections/*.liquid',
     './snippets/*.liquid',
     './templates/*.liquid',
-    './frontend/**/*.{js,jsx,ts,tsx}'
+    './src/**/*.{js,jsx,ts,tsx}'
   ],
   safelist: [
     'skip-to-content-link'
@@ -101,9 +101,7 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/container-queries'),
-    require('@tailwindcss/typography')({
-      className: 'rte'
-    }),
+    require('@tailwindcss/typography')(),
     plugin(function ({ addVariant }) {
       addVariant('scrolled', '.scrolled &'),
         addVariant('mobile-menu-visible', '.mobile-menu-visible &')
