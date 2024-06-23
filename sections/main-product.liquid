@@ -30,24 +30,21 @@
     data-id="{{ product.id }}"
     data-url="{{ product.url }}"
     data-section="{{ section.id }}"
-    data-prodify="{{ section.settings.picker_type }}"
-    >
-  
+    data-prodify="{{ section.settings.picker_type }}">
+
     <script type="application/json" data-prodify-variants-json>
       {{ product.variants | json }}
     </script>
-  
+
     <a class="skip-to-content-link" href="#product-info-{{ section.id }}">
       Skip to product info
     </a>
-    <div class="flex pdp-main" style="position: relative;">
-      <div class="media flex-1" data-prodify-media-container>
-        <span style="position: absolute; top: 0; left: 0; z-index: 1; font-size: 10px;">
+    <div class="md:flex md:gap-12 pdp-main relative">
+      <div class="media flex-1 mb-8 md:mb-0" data-prodify-media-container>
+        <span class="absolute top-0 left-0 z-1 text-[10px]">
           {{ product.selected_or_first_available_variant.id }}
         </span>
-        <div
-          class="image-wrapper"
-          style="padding-top: 137%; overflow: hidden;">
+        <div class="image-wrapper relative overflow-hidden pt-[137%]">
           {% if product.selected_variant and product.selected_variant.image %}
             {% assign media = product.selected_variant.image %}
           {% else %}
@@ -60,9 +57,8 @@
             sizes="(min-width: 830px) 55vw, 100vw"
             height="{{ media.height }}"
             width="{{ media.width }}"
-            class="absolute h-full w-full object-cover"
-            loading="eager"
-            >
+            class="absolute h-full w-full object-cover inset-0"
+            loading="eager">
           <h1 class="text-4xl z-50 relative">
             {{ product.selected_or_first_available_variant.options }}
           </h1>
@@ -82,12 +78,12 @@
             {{ product.selected_or_first_available_variant.price | money }}
           </span>
         </div>
-  
+
         {% render 'product-variant-picker'
-         , product: product,
-         product_form_id: 'product-form-id',
-         picker_type: section.settings.picker_type %}
-  
+          , product: product
+          , product_form_id: 'product-form-id'
+          , picker_type: section.settings.picker_type %}
+
         <div class="quantity-row">
           <label for="quantity-control-input">Quantity</label>
           <div class="quantity-control-container">
@@ -106,7 +102,7 @@
             </button>
           </div>
         </div>
-  
+
         <ajax-cart-product-form>
           <form
             action="{{ routes.cart_add_url }}"
@@ -141,10 +137,11 @@
                   Adding to cart...
                 </span>
               </button>
-            </div> 
-            <div data-ajax-cart-errors="form" class="text-red-500"><!-- Error messages appear here -->
             </div>
-            {% comment %}
+            <div data-ajax-cart-errors="form" class="text-red-500">
+              <!-- Error messages appear here -->
+            </div>
+          {% comment %}
             {%- if product.selected_or_first_available_variant.available -%}
             <a
             type="button"
@@ -155,10 +152,10 @@
             Buy it now
             </a>
             {%- endif -%}
-            {% endcomment %}
+          {% endcomment %}
           </form>
         </ajax-cart-product-form>
-  
+
         <div class="description prose">
           {{ product.description }}
         </div>
@@ -174,7 +171,16 @@
   }
 
   .section-main-product {
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Ubuntu, Helvetica Neue, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    font-family: -apple-system
+    , BlinkMacSystemFont
+    , Segoe UI
+    , Roboto
+    , Ubuntu
+    , Helvetica Neue
+    , sans-serif
+    , Apple Color Emoji
+    , Segoe UI Emoji
+    , Segoe UI Symbol;
   }
 
   @media(max-width: 576px) {
@@ -183,47 +189,20 @@
     }
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-  }
-
-  .section-main-product .shopify-section-main-product-inner .flex .media {
-    width: 100%;
-  }
-
-  .section-main-product .shopify-section-main-product-inner .flex .media .image-wrapper {
-    position: relative;
-    width: 100%;
-  }
-
-  .section-main-product .shopify-section-main-product-inner .flex .media .image-wrapper img {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-
-  .section-main-product .shopify-section-main-product-inner .flex .info .caption {
+  .section-main-product .shopify-section-main-product-inner .info .caption {
     letter-spacing: 1.3px;
     font-size: 10px;
     line-height: 12px;
     color: rgba(26, 27, 24, 0.75);
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info h1 {
+  .section-main-product .shopify-section-main-product-inner .info h1 {
     font-size: 40px;
     font-weight: 400;
     line-height: 52px;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info dl dd {
+  .section-main-product .shopify-section-main-product-inner .info dl dd {
     letter-spacing: 1.3px;
     font-size: 18px;
     line-height: 27px;
@@ -231,14 +210,14 @@
     margin: 15px auto;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info fieldset {
+  .section-main-product .shopify-section-main-product-inner .info fieldset {
     margin-bottom: 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info fieldset legend {
+  .section-main-product .shopify-section-main-product-inner .info fieldset legend {
     font-size: 13px;
     letter-spacing: 0.4px;
     line-height: 19.5px;
@@ -246,7 +225,7 @@
     margin-bottom: 16px;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info fieldset label {
+  .section-main-product .shopify-section-main-product-inner .info fieldset label {
     display: inline-block;
     padding: 10px 20px;
     border-radius: 40px;
@@ -255,17 +234,17 @@
     cursor: pointer;
   }
 
-  body:not(.using-mouse) .section-main-product .shopify-section-main-product-inner .flex .info fieldset input:focus + label {
+  body:not(.using-mouse) .section-main-product .shopify-section-main-product-inner .info fieldset input:focus + label {
     outline: #08f auto 2px;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info fieldset label[data-unavailable='true'],
-  .section-main-product .shopify-section-main-product-inner .flex .info fieldset input[disabled] + label {
+  .section-main-product .shopify-section-main-product-inner .info fieldset label[data-unavailable='true'],
+  .section-main-product .shopify-section-main-product-inner .info fieldset input[disabled] + label {
     background-color: transparent;
     color: lightgray;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info .quantity-row label {
+  .section-main-product .shopify-section-main-product-inner .info .quantity-row label {
     display: block;
     font-size: 13px;
     letter-spacing: 0.4px;
@@ -274,7 +253,7 @@
     margin-bottom: 4px;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container {
+  .section-main-product .shopify-section-main-product-inner .info .quantity-row .quantity-control-container {
     display: flex;
     align-items: center;
     border: 1px solid rgba(26, 27, 24, 0.55);
@@ -284,7 +263,7 @@
     font-size: 14px;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container button {
+  .section-main-product .shopify-section-main-product-inner .info .quantity-row .quantity-control-container button {
     width: 45px;
     height: 45px;
     appearance: none;
@@ -298,11 +277,11 @@
     cursor: pointer;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container button svg {
+  .section-main-product .shopify-section-main-product-inner .info .quantity-row .quantity-control-container button svg {
     width: 10px;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container input {
+  .section-main-product .shopify-section-main-product-inner .info .quantity-row .quantity-control-container input {
     appearance: none;
     -webkit-appearance: none;
     border: none;
@@ -312,26 +291,26 @@
     padding: 0;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container input[type='number']::-webkit-inner-spin-button,
-  .section-main-product .shopify-section-main-product-inner .flex .info .quantity-row .quantity-control-container input[type='number']::-webkit-outer-spin-button {
+  .section-main-product .shopify-section-main-product-inner .info .quantity-row .quantity-control-container input[type='number']::-webkit-inner-spin-button,
+  .section-main-product .shopify-section-main-product-inner .info .quantity-row .quantity-control-container input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info form {
+  .section-main-product .shopify-section-main-product-inner .info form {
     margin: 25px auto;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info .description {
+  .section-main-product .shopify-section-main-product-inner .info .description {
     font-size: 16px;
     line-height: 28.8px;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info .description em {
+  .section-main-product .shopify-section-main-product-inner .info .description em {
     font-style: italic;
   }
 
-  .section-main-product .shopify-section-main-product-inner .flex .info .description a {
+  .section-main-product .shopify-section-main-product-inner .info .description a {
     color: rgba(68, 89, 88, 0.85);
   }
 </style>
