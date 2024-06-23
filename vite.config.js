@@ -31,7 +31,7 @@ export default {
     host: '127.0.0.1',
     https: true,
     port: 3000,
-    hmr: false
+    hmr: true
   },
   publicDir: 'public',
   plugins: [
@@ -43,8 +43,19 @@ export default {
       snippetFile: "vite.liquid"
     }),
     pageReload('/tmp/theme.update', {
-      delay: 1000
-    })
+      delay: 2000
+    }),
+    {
+      name: 'vite-plugin-liquid-tailwind-refresh',
+      handleHotUpdate(ctx) {
+        if (ctx.file.endsWith('.liquid')) {
+          console.log('is liquid')
+
+          // Filter out the liquid module to prevent a full refresh
+          return [...ctx.modules[0]?.importers ?? [], ...ctx.modules.slice(1)]
+        }
+      }
+    }
   ],
   build: {
     manifest: false,
