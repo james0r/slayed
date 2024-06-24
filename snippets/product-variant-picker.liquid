@@ -28,15 +28,18 @@
           <label for="Option-{{ section.id }}-{{ forloop.index0 }}">
             {{ option.name }}
           </label>
-          <select
-            id="Option-{{ section.id }}-{{ forloop.index0 }}"
-            class="select__select p-2 my-2 border border-gray-500 rounded-lg w-full"
-            name="options[{{ option.name | escape }}]"
-            form="{{ product_form_id }}"
-            data-option-position="{{ forloop.index }}"
-          >
-            {% render 'product-variant-options', product: product, option: option, picker_type: picker_type %}
-          </select>
+          <div class="select-wrapper relative flex items-center justify-end">
+            <span class="select-arrow mr-6"></span>
+            <select
+              id="Option-{{ section.id }}-{{ forloop.index0 }}"
+              class="input-select"
+              name="options[{{ option.name | escape }}]"
+              form="{{ product_form_id }}"
+              data-option-position="{{ forloop.index }}"
+            >
+              {% render 'product-variant-options', product: product, option: option, picker_type: picker_type %}
+            </select>
+          </div>
         </div>
       {% endfor %}
     </div>
@@ -52,7 +55,7 @@
       <select
         name="id"
         id="Variants-{{ section.id }}"
-        class="select__select"
+        class="input-select"
         form="{{ product_form_id }}"
       >
         {%- for variant in product.variants -%}
