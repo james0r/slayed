@@ -40,7 +40,10 @@ export default {
     shopify({
       sourceCodeDir: "src",
       entrypointsDir: 'src/entrypoints',
-      snippetFile: "vite.liquid"
+      additionalEntrypoints: [
+        'src/prodify/index.ts'
+      ],
+      snippetFile: "vite.liquid",
     }),
     pageReload('/tmp/theme.update', {
       delay: 2000
@@ -49,8 +52,6 @@ export default {
       name: 'vite-plugin-liquid-tailwind-refresh',
       handleHotUpdate(ctx) {
         if (ctx.file.endsWith('.liquid')) {
-          console.log('is liquid')
-
           // Filter out the liquid module to prevent a full refresh
           return [...ctx.modules[0]?.importers ?? [], ...ctx.modules.slice(1)]
         }
