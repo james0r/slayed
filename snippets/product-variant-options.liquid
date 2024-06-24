@@ -90,9 +90,11 @@
     <option
       value="{{ value | escape }}"
       data-option-position="option{{ option.position }}"
-      {% if option.selected_value == value %}
-        selected="selected"
-      {% endif %}
+      data-option-value="{{ value | escape }}"
+      data-selected-value="{{ option.selected_value | escape }}"
+      {% assign value = value | strip %}
+      {% assign selected_value = option.selected_value | strip %}
+      {% if value == selected_value %}selected{% endif %}
     >
       {% if option_unavailable -%}
         {% if option_not_exist %}

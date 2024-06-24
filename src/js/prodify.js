@@ -31,6 +31,8 @@ class Prodify {
     this.quantityHiddenInput = this.el.querySelector('input[name="quantity"]')
 
     this.initEventListeners()
+
+    this.onInit(this.el)
   }
 
   initEventListeners = () => {
@@ -53,11 +55,12 @@ class Prodify {
 
   updateCurrentVariant = () => {
     const variants = this.getVariantData();
-    const matchingVariant = variants.find(variant => {
-      return variant.options.every((option, index) => {
-        return this.options[index] === option;
+    const matchingVariant = variants.find(
+      variant => {
+        return variant.options.every((option, index) => {
+          return this.options[index] === option;
+        });
       });
-    });
     this.currentVariant = matchingVariant;
   };
 
@@ -98,7 +101,7 @@ class Prodify {
     window.history.replaceState({}, '', `${this.el.dataset.url}?variant=${this.currentVariant.id}`)
   }
 
-  updateAddButtonDom(disable = true, text, modifyClass = true) {
+  updateDomAddButton(disable = true, text, modifyClass = true) {
     const productForm = document.querySelector(this.selectors.productForm)
     if (!productForm) return
     const addButton = productForm.querySelector('[name="add"]')
@@ -122,16 +125,25 @@ class Prodify {
     }
   }
 
-  onVariantChange = (event) => {
-
+  onInit = () => {
     this.updateCurrentOptions()
     this.updateCurrentVariant()
-    this.updateAddButtonDom(true, '', false)
     this.compareInputValues()
-    this.setOptionSelected(event.target)
-    
+
     if (!this.currentVariant) {
-      this.updateAddButtonDom(true, this.textStrings.addButtonTextUnavailable, true)
+      this.updateDomAddButton(true, this.textStrings.addButtonTextUnavailable, true)
+    }
+  }
+
+  onVariantChange = (event) => {
+    this.updateCurrentOptions()
+    this.updateCurrentVariant()
+    this.updateDomAddButton(true, '', false)
+    this.compareInputValues()
+    this.maybeSetOptionSelected(event.target)
+
+    if (!this.currentVariant) {
+      this.updateDomAddButton(true, this.textStrings.addButtonTextUnavailable, true)
     } else {
       this.updateURL()
       this.updateVariantIdInput()
@@ -139,7 +151,7 @@ class Prodify {
     }
   }
 
-  setOptionSelected(select) {
+  maybeSetOptionSelected(select) {
     if (this.pickerType == 'select') {
       const options = Array.from(select.querySelectorAll('option'))
       const currentValue = select.value

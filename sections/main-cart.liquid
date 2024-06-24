@@ -93,14 +93,16 @@
           {% endfor %}
         </table>
 
-        <div class="cart-summary-row">
-          <div class="totals">
-            <h3>Subtotal</h3>
+        <div class="cart-summary-row py-8 flex flex-col ">
+          <div class="totals mb-[10px] flex items-center">
+            <h3 class="mr-8">Subtotal</h3>
             <p>{{ cart.original_total_price | money }}</p>
           </div>
-          <small>{{ section.settings['summary-message'] }}</small>
+          <small class="mb-[10px]">
+            {{ section.settings['summary-message'] }}
+          </small>
           <button
-            class="btn inverted"
+            class="btn inverted mt-4"
             type="submit"
             name="checkout"
             form="cart">
@@ -115,16 +117,16 @@
 </div>
 
 {% comment %} Remove to allow user to key in quantity {% endcomment %}
-<script>
+{% comment %} <script>
   document.addEventListener("wheel", function(event){
-    if(document.activeElement.type === "number" &&
+    if (document.activeElement.type === "number" &&
        document.activeElement.classList.contains("noscroll"))
     {
         event.preventDefault();
         document.activeElement.blur();
     }
   });
-</script>
+</script> {% endcomment %}
 
 <style>
   .cart .cart-inner .cart-summary-row {
@@ -136,19 +138,6 @@
 
   .cart a {
     text-decoration: none;
-  }
-
-  .cart .cart-inner .cart-summary-row .totals {
-    display: flex;
-    margin-bottom: 10px;
-  }
-
-  .cart .cart-inner .cart-summary-row .totals h3 {
-    margin-right: 30px;
-  }
-
-  .cart .cart-inner .cart-summary-row small {
-    margin-bottom: 10px;
   }
 
   .cart .cart-inner .cart-summary-row .btn {
