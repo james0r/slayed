@@ -59,6 +59,10 @@ export default {
         this.isWindowScrolled = isScrolled
         document.body.classList[isScrolled ? 'add' : 'remove']('scrolled')
       },
+      openModal() {
+        console.log('called')
+        document.dispatchEvent(new CustomEvent('show-modal'))
+      }
     }
   }
 }

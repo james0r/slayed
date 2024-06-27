@@ -6,12 +6,16 @@
   }
 {% endschema %}
 
-<dialog x-data="modal" x-init="init($el)" class="max-w-md">
+<dialog
+  id="dialog-modal-example"
+  x-data="modal"
+  x-init="init($el)"
+  class="max-w-md p-12 rounded-md">
   <form action="">
-    <div>
+    <div class="prose">
       <h1>{{ settings.modal_title }}</h1>
       <p>{{ settings.modal_description }}</p>
-      <button type="button" @click="open = false">
+      <button type="button" @click="open = false" class="btn rounded-none">
         Close
       </button>
     </div>
@@ -50,4 +54,8 @@
   })
 </script>
 
-
+<style>
+  #dialog-modal-example::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+</style>

@@ -50,6 +50,17 @@
     </div>
 
     <div class="flex items-center space-x-3 self-center ml-auto">
+
+      {% if settings.enable_modal %}
+        <button
+          type="button"
+          class="text-white fill-white p-2 [&>svg]:h-[28px]"
+          @click="$store.global.openModal()"
+          aria-label="Open Modal">
+          {% render 'icon-bubble-bottom' %}
+        </button>
+      {% endif %}
+
       {% if settings.enable_predictive_search %}
         <a href="{{ routes.search_url }}" class="block md:hidden text-white fill-white p-2 [&>svg]:h-[28px]">
           {% render 'icon-search' %}
@@ -60,8 +71,7 @@
           @click="$store.global.isPredictiveSearchVisible = true"
           :aria-expanded="$store.global.isPredictiveSearchVisible ? 'true' : 'false'"
           aria-label="Search"
-          aria-controls="predictive-search"
-          >
+          aria-controls="predictive-search">
           {% render 'icon-search' %}
         </button>
       {% else %}
@@ -76,6 +86,7 @@
         </a>
       {% endif %}
 
+
       <a
         href="{{ routes.cart_url }}"
         class="[&>svg]:h-[22px] [&>svg]:w-auto relative text-white p-2"
@@ -87,7 +98,7 @@
       </a>
     </div>
 
-    {% comment %}
+  {% comment %}
     // Output customer login links
 
     <ul>
@@ -103,7 +114,8 @@
     {% endif %}
     {% endif %}
     </ul>
-    {% endcomment %}</div>
+  {% endcomment %}
+  </div>
 
   <style>
     .section-header .header-logo {
