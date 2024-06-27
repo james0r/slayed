@@ -41,7 +41,7 @@ export default {
       sourceCodeDir: "src",
       entrypointsDir: 'src/entrypoints',
       additionalEntrypoints: [
-        'src/prodify/index.ts'
+        'src/js/prodify/index.ts'
       ],
       snippetFile: "vite.liquid",
     }),
