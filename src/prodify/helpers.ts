@@ -1,3 +1,6 @@
+import { OPTION_CONTAINER_SELECTOR } from './const'
+import { setInputAvailability } from './dom'
+
 async function fetchHTML(endpoint) {
   return await fetch(endpoint)
     .then((response) => response.text())
@@ -7,17 +10,18 @@ async function fetchHTML(endpoint) {
 }
 
 function compareInputValues() {
-  const variantsMatchingOptionOneSelected = this.variantData.filter(
+  const variantsMatchingOptionOneSelected = window.prodify.variantData.filter(
     // Grab the first checked input and compare it to the variant option1
     // return an array of variants where the option1 matches the checked input
-    (variant) => this.el.querySelector(':checked').value === variant.option1
+    (variant) => (window.prodify.el.querySelector(':checked') as HTMLInputElement).value === variant.option1
   )
 
-  const inputWrappers = [...this.el.querySelectorAll(this.selectors.optionContainer)]
+  const inputWrappers = Array.from(window.prodify.el.querySelectorAll(OPTION_CONTAINER_SELECTOR))
+
   inputWrappers.forEach((option, index) => {
     if (index === 0) return
-    const optionInputs = [...option.querySelectorAll('input[type="radio"], option')]
-    const previousOptionSelected = inputWrappers[index - 1].querySelector(':checked').value
+    const optionInputs = Array.from(option.querySelectorAll('input[type="radio"], option'))
+    const previousOptionSelected = (inputWrappers[index - 1].querySelector(':checked') as HTMLInputElement).value
     const availableOptionInputsValues = variantsMatchingOptionOneSelected
       .filter(
         // 
@@ -32,13 +36,13 @@ function compareInputValues() {
       )
       .map((variantOption) => variantOption[`option${index + 1}`])
 
-    this.setInputAvailability(optionInputs, availableOptionInputsValues, existingOptionInputsValues)
+    setInputAvailability(optionInputs, availableOptionInputsValues, existingOptionInputsValues)
   })
 }
 
 function updateURL() {
-  if (!this.currentVariant || this.el.dataset.updateUrl === 'false') return
-  window.history.replaceState({}, '', `${this.el.dataset.url}?variant=${this.currentVariant.id}`)
+  if (!window.prodify.currentVariant || window.prodify.el.dataset.updateUrl === 'false') return
+  window.history.replaceState({}, '', `${window.prodify.el.dataset.url}?variant=${window.prodify.currentVariant.id}`)
 }
 
 export {

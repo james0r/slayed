@@ -6,17 +6,20 @@ import {
   swapProductInfo
 } from './dom'
 import { compareInputValues, updateURL } from './helpers'
-import { ADD_BUTTON_TEXT_UNAVAILABLE_STRING } from './const'
+import {
+  ADD_BUTTON_TEXT_UNAVAILABLE_STRING,
+  VARIANTS_JSON_SELECTOR
+} from './const'
 
 function updateCurrentVariant() {
-  const variants = this.getVariantData()
+  const variants = getVariantData()
   const matchingVariant = variants.find(
     variant => {
       return variant.options.every((option, index) => {
-        return this.options[index] === option
+        return window.prodify.options[index] === option
       })
     })
-  this.currentVariant = matchingVariant
+  window.prodify.currentVariant = matchingVariant
 }
 
 function onVariantChange(event) {
@@ -26,7 +29,7 @@ function onVariantChange(event) {
   compareInputValues()
   maybeSetOptionSelected(event.target)
 
-  if (!this.currentVariant) {
+  if (!window.prodify.currentVariant) {
     updateDomAddButton(true, ADD_BUTTON_TEXT_UNAVAILABLE_STRING, true)
   } else {
     updateURL()
@@ -35,8 +38,14 @@ function onVariantChange(event) {
   }
 }
 
+function getVariantData() {
+  window.prodify.variantData = window.prodify.variantData || JSON.parse(window.prodify.el.querySelector(VARIANTS_JSON_SELECTOR).textContent)
+  return window.prodify.variantData
+}
+
 export {
   updateVariantIdInput,
   updateCurrentVariant,
-  onVariantChange
+  onVariantChange,
+  getVariantData
 }

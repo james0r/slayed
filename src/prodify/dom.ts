@@ -9,7 +9,7 @@ import {
   import { fetchHTML } from './helpers'
 
 function updateDomAddButton(disable = true, text, modifyClass = true) {
-  const productForm = document.querySelector(this.selectors.productForm)
+  const productForm = document.querySelector(PRODUCT_FORM_SELECTOR)
   if (!productForm) return
   const addButton = productForm.querySelector('[name="add"]')
   const addButtonText = productForm.querySelector('[name="add"] > span')
@@ -36,7 +36,7 @@ function updateVariantIdInput() {
   const productForms = document.querySelectorAll(PRODUCT_FORM_SELECTOR)
   productForms.forEach((productForm) => {
     const input: HTMLInputElement = productForm.querySelector('input[name="id"]')
-    input.value = this.currentVariant.id
+    input.value = (window.prodify.currentVariant.id) as unknown as string
     // input.dispatchEvent(new Event('change', { bubbles: true }));
   })
 }
@@ -44,14 +44,14 @@ function updateVariantIdInput() {
 function setInputAvailability(optionInputs, availableOptionInputValues, existingOptionInputsValues) {
   optionInputs.forEach((input) => {
     if (availableOptionInputValues.includes(input.getAttribute('value'))) {
-      if (this.pickerType == 'select') {
+      if (window.prodify.pickerType == 'select') {
         input.innerText = input.getAttribute('value')
         return
       }
       input.classList.remove('disabled')
     } else {
       if (existingOptionInputsValues.includes(input.getAttribute('value'))) {
-        if (this.pickerType == 'select') {
+        if (window.prodify.pickerType == 'select') {
           input.innerText = SOLD_OUT_VARIANT_VALUE_STRING.replace(
             '[value]',
             input.getAttribute('value')
@@ -60,7 +60,7 @@ function setInputAvailability(optionInputs, availableOptionInputValues, existing
         }
         input.classList.add('disabled')
       } else {
-        if (this.pickerType == 'select') {
+        if (window.prodify.pickerType == 'select') {
           input.innerText = UNAVAILABLE_VARIANT_VALUE_STRING.replace(
             '[value]',
             input.getAttribute('value')
@@ -74,7 +74,7 @@ function setInputAvailability(optionInputs, availableOptionInputValues, existing
 }
 
 function maybeSetOptionSelected(select) {
-  if (this.pickerType == 'select') {
+  if (window.prodify.pickerType == 'select') {
     const options = Array.from(select.querySelectorAll('option'))
     const currentValue = select.value
 
@@ -89,28 +89,28 @@ function maybeSetOptionSelected(select) {
 }
 
 function updateQuantity (stepDirection) {
-  const previousQuantity = parseInt(this.quantityPresentationInput.value)
+  const previousQuantity = parseInt(window.prodify.quantityPresentationInput.value)
 
   if (stepDirection == 'up') {
-    this.quantityHiddenInput.value = this.quantityPresentationInput.value = previousQuantity + 1
+    window.prodify.quantityHiddenInput.value = window.prodify.quantityPresentationInput.value = (previousQuantity + 1) as unknown as string
   } else {
-    this.quantityHiddenInput.value = this.quantityPresentationInput.value = Math.max(1, previousQuantity - 1)
+    window.prodify.quantityHiddenInput.value = window.prodify.quantityPresentationInput.value = (Math.max(1, previousQuantity - 1)) as unknown as string
   }
 }
 
 function swapProductInfo() {
   fetchHTML(
-    `${this.el.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.el.dataset.section}`
+    `${window.prodify.el.dataset.url}?variant=${window.prodify.currentVariant.id}&section_id=${window.prodify.el.dataset.section}`
   )
     .then((responseHTML) => {
       const priceSource = responseHTML.querySelector(PRICE_CONTAINER_SELECTOR)
-      const priceTarget = this.el.querySelector(PRICE_CONTAINER_SELECTOR)
+      const priceTarget = window.prodify.el.querySelector(PRICE_CONTAINER_SELECTOR)
       const mediaSource = responseHTML.querySelector(MEDIA_CONTAINER_SELECTOR)
-      const mediaTarget = this.el.querySelector(MEDIA_CONTAINER_SELECTOR)
+      const mediaTarget = window.prodify.el.querySelector(MEDIA_CONTAINER_SELECTOR)
       const addButtonSource = responseHTML.querySelector(
-        `${this.selectors.productForm} [name="add"]`
+        `${PRODUCT_FORM_SELECTOR} [name="add"]`
       )
-      const addButtonTarget = this.el.querySelector(`${PRODUCT_FORM_SELECTOR} [name="add"]`)
+      const addButtonTarget = window.prodify.el.querySelector(`${PRODUCT_FORM_SELECTOR} [name="add"]`)
 
       if (priceSource && priceTarget) {
         priceTarget.replaceWith(priceSource)

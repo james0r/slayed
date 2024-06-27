@@ -8,7 +8,7 @@ import AlpineGlobals from '../js/alpine/index.js'
 import helpers, { hasBodyClass } from '../js/helpers.js'
 
 // Dynamic imports
-hasBodyClass('product-template') && import('../js/prodify.js')
+// hasBodyClass('product-template') && import('../js/prodify.js')
 
 const ns = 'slayed'
 

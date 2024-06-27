@@ -1,43 +1,47 @@
 import {
   DATA_ATTR_PREFIX,
-  QUANTITY_INCREMENT_SELECTOR,
-  QUANTITY_DECREMENT_SELECTOR,
-  QUANTITY_PRESENTATION_SELECTOR,
-  QUANTITY_HIDDEN_INPUT_SELECTOR
+  ADD_BUTTON_TEXT_UNAVAILABLE_STRING
 } from './const'
 
 import {
-  onVariantChange
+  updateCurrentOptions,
+} from './options'
+
+import {
+  initEventListeners
+} from './events'
+
+import {
+  updateCurrentVariant
 } from './variants'
 
 import {
-  updateQuantity
+  updateDomAddButton
 } from './dom'
 
-export const el: HTMLElement = document.querySelector(DATA_ATTR_PREFIX)
-export const pickerType = el.dataset.prodify
+import {
+  compareInputValues
+} from './helpers'
 
-export const quantityIncrementButton = el.querySelector(QUANTITY_INCREMENT_SELECTOR)
-export const quantityDecrementButton = el.querySelector(QUANTITY_DECREMENT_SELECTOR)
-export const quantityPresentationInput = el.querySelector(QUANTITY_PRESENTATION_SELECTOR)
-export const quantityHiddenInput = el.querySelector(QUANTITY_HIDDEN_INPUT_SELECTOR)
+const el: HTMLElement = document.querySelector(`[${DATA_ATTR_PREFIX}]`)
 
-if (!('prodify' in window)) {
-  (window as Window).prodify = {}
+console.log(el)
 
-  el.addEventListener('change', onVariantChange)
+if (!('prodify' in window) && el) {
+  const pickerType: "select" | "radio" = el.dataset.prodify as "select" | "radio"
 
-  if (
-    quantityIncrementButton &&
-    quantityDecrementButton &&
-    quantityPresentationInput
-  ) {
-    quantityIncrementButton.addEventListener('click', () => {
-      updateQuantity('up')
-    })
-
-    quantityDecrementButton.addEventListener('click', () => {
-      updateQuantity('down')
-    })
+  (window as Window).prodify = {
+    el: el,
+    pickerType: pickerType,
   }
+
+  updateCurrentOptions()
+  updateCurrentVariant()
+  compareInputValues()
+
+  if (!(window as Window).prodify.currentVariant) {
+    updateDomAddButton(true, ADD_BUTTON_TEXT_UNAVAILABLE_STRING, true)
+  }
+
+  initEventListeners()
 }
