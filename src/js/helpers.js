@@ -40,4 +40,12 @@ export default {
         return new DOMParser().parseFromString(responseText, 'text/html')
       })
   },
+  debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+      const context = this;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+  }
 }

@@ -1,7 +1,7 @@
 <div id="site-promo-bar-wrapper" 
   {% if settings.collapse_promo_bar %}
     x-data
-    x-show="!$store.global.isWindowScrolled"
+    x-show="$store.global.isPromoBarVisible"
     x-collapse
   {% endif %}
 >

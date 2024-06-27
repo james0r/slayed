@@ -42,7 +42,7 @@
     </nav>
 
     <a href="{{ routes.root_url }}" class="header-logo">
-      Slayed
+      Slayed Dev
     </a>
 
     <div class="hidden md:block">
@@ -58,7 +58,10 @@
           type="button"
           class="text-white fill-white p-2 [&>svg]:h-[28px] hidden md:block"
           @click="$store.global.isPredictiveSearchVisible = true"
-          :aria-expanded="$store.global.isPredictiveSearchVisible ? 'true' : 'false'">
+          :aria-expanded="$store.global.isPredictiveSearchVisible ? 'true' : 'false'"
+          aria-label="Search"
+          aria-controls="predictive-search"
+          >
           {% render 'icon-search' %}
         </button>
       {% else %}
