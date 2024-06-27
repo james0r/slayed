@@ -41,9 +41,6 @@
     </a>
     <div class="md:flex md:gap-12 pdp-main relative">
       <div class="media flex-1 mb-8 md:mb-0" data-prodify-media-container>
-        <span class="absolute top-0 left-0 z-1 text-[10px]">
-          {{ product.selected_or_first_available_variant.id }}
-        </span>
         <div class="image-wrapper relative overflow-hidden pt-[137%]">
           {% if product.selected_variant and product.selected_variant.image %}
             {% assign media = product.selected_variant.image %}
@@ -63,6 +60,9 @@
             {{ product.selected_or_first_available_variant.options }}
           </h1>
         </div>
+        <span class="absolute top-0 left-0 z-100 text-[10px]">
+          {{ product.selected_or_first_available_variant.id }}
+        </span>
       </div>
       <div class="info flex-1" id="product-info-{{ section.id }}">
         <p class="caption">{{ product.type | upcase }}</p>
