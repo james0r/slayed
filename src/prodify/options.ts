@@ -21,8 +21,8 @@ function updateCurrentOptions() {
     return
   }
 
-  window.prodify.optionContainers = Array.from(this.el.querySelectorAll(OPTION_CONTAINER_SELECTOR))
-  window.prodify.options = this.optionContainers.map((optionContainer) => {
+  window.prodify.optionContainers = Array.from(window.prodify.el.querySelectorAll(OPTION_CONTAINER_SELECTOR))
+  window.prodify.options = window.prodify.optionContainers.map((optionContainer) => {
     return (Array.from(optionContainer.querySelectorAll('input')).find((radio: HTMLInputElement) => radio.checked) as HTMLInputElement).value
   })
 }

@@ -3,7 +3,7 @@
     "main": {
       "type": "main-product",
       "settings": {
-        "picker_type": "select"
+        "picker_type": "radio"
       }
     }
   },

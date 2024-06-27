@@ -25,8 +25,6 @@ import {
 
 const el: HTMLElement = document.querySelector(`[${DATA_ATTR_PREFIX}]`)
 
-console.log(el)
-
 if (!('prodify' in window) && el) {
   const pickerType: "select" | "radio" = el.dataset.prodify as "select" | "radio"
 
