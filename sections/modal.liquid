@@ -10,8 +10,10 @@
   id="dialog-modal-example"
   x-data="modal"
   x-init="init($el)"
-  class="max-w-md p-12 rounded-md">
-  <form action="">
+  class="max-w-md rounded-md"
+  @click="close($event)"
+  >
+  <form action="" class="p-12">
     <div class="prose">
       <h1>{{ settings.modal_title }}</h1>
       <p>{{ settings.modal_description }}</p>
@@ -25,6 +27,7 @@
 <script>
   document.addEventListener('alpine:init', () => {
     Alpine.data('modal', () => ({
+      componentElement: document.querySelector('#dialog-modal-example'),
       open: false,
       init(dialog) {
         if (!dialog) {
@@ -50,6 +53,13 @@
       toggle() {
         this.open = !this.open
       },
+      close(event) {
+        if (event.target === this.componentElement) {
+          if (this.open) {
+            this.open = false
+          }
+        }
+      }
     }))
   })
 </script>
