@@ -19,6 +19,23 @@
         ],
         "default": "radio"
       }
+    ],
+    "blocks": [
+      {
+        "type": "collapsable_row",
+        "name": "Collapsable Row",
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          }, {
+            "type": "richtext",
+            "id": "content",
+            "label": "Content"
+          }
+        ]
+      }
     ]
   }
 {% endschema %}
@@ -159,6 +176,12 @@
         <div class="description prose">
           {{ product.description }}
         </div>
+        {% for block in section.blocks %}
+          <div class="collapsable-row border border-gray-500 my-4 p-4">
+            <h2>{{ block.settings.heading }}</h2>
+            <div>{{ block.settings.content }}</div>
+          </div>
+        {% endfor %}
       </div>
     </div>
   </div>
