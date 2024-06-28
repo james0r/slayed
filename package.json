@@ -22,6 +22,7 @@
     "@alpinejs/collapse": "^3.14.1",
     "@alpinejs/focus": "^3.14.1",
     "@alpinejs/morph": "^3.14.1",
+    "@by-association-only/vite-plugin-shopify-clean": "^2.0.0",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
     "@tailwindcss/typography": "^0.5.13",

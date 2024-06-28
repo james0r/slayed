@@ -1,4 +1,6 @@
 import shopify from 'vite-plugin-shopify'
+import cleanup from '@by-association-only/vite-plugin-shopify-clean'
+
 import pageReload from 'vite-plugin-page-reload'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 import { watch } from 'chokidar';
@@ -34,9 +36,21 @@ export default {
     hmr: true
   },
   publicDir: 'public',
+  build: {
+    manifest: false,
+    emptyOutDir: false,
+    rollupOptions: {
+      output: {
+        entryFileNames: '[name].[hash].min.js',
+        chunkFileNames: '[name].[hash].min.js',
+        assetFileNames: '[name].[hash].min[extname]',
+      },
+    }
+  },
   plugins: [
     basicSsl(),
     watchStaticAssets(),
+    cleanup(),
     shopify({
       sourceCodeDir: "src",
       entrypointsDir: 'src/entrypoints',
@@ -58,15 +72,4 @@ export default {
       }
     }
   ],
-  build: {
-    manifest: false,
-    emptyOutDir: false,
-    rollupOptions: {
-      output: {
-        entryFileNames: '[name].[hash].min.js',
-        chunkFileNames: '[name].[hash].min.js',
-        assetFileNames: '[name].[hash].min[extname]',
-      },
-    }
-  }
 }
