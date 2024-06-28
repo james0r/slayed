@@ -7,8 +7,8 @@ import AlpineMorph from '@alpinejs/morph'
 import AlpineGlobals from '../js/alpine/index.js'
 import helpers, { hasBodyClass } from '../js/helpers.js'
 
-// Dynamic imports
-// hasBodyClass('product-template') && import('../js/prodify.js')
+// Uncomment to use to load the dynamic script demo
+hasBodyClass('product-template') && import('../js/dynamicScript')
 
 const ns = 'slayed'
 

@@ -39,7 +39,10 @@ function onVariantChange(event) {
 }
 
 function getVariantData() {
-  window.prodify.variantData = window.prodify.variantData || JSON.parse(window.prodify.el.querySelector(VARIANTS_JSON_SELECTOR).textContent)
+  window.prodify.variantData = window.prodify.variantData
+    || JSON.parse(
+      window.prodify.el.querySelector(VARIANTS_JSON_SELECTOR).textContent
+    )
   return window.prodify.variantData
 }
 

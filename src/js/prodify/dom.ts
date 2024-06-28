@@ -1,4 +1,4 @@
-import { 
+import {
   ADD_BUTTON_TEXT_UNAVAILABLE_STRING,
   SOLD_OUT_VARIANT_VALUE_STRING,
   UNAVAILABLE_VARIANT_VALUE_STRING,
@@ -6,13 +6,16 @@ import {
   PRICE_CONTAINER_SELECTOR,
   MEDIA_CONTAINER_SELECTOR
 } from './const'
-  import { fetchHTML } from './helpers'
+import { fetchHTML } from './helpers'
 
 function updateDomAddButton(disable = true, text, modifyClass = true) {
   const productForm = document.querySelector(PRODUCT_FORM_SELECTOR)
+  
   if (!productForm) return
+
   const addButton = productForm.querySelector('[name="add"]')
   const addButtonText = productForm.querySelector('[name="add"] > span')
+
   if (!addButton) return
 
   if (disable) {
@@ -88,7 +91,7 @@ function maybeSetOptionSelected(select) {
   }
 }
 
-function updateQuantity (stepDirection) {
+function updateQuantity(stepDirection) {
   const previousQuantity = parseInt(window.prodify.quantityPresentationInput.value)
 
   if (stepDirection == 'up') {

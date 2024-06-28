@@ -59,12 +59,12 @@ If your assets aren't loading due to ssl errors, visit https://127.0.0.1:3000, c
 
 The standard Tailwind boilerplate is provided.
 
-Additionally, **frontend/css/global.css** can be used for global styles and is not tree-shaken. Layers and @apply can also be used in this file. This is made possible via [@tailwindcss/nesting](https://www.npmjs.com/package/@tailwindcss/nesting).
+Additionally, **src/css/global.css** can be used for global styles and is not tree-shaken. Layers and @apply can also be used in this file. This is made possible via [@tailwindcss/nesting](https://www.npmjs.com/package/@tailwindcss/nesting).
 
 ## Javascript
 
 ### Alpine.js
-[Alpine.js](https://alpinejs.dev/start-here) is included and Alpine magic properties, components, stores, and directives directories exist in **frontend/js/alpine**. The modules are auto-registered within **frontend/js/alpine/index.js**. Reference **frontend/js/alpine/components/dropdown.js** to see an example of how to export your module.
+[Alpine.js](https://alpinejs.dev/start-here) is included and Alpine magic properties, components, stores, and directives directories exist in **src/js/alpine**. The modules are auto-registered within **src/js/alpine/index.js**. Reference **src/js/alpine/components/dropdown.js** to see an example of how to export your module.
 
 > By no means do you need to register your Alpine components in this way, and to reduce bundle size it would be advantageous to register components within a section or snippet.
 
@@ -82,6 +82,8 @@ The **public** directory in the project root is a [Vite convention](https://vite
 The Shopify provided predictive search is already included and just needed to be enabled in the themes customizer. To prevent it from being rendered remove the reference from **theme.liquid**.
 
 ### Prodify
-Prodify is a Slayed rework of the Shopify Dawn theme's custom element logic for handling variant changes, **HATEOAS**-style content swapping, and more.
+Prodify is a Slayed rework of the Shopify Dawn theme's custom element logic for handling variant pickers on the PDP. See **src/js/prodify**
 
-The Prodify script is dynamically imported on the product template within **frontend/entrypoints/theme.js**.
+### Dynamic Import
+
+Dynamically import scripts. See demo in **src/entrypoints/theme.js**
