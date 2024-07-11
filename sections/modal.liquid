@@ -37,8 +37,18 @@
         Alpine.effect(() => {
           if (this.open) {
             dialog.showModal()
+            document.querySelectorAll('body > *:not(#shopify-section-modal)').forEach((element) => {
+              element.setAttribute('aria-hidden', 'true')
+              element.setAttribute('inert', '')
+            })
+            document.querySelector('body').classList.add('overflow-hidden')
           } else {
             dialog.close()
+            document.querySelectorAll('body > *:not(#shopify-section-modal)').forEach((element) => {
+              element.removeAttribute('aria-hidden')
+              element.removeAttribute('inert')
+            })
+            document.querySelector('body').classList.remove('overflow-hidden')
           }
         })
 
