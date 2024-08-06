@@ -1,4 +1,4 @@
-`{% comment %}
+{% comment %}
   Renders product variant-picker
 
   Accepts:
@@ -8,13 +8,14 @@
   Usage:
   {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
-
 {%- unless product.has_only_default_variant -%}
   {% if picker_type == 'radio' %}
     <div class="variant-radios">
       {% for option in product.options_with_values %}
-        <fieldset data-prodify-option-container>
-          <legend>
+        <fieldset
+          class="mb-5 flex flex-wrap gap-3"
+        data-prodify-option-container>
+          <legend class="text-sm tracking-tighter leading-5 text-gray-500 mb-4">
             {{ option.name }}
           </legend>
           {% render 'product-variant-options', product: product, option: option, picker_type: picker_type %}

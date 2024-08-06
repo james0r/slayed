@@ -83,7 +83,7 @@
       </div>
       <div class="info flex-1" id="product-info-{{ section.id }}">
         <p class="caption tracking-wide text-[10px] leading-3 text-gray-500">{{ product.type | upcase }}</p>
-        <h1>{{ product.title }}</h1>
+        <h1 class="text-4xl leading-normal font-medium">{{ product.title }}</h1>
         <div class="flex items-center py-2" data-prodify-price-container>
           <span class="sr-only">Regular Price</span>
           {% if product.selected_or_first_available_variant.compare_at_price %}
@@ -95,12 +95,10 @@
             {{ product.selected_or_first_available_variant.price | money }}
           </span>
         </div>
-
         {% render 'product-variant-picker'
           , product: product
           , product_form_id: 'product-form-id'
           , picker_type: section.settings.picker_type %}
-
         <div class="quantity-row">
           <label for="quantity-control-input">Quantity</label>
           <div class="quantity-control-container">
@@ -190,35 +188,6 @@
 </div>
 
 <style>
-  .section-main-product .shopify-section-main-product-inner .info h1 {
-    font-size: 40px;
-    font-weight: 400;
-    line-height: 52px;
-  }
-
-  .section-main-product .shopify-section-main-product-inner .info dl dd {
-    letter-spacing: 1.3px;
-    font-size: 18px;
-    line-height: 27px;
-    font-weight: 400;
-    margin: 15px auto;
-  }
-
-  .section-main-product .shopify-section-main-product-inner .info fieldset {
-    margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .section-main-product .shopify-section-main-product-inner .info fieldset legend {
-    font-size: 13px;
-    letter-spacing: 0.4px;
-    line-height: 19.5px;
-    color: rgba(26, 27, 24, 0.75);
-    margin-bottom: 16px;
-  }
-
   .section-main-product .shopify-section-main-product-inner .info fieldset label {
     display: inline-block;
     padding: 10px 20px;
