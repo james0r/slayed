@@ -75,7 +75,7 @@
       {% if option_disabled %}
         class="disabled hidden [&:checked+label]:bg-indigo-900 [&:checked+label]:text-white"
       {% else %}
-        class="hidden [&:checked+label]:bg-indigo-900 [&:checked+label]:text-white"
+        class="hidden [&.disabled+label]:line-through [&:checked+label]:bg-indigo-900 [&:checked+label]:text-white"
       {% endif %}
     >
     <label 

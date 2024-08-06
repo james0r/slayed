@@ -82,7 +82,7 @@
         </span>
       </div>
       <div class="info flex-1" id="product-info-{{ section.id }}">
-        <p class="caption">{{ product.type | upcase }}</p>
+        <p class="caption tracking-wide text-[10px] leading-3 text-gray-500">{{ product.type | upcase }}</p>
         <h1>{{ product.title }}</h1>
         <div class="flex items-center py-2" data-prodify-price-container>
           <span class="sr-only">Regular Price</span>
@@ -190,27 +190,6 @@
 </div>
 
 <style>
-  input[type='radio'].disabled + label {
-    text-decoration: line-through;
-  }
-
-  .section-main-product {
-    font-family: sans-serif
-  }
-
-  @media(max-width: 576px) {
-    .section-main-product {
-      padding: 15px;
-    }
-  }
-
-  .section-main-product .shopify-section-main-product-inner .info .caption {
-    letter-spacing: 1.3px;
-    font-size: 10px;
-    line-height: 12px;
-    color: rgba(26, 27, 24, 0.75);
-  }
-
   .section-main-product .shopify-section-main-product-inner .info h1 {
     font-size: 40px;
     font-weight: 400;
