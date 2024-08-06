@@ -12,23 +12,23 @@ import {
 } from './variants'
 
 function initEventListeners() {
-  const quantityIncrementButton = window.prodify.el.querySelector(QUANTITY_INCREMENT_SELECTOR)
-  const quantityDecrementButton = window.prodify.el.querySelector(QUANTITY_DECREMENT_SELECTOR)
-  const quantityPresentationInput = window.prodify.el.querySelector(QUANTITY_PRESENTATION_SELECTOR)
-  const quantityHiddenInput = window.prodify.el.querySelector(QUANTITY_HIDDEN_INPUT_SELECTOR)
+  window.prodify.quantityIncrementButton = window.prodify.el.querySelector(QUANTITY_INCREMENT_SELECTOR)
+  window.prodify.quantityDecrementButton = window.prodify.el.querySelector(QUANTITY_DECREMENT_SELECTOR)
+  window.prodify.quantityPresentationInput = window.prodify.el.querySelector(QUANTITY_PRESENTATION_SELECTOR)
+  window.prodify.quantityHiddenInput = window.prodify.el.querySelector(QUANTITY_HIDDEN_INPUT_SELECTOR)
   
   window.prodify.el.addEventListener('change', onVariantChange)
 
   if (
-    quantityIncrementButton &&
-    quantityDecrementButton &&
-    quantityPresentationInput
+    window.prodify.quantityIncrementButton &&
+    window.prodify.quantityDecrementButton &&
+    window.prodify.quantityPresentationInput
   ) {
-    quantityIncrementButton.addEventListener('click', () => {
+    window.prodify.quantityIncrementButton.addEventListener('click', () => {
       updateQuantity('up')
     })
 
-    quantityDecrementButton.addEventListener('click', () => {
+    window.prodify.quantityDecrementButton.addEventListener('click', () => {
       updateQuantity('down')
     })
   }
