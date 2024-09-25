@@ -6,7 +6,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "concurrently --raw --kill-others --passthrough-arguments \"npm run shopify:dev {@}\" \"npm run vite:watch\" --",
+    "dev": "concurrently --raw --kill-others --passthrough-arguments \"npm run shopify:dev {@}\" \"npm run vite:watch\" \"npm run watch:public\" --",
     "build": "run-s vite:build",
     "deploy": "run-s vite:build && shopify theme push -e production",
     "deploy:dev": "run-s vite:build && shopify theme push -e development",
@@ -16,7 +16,8 @@
     "vite:build": "cross-env NODE_ENV=production vite build",
     "shopify:dev": "shopify theme dev --poll --live-reload=\"hot-reload\" --notify=/tmp/theme.update --theme-editor-sync -e development",
     "shopify:pull": "shopify theme pull",
-    "shopify:pull-dev": "shopify theme pull -d"
+    "shopify:pull-dev": "shopify theme pull -d",
+    "watch:public": "chokidar 'public/**/*' -c 'cp -R public/* assets'"
   },
   "devDependencies": {
     "@alpinejs/collapse": "^3.14.1",
@@ -30,6 +31,7 @@
     "alpinejs": "^3.14.1",
     "autoprefixer": "^10.4.20",
     "chokidar": "^4.0.1",
+    "chokidar-cli": "^3.0.0",
     "concurrently": "^9.0.1",
     "cross-env": "^7.0.3",
     "fs-extra": "^11.2.0",
