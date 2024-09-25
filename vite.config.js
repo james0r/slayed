@@ -1,8 +1,65 @@
 import shopify from 'vite-plugin-shopify'
 import cleanup from '@by-association-only/vite-plugin-shopify-clean'
-
 import pageReload from 'vite-plugin-page-reload'
 import basicSsl from '@vitejs/plugin-basic-ssl'
+
+import fs from 'fs';
+import path from 'path';
+import chokidar from 'chokidar';
+
+// Utility function to copy a file
+function copyFile(src, dest) {
+  fs.mkdirSync(path.dirname(dest), { recursive: true });
+  fs.copyFileSync(src, dest);
+}
+
+// Utility function to remove a file
+function removeFile(dest) {
+  if (fs.existsSync(dest)) {
+    fs.unlinkSync(dest);
+  }
+}
+
+function copyPublicToAssetsPlugin() {
+  let config;
+
+  return {
+    name: 'vite-plugin-copy-public',
+    apply: 'serve', // Only apply this during development
+    configResolved(resolvedConfig) {
+      // Save the resolved Vite config
+      config = resolvedConfig;
+    },
+    buildStart() {
+      const publicDir = path.resolve(config.root, 'public');
+      const assetsDir = path.resolve(config.root, 'assets');
+
+      // Watch public directory for changes
+      const watcher = chokidar.watch(publicDir, { ignoreInitial: true });
+
+      watcher.on('add', (filePath) => {
+        const relativePath = path.relative(publicDir, filePath);
+        const destPath = path.resolve(assetsDir, relativePath);
+        console.log(`Copying new file: ${relativePath}`);
+        copyFile(filePath, destPath);
+      });
+
+      watcher.on('change', (filePath) => {
+        const relativePath = path.relative(publicDir, filePath);
+        const destPath = path.resolve(assetsDir, relativePath);
+        console.log(`Updating file: ${relativePath}`);
+        copyFile(filePath, destPath);
+      });
+
+      watcher.on('unlink', (filePath) => {
+        const relativePath = path.relative(publicDir, filePath);
+        const destPath = path.resolve(assetsDir, relativePath);
+        console.log(`Removing file: ${relativePath}`);
+        removeFile(destPath);
+      });
+    },
+  };
+}
 
 export default {
   clearScreen: false,
@@ -27,6 +84,7 @@ export default {
   plugins: [
     basicSsl(),
     cleanup(),
+    copyPublicToAssetsPlugin(),
     shopify({
       sourceCodeDir: "src",
       entrypointsDir: 'src/entrypoints',
