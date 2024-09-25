@@ -6,7 +6,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "concurrently --raw --kill-others --passthrough-arguments \"npm run shopify:dev {@}\" \"npm run vite:watch\" --",
+    "dev": "run-p shopify:dev vite:watch",
     "build": "run-s vite:build",
     "deploy": "run-s vite:build && shopify theme push -e production",
     "deploy:dev": "run-s vite:build && shopify theme push -e development",
@@ -30,7 +30,6 @@
     "alpinejs": "^3.14.1",
     "autoprefixer": "^10.4.20",
     "chokidar": "^4.0.1",
-    "concurrently": "^9.0.1",
     "cross-env": "^7.0.3",
     "fs-extra": "^11.2.0",
     "liquid-ajax-cart": "^2.1.1",
