@@ -1,0 +1,62 @@
+{% schema %}
+  {
+    "name": "FAQ Section",
+    "class": "faq-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Item",
+        "type": "item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          }, {
+            "type": "text",
+            "id": "body",
+            "label": "Body Text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "FAQ Section"
+      }
+    ]
+  }
+{% endschema %}
+
+<div class="section">
+  <div class="px-6 md:px-8">
+    <div class="container py-8">
+      <h2>
+        {{ section.settings.heading }}
+      </h2>
+      <div>
+        {% for block in section.blocks %}
+          <div
+            x-data="{ expanded: false }"
+            class="my-4"
+            x-id="['item-trigger', 'item-panel']">
+            <h3 @click="expanded = !expanded" :aria-controls="$id('item-panel')" :aria-expanded="expanded">
+              {{ block.settings.heading }}
+            </h3>
+            <div x-cloak x-show="expanded" x-collapse :id="$id('item-panel')">
+              <p>
+                {{ block.settings.body }}
+              </p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

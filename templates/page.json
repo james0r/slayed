@@ -1,5 +1,57 @@
 {
   "sections": {
+    "faq_BzizYk": {
+      "type": "faq",
+      "blocks": {
+        "item_qmT3Hm": {
+          "type": "item",
+          "settings": {
+            "heading": "FAQ Item 1",
+            "body": "FAQ Item 1 text"
+          }
+        },
+        "item_EBEdYH": {
+          "type": "item",
+          "settings": {
+            "heading": "FAQ Item 2",
+            "body": "FAQ Item 2 text"
+          }
+        }
+      },
+      "block_order": [
+        "item_qmT3Hm",
+        "item_EBEdYH"
+      ],
+      "settings": {
+        "heading": "FAQ Demo Section"
+      }
+    },
+    "faq_xUhHWm": {
+      "type": "faq",
+      "blocks": {
+        "item_H49xg8": {
+          "type": "item",
+          "settings": {
+            "heading": "",
+            "body": ""
+          }
+        },
+        "item_UcwrAf": {
+          "type": "item",
+          "settings": {
+            "heading": "FAQ 2 Item 1",
+            "body": "some text"
+          }
+        }
+      },
+      "block_order": [
+        "item_H49xg8",
+        "item_UcwrAf"
+      ],
+      "settings": {
+        "heading": ""
+      }
+    },
     "main": {
       "type": "main-page",
       "settings": {
@@ -7,6 +59,8 @@
     }
   },
   "order": [
+    "faq_BzizYk",
+    "faq_xUhHWm",
     "main"
   ]
 }
