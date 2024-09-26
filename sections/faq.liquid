@@ -19,7 +19,7 @@
             "id": "heading",
             "label": "Heading"
           }, {
-            "type": "text",
+            "type": "richtext",
             "id": "body",
             "label": "Body Text"
           }
@@ -46,7 +46,7 @@
             x-data="{ expanded: false }"
             class="my-4"
             x-id="['item-trigger', 'item-panel']">
-            <h3 @click="expanded = !expanded" :aria-controls="$id('item-panel')" :aria-expanded="expanded">
+            <h3 class="cursor-pointer" @click="expanded = !expanded" :aria-controls="$id('item-panel')" :aria-expanded="expanded">
               {{ block.settings.heading }}
             </h3>
             <div x-cloak x-show="expanded" x-collapse :id="$id('item-panel')">
