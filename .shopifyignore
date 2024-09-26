@@ -1,6 +1,3 @@
-frontend/
-modules/
-static/
 package.json
 package-lock.json
 vite.config.ts
