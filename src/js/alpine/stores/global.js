@@ -52,7 +52,7 @@ export default {
         // Hide promo bar when scrolling down more than 100px
         if (window.scrollY > 100) {
           this.isPromoBarVisible = false
-        } else {
+        } else if (window.scrollY < 60) {
           this.isPromoBarVisible = true
         }
 
