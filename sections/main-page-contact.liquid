@@ -26,7 +26,7 @@
     </header>
     <div class="sm:flex">
       <div class="flex-1 height-full mb-12 sm:mb-0">
-        <div class="h-full relative aspect-square sm:aspect-none">
+        <div class="h-full relative aspect-square sm:aspect-auto">
           <img 
             src="{{ 'using-mobile-phone.jpg' | asset_url }}" 
             alt="contact us"
@@ -48,13 +48,13 @@
               <div class="mr-2">
                 {%- render 'icon-error' -%}
               </div>
-              <h2
+              <p
                 class=""
                 role="alert"
                 tabindex="-1"
                 autofocus>
                 {{ 'templates.contact.form.error_heading' | t }}
-              </h2>
+              </p>
             </div>
             <ul class="form-status-list caption-large" role="list">
               <li>
