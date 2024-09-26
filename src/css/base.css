@@ -4,15 +4,19 @@
   }
 
   h1 {
-    @apply text-5xl font-bold;
+    font-size: theme('fontSize.5xl');
+    font-weight: theme('fontWeight.bold');
   }
   h2 {
-    @apply text-4xl font-bold;
+    font-size: theme('fontSize.4xl');
+    font-weight: theme('fontWeight.bold');
   }
   h3 {
-    @apply text-2xl font-bold;
+    font-size: theme('fontSize.2xl');
+    font-weight: theme('fontWeight.bold');
   }
   a {
-    @apply text-cloud-burst-500 font-bold;
+    color: theme('colors.cloud-burst.500');
+    font-weight: theme('fontWeight.bold');
   }
 }
