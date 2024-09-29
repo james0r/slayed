@@ -157,18 +157,22 @@
             <div data-ajax-cart-errors="form" class="text-red-500">
               <!-- Error messages appear here -->
             </div>
-          {% comment %}
+
             {%- if product.selected_or_first_available_variant.available -%}
-            <a
-            type="button"
-            class="w-full h-12 px-6 text-white bg-indigo-900 flex items-center justify-center hover:after:border-offset-1"
-            :href="`/cart/${selectedVariant}:1`"
-            x-show="showBuyNow"
-            >
-            Buy it now
-            </a>
+              <button
+                type="button"
+                class="w-full h-12 px-6 text-white bg-indigo-900 flex items-center justify-center hover:after:border-offset-1"
+                onclick="onBuyNowClicked()">
+                Buy it now
+              </button>
+              <script>
+                const onBuyNowClicked = () => {
+                  window.location.href = `/cart/${window?.prodify?.currentVariant?.id}:1`;
+                }
+              </script>
             {%- endif -%}
-          {% endcomment %}
+
+            {{ form | payment_button }}
           </form>
         </ajax-cart-product-form>
 
