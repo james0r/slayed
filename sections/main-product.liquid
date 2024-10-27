@@ -67,8 +67,8 @@
           <img
             src="{{ media | image_url }}"
             alt="{{ media.alt }}"
-            srcset="{{ media | image_url: width: 1000 }} 800w, {{ media | image_url: width: 1000 }} 1000w, {{ media | image_url: width: 1426 }} 1426w"
-            sizes="(min-width: 830px) 55vw, 100vw"
+            srcset="{{ media | image_url: width: 800 }} 800w, {{ media | image_url: width: 1000 }} 1000w, {{ media | image_url: width: 1426 }} 1426w"
+            sizes="(min-width: 768px) 55vw, 100vw"
             height="{{ media.height }}"
             width="{{ media.width }}"
             class="absolute h-full w-full object-cover inset-0"
