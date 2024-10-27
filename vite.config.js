@@ -14,7 +14,11 @@ function copyFile(src, dest) {
 
 function removeFile(dest) {
   if (fs.existsSync(dest)) {
-    fs.unlinkSync(dest);
+    try {
+      fs.unlinkSync(dest);
+    } catch (err) {
+      console.error(`Failed to remove file: ${dest}`);
+    }
   }
 }
 
