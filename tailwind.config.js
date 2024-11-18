@@ -12,7 +12,7 @@ module.exports = {
     './layout/*.liquid',
     './sections/*.liquid',
     './snippets/*.liquid',
-    './templates/*.liquid',
+    './templates/**/*.liquid',
     './src/**/*.{js,jsx,ts,tsx}'
   ],
   safelist: [
