@@ -8,40 +8,19 @@ const path = require('path')
 let plugin = require('tailwindcss/plugin')
 
 module.exports = {
-  content: [
-    './layout/*.liquid',
-    './sections/*.liquid',
-    './snippets/*.liquid',
-    './templates/**/*.liquid',
-    './src/**/*.{js,jsx,ts,tsx}'
-  ],
   theme: {
-    container: {
-      center: true,
-      // padding: {
-      //   DEFAULT: '1rem',
-      //   sm: '2rem',
-      // },
-      screens: {
-        sm: `640px`,
-        md: `768px`,
-        lg: `1024px`,
-        xl: `1280px`,
-        '2xl': `calc(1536px + 4rem)`,
-      },
-    },
-    screens: {
-      sm: '640px',
-      // => @media (min-width: 640px) { ... }
-      md: '768px',
-      // => @media (min-width: 768px) { ... }
-      lg: '1024px',
-      // => @media (min-width: 1024px) { ... }
-      xl: '1280px',
-      // => @media (min-width: 1280px) { ... }
-      '2xl': '1536px',
-      // => @media (min-width: 1536px) { ... }
-    },
+    // screens: {
+    //   sm: '640px',
+    //   // => @media (min-width: 640px) { ... }
+    //   md: '768px',
+    //   // => @media (min-width: 768px) { ... }
+    //   lg: '1024px',
+    //   // => @media (min-width: 1024px) { ... }
+    //   xl: '1280px',
+    //   // => @media (min-width: 1280px) { ... }
+    //   '2xl': '1536px',
+    //   // => @media (min-width: 1536px) { ... }
+    // },
     extend: {
       typography: {
         DEFAULT: {

@@ -1,4 +1,28 @@
 @layer utilities {
+  .container {
+    margin-inline: auto;
+
+    @variant sm {
+      max-width: 640px;
+    }
+
+    @variant md {
+      max-width: 768px;
+    }
+
+    @variant lg {
+      max-width: 1024px;
+    }
+
+    @variant xl {
+      max-width: 1280px;
+    }
+
+    @variant 2xl {
+      max-width: calc(1536px + 4rem);
+    }
+  }
+
   .pin {
     inset-block: --spacing(0);
     inset-inline: --spacing(0);
