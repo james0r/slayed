@@ -57,9 +57,9 @@ If your assets aren't loading due to ssl errors, visit https://127.0.0.1:3000, c
 
 ## CSS
 
-The standard Tailwind boilerplate is provided.
+Tailwind v4 is used. At the moment Slayed uses both the new @theme config method along with the previous versions tailwind.config.js config. Future versions will work on migrating to recommended v4 methods.
 
-Additionally, **src/css/global.css** can be used for global styles and is not tree-shaken. Layers and @apply can also be used in this file. This is made possible via [@tailwindcss/nesting](https://www.npmjs.com/package/@tailwindcss/nesting).
+Additionally, **src/css/global.css** can be used for global styles and is not tree-shaken.
 
 ## Javascript
 
