@@ -2,6 +2,7 @@ import shopify from 'vite-plugin-shopify'
 import cleanup from '@by-association-only/vite-plugin-shopify-clean'
 import pageReload from 'vite-plugin-page-reload'
 import basicSsl from '@vitejs/plugin-basic-ssl'
+import tailwindcss from "@tailwindcss/vite";
 
 import fs from 'fs';
 import path from 'path';
@@ -82,6 +83,7 @@ export default {
     }
   },
   plugins: [
+    tailwindcss(),
     basicSsl(),
     cleanup(),
     copyPublicToAssetsPlugin(),
