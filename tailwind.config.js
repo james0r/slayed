@@ -15,9 +15,6 @@ module.exports = {
     './templates/**/*.liquid',
     './src/**/*.{js,jsx,ts,tsx}'
   ],
-  safelist: [
-    'skip-to-content-link'
-  ],
   theme: {
     container: {
       center: true,
@@ -46,62 +43,28 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }
     },
     extend: {
-      fontFamily: {
-        'open-sans': ['"Open Sans"', 'sans-serif'],
-      },
       typography: {
         DEFAULT: {
           css: {
             maxWidth: 'none',
-            color: 'var(--color-neutral-400)',
+            color: 'var(--color-cloud-burst-400)',
             iframe: {
               width: '100%',
               height: '100%',
               aspectRatio: '16/9'
             },
             a: {
-              color: 'var(--color-secondary-500)',
+              color: 'var(--color-woodland-500)',
               '&:hover': {
-                color: 'var(--color-secondary-200)',
+                color: 'var(--color-woodland-200)',
               },
             },
           },
         },
       },
-      colors: {
-        'cloud-burst': {
-          DEFAULT: '#252A59',
-          50: '#7179C4',
-          100: '#636CBE',
-          200: '#4953AF',
-          300: '#3D4593',
-          400: '#313876',
-          500: '#252A59',
-          600: '#151731',
-          700: '#04050A',
-          800: '#000000',
-          900: '#000000',
-        },
-        woodland: {
-          DEFAULT: '#595425',
-          50: '#C4BC71',
-          100: '#BEB563',
-          200: '#AFA649',
-          300: '#938A3D',
-          400: '#766F31',
-          500: '#595425',
-          600: '#312F15',
-          700: '#0A0904',
-          800: '#000000',
-          900: '#000000',
-          950: '#000000',
-        }
-      }
     },
   },
   plugins: [
-    require('@tailwindcss/container-queries'),
-    require('@tailwindcss/typography')(),
     plugin(function ({ addVariant }) {
       addVariant('scrolled', '.scrolled &'),
         addVariant('mobile-menu-visible', '.mobile-menu-visible &')

@@ -1,6 +1,44 @@
-@import "tailwindcss";
-/* @import '../css/base.css';
+@import 'tailwindcss';
+@import '../css/base.css';
 @import '../css/components.css';
-@import '../css/utilities.css'; */
+@import '../css/utilities.css';
+@config "../../tailwind.config.js";
+
+@source inline("skip-to-content-link");
+
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --color-cloud-burst-50: #7179c4;
+  --color-cloud-burst-100: #636cbe;
+  --color-cloud-burst-200: #4953af;
+  --color-cloud-burst-300: #3d4593;
+  --color-cloud-burst-400: #313876;
+  --color-cloud-burst-500: #252a59;
+  --color-cloud-burst-600: #151731;
+  --color-cloud-burst-700: #04050a;
+  --color-cloud-burst-800: #000000;
+  --color-cloud-burst-900: #000000;
+
+  /* DEFAULT */
+  --color-cloud-burst: #252a59;
+
+  --color-woodland-50: #c4bc71;
+  --color-woodland-100: #beb563;
+  --color-woodland-200: #afa649;
+  --color-woodland-300: #938a3d;
+  --color-woodland-400: #766f31;
+  --color-woodland-500: #595425;
+  --color-woodland-600: #312f15;
+  --color-woodland-700: #0a0904;
+  --color-woodland-800: #000000;
+  --color-woodland-900: #000000;
+  --color-woodland-950: #000000;
+
+  /* DEFAULT */
+  --color-woodland: #595425;
+
+  --font-open-sans: "Open Sans", sans-serif;
+}
 
 @import '../css/global.css';
