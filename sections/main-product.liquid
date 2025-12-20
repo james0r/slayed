@@ -53,7 +53,7 @@
       {{ product.variants | json }}
     </script>
 
-    <a class="skip-to-content-link" href="#product-info-{{ section.id }}">
+    <a class="absolute z-50 px-4 py-2 text-white bg-cloud-burst rounded-lg shadow-lg not-focus:sr-only" href="#product-info-{{ section.id }}">
       Skip to product info
     </a>
     <div class="md:flex md:gap-12 pdp-main relative">
@@ -142,14 +142,14 @@
                 {% if product.selected_or_first_available_variant.available == false %}
                 disabled
                 {% endif %}>
-                <span class="in-[[processing]]:hidden">
+                <span class="[[processing]_&]:hidden">
                   {%- if product.selected_or_first_available_variant.available -%}
                     Add to cart
                   {%- else -%}
                     Sold out
                   {%- endif -%}
                 </span>
-                <span class="hidden in-[[processing]]:block in-[[processing]]:cursor-not-allowed">
+                <span class="hidden [[processing]_&]:block [[processing]_&]:cursor-not-allowed">
                   Adding to cart...
                 </span>
               </button>

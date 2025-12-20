@@ -1,9 +1,10 @@
 @layer utilities {
   .pin {
-    @apply inset-0;
+    inset-block: --spacing(0);
+    inset-inline: --spacing(0);
   }
 
   .pin-x {
-    @apply inset-x-0;
+    inset-inline: --spacing(0);
   }
 }

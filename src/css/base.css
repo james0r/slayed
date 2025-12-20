@@ -4,19 +4,23 @@
   }
 
   h1 {
-    @apply text-5xl font-bold;
+    font-size: var(--text-5xl);
+    font-weight: var(--font-weight-bold);
   }
 
   h2 {
-    @apply text-4xl font-bold;
+    font-size: var(--text-4xl);
+    font-weight: var(--font-weight-bold);
   }
 
   h3 {
-    @apply text-2xl font-bold;
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-bold);
+  
   }
 
   a {
-    @apply font-bold;
+    font-weight: var(--font-weight-bold);
     color: var(--color-cloud-burst-500);
   }
 }

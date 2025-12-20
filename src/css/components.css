@@ -1,34 +1,28 @@
 @layer components {
-  .skip-to-content-link {
-    @apply absolute z-50 px-4 py-2 text-white bg-cloud-burst rounded-lg shadow-lg;
-  }
-
-  .skip-to-content-link:not(:focus) {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
-
   .btn {
-    @apply py-3 px-12 bg-indigo-900 hover:bg-cloud-burst-600 text-white rounded-full transition;
+    @apply rounded-full transition;
+    padding-block: --spacing(3);
+    padding-inline: --spacing(12);
+    background-color: var(--color-indigo-900);
+    color: var(--color-white);
+    cursor: pointer;
+    border-radius: calc(infinity * 1px);
+  }
+
+  .btn:hover {
+    background-color: var(--color-cloud-burst-600);
   }
 
   .input-select {
-    @apply block
-      my-4
-      w-full
-      py-2 
-      px-4 
-      border 
-      border-gray-500 
-      appearance-none
-      rounded-lg;
+    display: block;
+    margin-block: --spacing(4);
+    padding-block: --spacing(2);
+    padding-inline: --spacing(4);
+    width: 100%;
+    border-width: 1px;
+    border-color: var(--color-gray-500);
+    appearance: none;
+    border-radius: var(--radius-lg);
   }
 
   .select-arrow {
@@ -43,14 +37,18 @@
   }
 
   .pill-button {
-    @apply bg-indigo-900 text-white px-4 rounded-lg cursor-pointer;
+    background-color: var(--color-indigo-900);
+    color: var(--color-white);
+    padding-inline: --spacing(4);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
   }
 
   .slayed-input {
-    @apply py-2 px-4 border border-gray-500 rounded-lg;
-  }
-
-  .site-promo-bar-tw-component {
-    @apply flex px-4 py-1 top-0 w-full items-center justify-center bg-woodland-500 text-white;
+    padding-block: --spacing(2);
+    padding-inline: --spacing(4);
+    border-radius: var(--radius-lg);
+    border-color: var(--color-gray-500);
+    border-width: 1px;
   }
 }

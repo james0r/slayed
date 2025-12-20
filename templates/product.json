@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -7,7 +16,7 @@
           "type": "collapsable_row",
           "settings": {
             "heading": "Some Heading",
-            "content": "<p>Model Name: {{ product.metafields.custom.model_info.value.name.value }}<\/p><p>Model Bust: {{ product.metafields.custom.model_info.value.bust | metafield_tag }}<\/p>"
+            "content": "<p>Model Name: {{ product.metafields.custom.model_info.value.name.value }}</p><p>Model Bust: {{ product.metafields.custom.model_info.value.bust | metafield_tag }}</p>"
           }
         }
       },
@@ -15,7 +24,7 @@
         "collapsable_row_7EjzKy"
       ],
       "settings": {
-        "picker_type": "radio"
+        "picker_type": "select"
       }
     }
   },
