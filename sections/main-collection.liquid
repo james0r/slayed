@@ -11,6 +11,7 @@
     <h2 class="mb-12 max-w-max mx-auto">
       {{ collection.title }}
     </h2>
+    {% render 'collections-list' %}
     <div class="grid-wrapper">
       {%- paginate collection.products by 12 -%}
         <div class="product-grid">
