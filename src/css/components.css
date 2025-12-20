@@ -1,12 +1,12 @@
 @layer components {
   .btn {
-    @apply rounded-full transition;
     padding-block: --spacing(3);
     padding-inline: --spacing(12);
     background-color: var(--color-indigo-900);
     color: var(--color-white);
     cursor: pointer;
     border-radius: calc(infinity * 1px);
+    transition: background-color 150ms ease;
   }
 
   .btn:hover {
