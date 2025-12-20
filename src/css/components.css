@@ -13,6 +13,10 @@
     background-color: var(--color-cloud-burst-600);
   }
 
+  #dialog-modal-example::backdrop {
+    background-color: --alpha(var(--color-black) / 50%);
+  }
+
   .input-select {
     display: block;
     margin-block: --spacing(4);
