@@ -31,6 +31,8 @@ function initEventListeners() {
     window.prodify.quantityDecrementButton.addEventListener('click', () => {
       updateQuantity('down')
     })
+  } else {
+    console.warn('Prodify quantity buttons or inputs not found, quantity adjustment disabled.')
   }
 }
 

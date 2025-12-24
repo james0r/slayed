@@ -33,6 +33,8 @@ if (!('prodify' in window) && el) {
     pickerType: pickerType,
   }
 
+  console.log('initialized prodify')
+
   updateCurrentOptions()
   updateCurrentVariant()
   compareInputValues()

@@ -12,14 +12,21 @@ import {
 } from './const'
 
 function updateCurrentVariant() {
+
   const variants = getVariantData()
-  const matchingVariant = variants.find(
-    variant => {
-      return variant.options.every((option, index) => {
-        return window.prodify.options[index] === option
+
+  if (variants.length === 1) {
+    window.prodify.currentVariant = variants[0]
+  } else {
+    const matchingVariant = variants.find(
+      variant => {
+        return variant.options.every((option, index) => {
+          return window.prodify.options[index] === option
+        })
       })
-    })
-  window.prodify.currentVariant = matchingVariant
+  
+    window.prodify.currentVariant = matchingVariant
+  }
 }
 
 function onVariantChange(event) {
