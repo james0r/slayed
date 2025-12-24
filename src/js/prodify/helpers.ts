@@ -10,9 +10,10 @@ async function fetchHTML(endpoint) {
 }
 
 function compareInputValues() {
+  let variantsMatchingOptionOneSelected = []
 
   if (window.prodify.variantData.length > 1) {
-    const variantsMatchingOptionOneSelected = window.prodify.variantData.filter(
+    variantsMatchingOptionOneSelected = window.prodify.variantData.filter(
       // Grab the first checked input and compare it to the variant option1
       // return an array of variants where the option1 matches the checked input
       (variant) => (window.prodify.el.querySelector(':checked') as HTMLInputElement).value === variant.option1

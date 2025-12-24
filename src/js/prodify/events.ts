@@ -22,7 +22,8 @@ function initEventListeners() {
   if (
     window.prodify.quantityIncrementButton &&
     window.prodify.quantityDecrementButton &&
-    window.prodify.quantityPresentationInput
+    window.prodify.quantityPresentationInput &&
+    window.prodify.quantityHiddenInput
   ) {
     window.prodify.quantityIncrementButton.addEventListener('click', () => {
       updateQuantity('up')
