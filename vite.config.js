@@ -68,7 +68,14 @@ export default {
     host: '127.0.0.1',
     https: true,
     port: 3000,
-    hmr: true
+    hmr: true,
+    cors: {
+      origin: [
+        /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/,
+        'https://slayed-starter.myshopify.com',
+        'https:/slayed-starter.com'
+      ]
+    }
   },
   publicDir: 'public',
   build: {
