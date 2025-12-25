@@ -53,11 +53,11 @@ Slayed uses [Vite](https://vitejs.dev/) and the [Shopify Vite Plugin](https://gi
 
 Slayed uses [@vitejs/plugin-basic-ssl](https://www.npmjs.com/package/@vitejs/plugin-basic-ssl). This plugin generates an untrusted certificate which allows access to the Vite client from the Shopify dev server after proceeding past the browsers warning screen.
 
-### CORS Issue
-
-If your styles and Javascript isn't showing up in the theme editor while in dev mode, [this](https://shopify-vite.barrelny.com/guide/troubleshooting.html#dev-server-cross-origin-resource-sharing-cors) might fix it.
-
 If your assets aren't loading due to ssl errors, visit https://127.0.0.1:3000, click Advanced and proceed, then navigate back to your Shopify CLI dev server at http://127.0.0.1:9292 and you should see your assets loaded properly.
+
+### CORS
+
+If your styles and Javascript aren't showing up in the theme editor while in dev mode, [this](https://shopify-vite.barrelny.com/guide/troubleshooting.html#dev-server-cross-origin-resource-sharing-cors) might fix it.
 
 ## CSS
 
