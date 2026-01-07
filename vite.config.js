@@ -100,7 +100,6 @@ export default {
       additionalEntrypoints: [
         'src/js/prodify/index.ts'
       ],
-      snippetFile: "vite.liquid",
     }),
     pageReload('/tmp/theme.update', {
       delay: 2000

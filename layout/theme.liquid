@@ -26,11 +26,13 @@
     {% render 'head-css' %}
     {% render 'head-scripts' %}
 
+    <meta name="test" content="123">
     {% liquid
-      render 'vite' with 'theme.css'
-      render 'vite' with 'theme.js'
-      render 'vite' with '@/js/prodify/index.ts'
+      render 'vite-tag' with 'theme.css'
+      render 'vite-tag' with 'theme.js'
+      render 'vite-tag' with '@/js/prodify/index.ts'
     %} 
+    <meta name="test" content="456">
   </head> 
 
   {% liquid
