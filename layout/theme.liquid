@@ -27,9 +27,9 @@
     {% render 'head-scripts' %}
 
     {% liquid
-      render 'vite-tag' with 'theme.css'
-      render 'vite-tag' with 'theme.js'
-      render 'vite-tag' with '@/js/prodify/index.ts'
+      render 'vite-tag', entry: 'theme.css'
+      render 'vite-tag', entry: 'theme.js'
+      render 'vite-tag', entry: '@/js/prodify/index.ts'
     %} 
   </head> 
 
