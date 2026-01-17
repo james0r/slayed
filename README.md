@@ -10,7 +10,8 @@ Password: sprite
 
 Discord chat at #slayed on 
 
-[![](https://dcbadge.vercel.app/api/server/shopify-developers-597504637167468564)](https://discord.gg/shopify-developers-597504637167468564)
+[![](https://dcbadge.limes.pink/api/server/https://discord.gg/bYHkbCeNdj)](https://discord.gg/bYHkbCeNdj)
+
 
 ## Shopify CLI
 
