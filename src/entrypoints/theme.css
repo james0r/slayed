@@ -2,7 +2,6 @@
 @import '../css/base.css';
 @import '../css/components.css';
 @import '../css/utilities.css';
-@config "../../tailwind.config.js";
 
 @plugin '@tailwindcss/typography';
 
@@ -43,6 +42,18 @@
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
+}
+
+@custom-variant scrolled {
+  :where(.scrolled) & {
+    @slot;
+  }
+}
+
+@custom-variant mobile-menu-visible {
+  :where(.mobile-menu-visible) & {
+    @slot;
+  }
 }
 
 @import '../css/global.css';

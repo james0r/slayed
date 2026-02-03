@@ -32,3 +32,22 @@
     inset-inline: --spacing(0);
   }
 }
+
+@utility prose {
+  max-width: none;
+  :where(:not(.not-prose, .not-prose *)) {
+    --tw-prose-body: var(--color-cloud-burst-400);
+    --tw-prose-headings: var(--color-cloud-burst-50);
+    --tw-prose-links: var(--color-woodland-500);
+
+    &:where(a:hover) {
+      --tw-prose-links: var(--color-woodland-200);
+    }
+
+    &:where(iframe) {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 16 / 9;
+    }
+  }
+}

@@ -62,7 +62,7 @@ If your styles and Javascript aren't showing up in the theme editor while in dev
 
 ## CSS
 
-Tailwind v4 is used. At the moment Slayed uses both the new @theme config method along with the previous versions tailwind.config.js config. Future versions will work on migrating to recommended v4 methods.
+Tailwind v4 is used. 
 
 Additionally, **src/css/global.css** can be used for global styles and is not tree-shaken.
 
