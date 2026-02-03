@@ -37,7 +37,7 @@
         {% endif %}
       </p>
     </div>
-    {% comment %}
+    <ajax-cart-product-form>
       {% form 'product', prod %}
         <input type="hidden" name="id" value="{{ prod.selected_or_first_available_variant.id }}">
         <input type="hidden" name="quantity" value="1">
@@ -47,5 +47,5 @@
         </div>
         </button>
       {% endform %}
-    {% endcomment %}
+    </ajax-cart-product-form>
 </div>
