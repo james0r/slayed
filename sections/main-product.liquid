@@ -134,7 +134,7 @@
               name="quantity"
               value="1"
               data-prodify-quantity-hidden-input>
-            <div class="mb-[10px]">
+            <div class="mb-2.5">
               <button
                 type="submit"
                 name="add"
@@ -142,14 +142,14 @@
                 {% if product.selected_or_first_available_variant.available == false %}
                 disabled
                 {% endif %}>
-                <span class="[[processing]_&]:hidden">
+                <span class="in-[[processing]]:hidden">
                   {%- if product.selected_or_first_available_variant.available -%}
                     Add to cart
                   {%- else -%}
                     Sold out
                   {%- endif -%}
                 </span>
-                <span class="hidden [[processing]_&]:block [[processing]_&]:cursor-not-allowed">
+                <span class="hidden in-[[processing]]:block in-[[processing]]:cursor-not-allowed">
                   Adding to cart...
                 </span>
               </button>
