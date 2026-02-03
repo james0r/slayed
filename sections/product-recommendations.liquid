@@ -1,0 +1,81 @@
+{% schema %}
+  {
+    "name": "Product recommendations",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+    ]
+  }
+{% endschema %}
+
+<div class="px-6 md:px-8 py-12">
+  <div class="container">
+    <div class="product-recommendations" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4&intent=related">
+      {%- if recommendations.performed? and recommendations.products_count > 0 -%}
+        {% if section.settings.heading != blank %}
+          <div class="mb-8">
+            <h2>{{ section.settings.heading }}</h2>
+          </div>
+        {% else %}
+          <div class="mb-8">
+            {% if recommendations.intent == 'related' %}
+              <h2>You may also like</h2>
+            {% elsif recommendations.intent == 'complementary' %}
+              <h2>Pair it with</h2>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <div class="grid-wrapper">
+          <ul class="product-grid">
+            {%- for product in recommendations.products -%}
+              <li class="product">
+                {% render 'product-grid-item'
+                  , prod: product %}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+
+{% javascript %}
+  const handleIntersection = (entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+    
+    observer.unobserve(productRecommendationsSection);
+
+    const url = productRecommendationsSection.dataset.url;
+
+    fetch(url).then(response => response.text()).then(text => {
+      const html = document.createElement('div');
+      html.innerHTML = text;
+      const recommendations = html.querySelector('.product-recommendations');
+
+      if (recommendations && recommendations.innerHTML.trim().length) {
+        productRecommendationsSection.innerHTML = recommendations.innerHTML;
+      }
+    }).catch(e => {
+      console.error(e);
+    });
+  };
+
+  const productRecommendationsSection = document.querySelector('.product-recommendations');
+  const observer = new IntersectionObserver(handleIntersection, {rootMargin: '0px 0px 200px 0px'});
+
+  observer.observe(productRecommendationsSection);
+{% endjavascript %}
+
+<style>
+  .product-grid {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+</style>
