@@ -21,7 +21,7 @@
     <nav
       :class="$store.global.isMobileMenuVisible ? 'open' : 'closed'"
       aria-label="Mobile Navigation Overlay"
-      class="block md:hidden [&[x-cloak]]:hidden"
+      class="block md:hidden [[x-cloak]]:hidden"
       style="transition: all 300ms;"
       id="mobile-nav"
       role="navigation"
@@ -30,7 +30,7 @@
       <button
         id="mobile-nav-trigger"
         type="button"
-        class="block border-0 bg-transparent text-white appearance-none [&>span>svg]:h-auto [&>span>svg]:w-[26px] [&>span>svg]:fill-white"
+        class="block border-0 bg-transparent text-white appearance-none [&>span>svg]:h-auto [&>span>svg]:w-6.5 [&>span>svg]:fill-white"
         @click="$store.global.toggleMobileMenu()"
         :aria-expanded="$store.global.isMobileMenuVisible"
         aria-label="Mobile Navigation Button"
@@ -95,7 +95,7 @@
 
       <a
         href="{{ routes.cart_url }}"
-        class="relative p-2 text-white [&>svg]:h-[22px] [&>svg]:w-auto [&[x-cloak]]:hidden"
+        class="relative p-2 text-white [&>svg]:h-5.5 [&>svg]:w-auto [[x-cloak]]:hidden"
         x-cloak>
         {% render 'icon-cart' %}
         <span data-ajax-cart-bind="item_count" class="absolute top-[58%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs text-cloud-burst-500">

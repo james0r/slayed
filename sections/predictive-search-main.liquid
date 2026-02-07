@@ -39,7 +39,7 @@
       action="{{ routes.search_url }}"
       method="get"
       role="search"
-      class="w-full max-w-[422px] mx-auto"
+      class="w-full max-w-105.5 mx-auto"
       @click.outside="$store.global.isPredictiveSearchVisible = false"
     >
       <div class="flex gap-x-3 w-full relative">
@@ -66,7 +66,7 @@
 
         <button
           type="button"
-          class="absolute -right-[15px] top-1/2 -translate-y-1/2 translate-x-full"
+          class="absolute -right-3.75 top-1/2 -translate-y-1/2 translate-x-full"
           @click="$store.global.isPredictiveSearchVisible = false"
         >
           <span class="sr-only">Close</span>

@@ -4,7 +4,7 @@
   <div class="account-register-inner shell">
 
     {%- paginate customer.addresses by 5 -%}
-    <div class="customer addresses !mt-0 !mb-0 max-w-full" data-customer-addresses>
+    <div class="customer addresses mt-0! mb-0! max-w-full" data-customer-addresses>
       <svg class="hidden">
         <symbol id="icon-caret" viewBox="0 0 10 6">
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -82,7 +82,7 @@
             <label for="AddressPhoneNew">{{ 'customer.addresses.phone' | t }}</label>
           </div>
 
-          <div class="clear-below [&>*]:mt-5 [&_input]:m-0 [&_label]:m-0">
+          <div class="clear-below *:mt-5 [&_input]:m-0 [&_label]:m-0">
             {{ form.set_as_default_checkbox }}
             <label for="address_default_address_new">{{ 'customer.addresses.set_default' | t }}</label>
           </div>
@@ -179,7 +179,7 @@
                 autocomplete="tel" placeholder="{{ 'customer.addresses.phone' | t }}">
               <label for="AddressPhone_{{ form.id }}">{{ 'customer.addresses.phone' | t }}</label>
             </div>
-            <div class="clear-below [&>*]:mt-5 [&_input]:m-0 [&_label]:m-0">
+            <div class="clear-below *:mt-5 [&_input]:m-0 [&_label]:m-0">
               {{ form.set_as_default_checkbox }}
               <label for="address_default_address_{{ form.id }}">
                 {{ 'customer.addresses.set_default' | t }}

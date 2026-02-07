@@ -1,5 +1,5 @@
 <div
-  class="minicart h-auto w-72 rounded-md bg-white p-5 shadow-[0_30px_130px_-8px_rgba(0,0,0,0.25)] [&_a]:text-black [&_a]:no-underline [&_a:hover]:underline [&[x-cloak]]:hidden"
+  class="minicart h-auto w-72 rounded-md bg-white p-5 shadow-[0_30px_130px_-8px_rgba(0,0,0,0.25)] [&_a]:text-black [&_a]:no-underline [&_a:hover]:underline [[x-cloak]]:hidden"
   data-ajax-cart-section
   x-cloak>
   <div class="title-row mb-2.5 flex items-center justify-between">
@@ -20,10 +20,10 @@
     in your cart!
   </div>
   <hr class="mb-5"/>
-  <ul class="items-list max-h-[300px] list-none overflow-auto pl-0" data-ajax-cart-section-scroll>
+  <ul class="items-list max-h-75 list-none overflow-auto pl-0" data-ajax-cart-section-scroll>
     {% for line_item in cart.items %}
       <li class="item mb-2.5 flex w-full">
-        <div class="product-thumb-wrapper relative h-[120px] w-[100px] flex-[0_0_100px]">
+        <div class="product-thumb-wrapper relative h-30 w-25 flex-[0_0_100px]">
           <img 
             src="{{ line_item.image | image_url: width: 100, height: 120, crop: 'center' }}" 
             alt="{{ line_item.title }}" 
