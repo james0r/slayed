@@ -21,7 +21,7 @@
     <nav
       :class="$store.global.isMobileMenuVisible ? 'open' : 'closed'"
       aria-label="Mobile Navigation Overlay"
-      class="block md:hidden"
+      class="block md:hidden [&[x-cloak]]:hidden"
       style="transition: all 300ms;"
       id="mobile-nav"
       role="navigation"
@@ -30,23 +30,24 @@
       <button
         id="mobile-nav-trigger"
         type="button"
+        class="block border-0 bg-transparent text-white appearance-none [&>span>svg]:h-auto [&>span>svg]:w-[26px] [&>span>svg]:fill-white"
         @click="$store.global.toggleMobileMenu()"
         :aria-expanded="$store.global.isMobileMenuVisible"
         aria-label="Mobile Navigation Button"
         aria-controls="mobile-menu-list"
         x-data>
         <span class="sr-only">Menu</span>
-        <span aria-hidden="true" x-show="!$store.global.isMobileMenuVisible">
+        <span aria-hidden="true" x-show="!$store.global.isMobileMenuVisible" class="text-white">
           {% render 'icon-hamburger' %}
         </span>
-        <span aria-hidden="true" x-show="$store.global.isMobileMenuVisible">
+        <span aria-hidden="true" x-show="$store.global.isMobileMenuVisible" class="text-white">
           {% render 'icon-close-x' %}
         </span>
       </button>
       {% render 'mobile-menu' %}
     </nav>
 
-    <a href="{{ routes.root_url }}" class="header-logo">
+    <a href="{{ routes.root_url }}" class="header-logo ml-4 text-2xl uppercase text-white no-underline md:ml-0 md:text-[32px]">
       Slayed Dev
     </a>
 
@@ -59,7 +60,7 @@
       {% if settings.enable_modal %}
         <button
           type="button"
-          class="text-white fill-white p-2 [&>svg]:h-[28px]"
+          class="fill-white p-2 text-white [&>svg]:h-7"
           @click="$store.global.openModal()"
           aria-label="Open Modal">
           {% render 'icon-bubble-bottom' %}
@@ -67,12 +68,12 @@
       {% endif %}
 
       {% if settings.enable_predictive_search %}
-        <a href="{{ routes.search_url }}" class="block md:hidden text-white fill-white p-2 [&>svg]:h-[28px]">
+        <a href="{{ routes.search_url }}" class="block fill-white p-2 text-white md:hidden [&>svg]:h-7">
           {% render 'icon-search' %}
         </a>
         <button
           type="button"
-          class="text-white fill-white p-2 [&>svg]:h-[28px] hidden md:block"
+          class="hidden fill-white p-2 text-white md:block [&>svg]:h-7"
           @click="$store.global.isPredictiveSearchVisible = true"
           :aria-expanded="$store.global.isPredictiveSearchVisible ? 'true' : 'false'"
           aria-label="Search"
@@ -80,13 +81,13 @@
           {% render 'icon-search' %}
         </button>
       {% else %}
-        <a href="{{ routes.search_url }}" class="text-white fill-white p-2 [&>svg]:h-[28px]">
+        <a href="{{ routes.search_url }}" class="fill-white p-2 text-white [&>svg]:h-7">
           {% render 'icon-search' %}
         </a>
       {% endif %}
 
       {% if shop.customer_accounts_enabled %}
-        <a href="{{ routes.account_url }}" class="text-white fill-white p-2 [&>svg]:h-[28px]">
+        <a href="{{ routes.account_url }}" class="fill-white p-2 text-white [&>svg]:h-7">
           {% render 'icon-user' %}
         </a>
       {% endif %}
@@ -94,10 +95,10 @@
 
       <a
         href="{{ routes.cart_url }}"
-        class="[&>svg]:h-[22px] [&>svg]:w-auto relative text-white p-2"
+        class="relative p-2 text-white [&>svg]:h-[22px] [&>svg]:w-auto [&[x-cloak]]:hidden"
         x-cloak>
         {% render 'icon-cart' %}
-        <span data-ajax-cart-bind="item_count" class="text-cloud-burst-500 absolute top-[58%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12px]">
+        <span data-ajax-cart-bind="item_count" class="absolute top-[58%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs text-cloud-burst-500">
           {{- cart.item_count -}}
         </span>
       </a>
@@ -122,75 +123,4 @@
   {% endcomment %}
   </div>
 
-  <style>
-    .section-header .header-logo {
-      color: white;
-      text-decoration: none;
-      font-size: 32px;
-      text-transform: uppercase;
-    }
-
-    #mobile-nav-trigger {
-      display: none;
-      -webkit-appearance: none;
-      appearance: none;
-      -moz-appearance: none;
-      background: transparent;
-      border: 0;
-    }
-
-    #mobile-nav-trigger svg {
-      fill: white;
-      width: 26px;
-      height: auto;
-    }
-
-    @media(max-width: 768px) {
-      .section-header .header-logo {
-        /* position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%); */
-        font-size: 1.5rem;
-        margin-left: 1rem;
-      }
-
-      #mobile-nav-trigger {
-        display: block;
-      }
-    }
-
-    .cart-icon-wrapper {
-      text-decoration: none;
-      color: white;
-      margin-left: auto;
-      position: relative;
-    }
-
-    .cart-icon-wrapper span {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -35%);
-      z-index: 5;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .bi-bag {
-      display: none;
-    }
-
-    .js-ajax-cart-not-empty .header .bi-bag-fill {
-      display: block;
-    }
-
-    .js-ajax-cart-empty .header .bi-bag-empty {
-      display: block;
-    }
-
-    .js-ajax-cart-empty .header .bi-bag-fill {
-      display: none;
-    }
-  </style>
 </div>

@@ -5,13 +5,13 @@
 
     <h1>Orders</h1>
     
-    <a href="/account/logout" style="margin-bottom: 20px;">Logout</a>
-    <a href="/account/addresses" style="margin-bottom: 20px;">Manage Addresses</a>
+    <a href="/account/logout" class="mb-5 block">Logout</a>
+    <a href="/account/addresses" class="mb-5 block">Manage Addresses</a>
       {% paginate customer.orders by 20 %}
         {%- if customer.orders.size > 0 -%}
-          <table role="table" class="order-history">
-            <caption class="visually-hidden">{{ 'customer.orders.title' | t }}</caption>
-            <thead role="rowgroup">
+          <table role="table" class="order-history mx-auto border border-gray-400 border-collapse bg-white text-base text-[#333] [&_th]:border [&_th]:border-gray-300 [&_th]:p-2 [&_td]:border [&_td]:border-gray-300 [&_td]:p-2">
+            <caption class="visually-hidden p-2">{{ 'customer.orders.title' | t }}</caption>
+            <thead role="rowgroup" class="[&_th]:bg-black/10 [&_th]:text-[#777]">
               <tr role="row">
                 <th id="ColumnOrder" scope="col" role="columnheader">{{ 'customer.orders.order_number' | t }}</th>
                 <th id="ColumnDate" scope="col" role="columnheader">{{ 'customer.orders.date' | t }}</th>
@@ -96,32 +96,3 @@
       {% endpaginate %}
   </div>
 </div>
-
-<style>
-  /* Center tables for demo */
-table {
-  margin: 0 auto;
-}
-
-/* Default Table Style */
-table {
-  color: #333;
-  background: white;
-  border: 1px solid grey;
-  font-size: 12pt;
-  border-collapse: collapse;
-}
-table thead th,
-table tfoot th {
-  color: #777;
-  background: rgba(0,0,0,.1);
-}
-table caption {
-  padding:.5em;
-}
-table th,
-table td {
-  padding: .5em;
-  border: 1px solid lightgrey;
-}
-</style>

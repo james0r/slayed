@@ -14,15 +14,15 @@
   }
 {% endschema %}
 
-<div class="cart px-6 md:px-8 py-12" data-ajax-cart-section>
+<div class="cart px-6 py-12 md:px-8 [&_.error-notif]:block [&_.error-notif]:text-xs [&_.error-notif]:text-red-500 [&_a]:no-underline" data-ajax-cart-section>
   <form
     action="{{ routes.cart_url }}"
     method="post"
     id="cart">
     <div class="cart-inner container">
       {% if cart.item_count > 0 %}
-        <table style="width:100%">
-          <tr style="text-align: left;">
+        <table class="w-full [&_tr>td]:pb-4 [&_tr>th]:pb-4">
+          <tr class="text-left">
             <th>Product</th>
             <th>Price</th>
             <th>Quantity</th>
@@ -33,7 +33,7 @@
             <tr>
               <td>
                 {{ line_item.title }}
-                <div data-ajax-cart-errors="{{ line_item.key }}" style="color: red; font-size: 10px;">
+                <div data-ajax-cart-errors="{{ line_item.key }}" class="text-xs text-red-500">
                   <!-- Error messages appear here -->
                 </div>
               </td>
@@ -60,11 +60,10 @@
                     value="{{ line_item.quantity }}"
                     name="updates[]"
                     data-ajax-cart-quantity-input="{{ line_item.key }}"
-                    style="width: 40px;"
-                    class="noscroll"
+                    class="noscroll w-10 appearance-none text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                     readonly>
                   <img
-                    class="loading-indicator"
+                    class="loading-indicator hidden h-4 w-4"
                     src="{{ 'loading.gif' | asset_url }}"
                     alt="Loading Indicator"
                     role="alert"
@@ -93,16 +92,16 @@
           {% endfor %}
         </table>
 
-        <div class="cart-summary-row py-8 flex flex-col ">
-          <div class="totals mb-[10px] flex items-center">
+        <div class="cart-summary-row flex flex-col py-7.5">
+          <div class="totals mb-2.5 flex items-center">
             <h3 class="mr-8">Subtotal</h3>
             <p>{{ cart.original_total_price | money }}</p>
           </div>
-          <small class="mb-[10px]">
+          <small class="mb-2.5">
             {{ section.settings['summary-message'] }}
           </small>
           <button
-            class="btn mt-4"
+            class="btn mt-4 max-w-87.5"
             type="submit"
             name="checkout"
             form="cart">
@@ -127,54 +126,3 @@
     }
   });
 </script> {% endcomment %}
-
-<style>
-  .cart .cart-inner .cart-summary-row {
-    padding: 30px 0;
-    display: flex;
-    flex-direction: column;
-    align-line_items: flex-end;
-  }
-
-  .cart a {
-    text-decoration: none;
-  }
-
-  .cart .cart-inner .cart-summary-row .btn {
-    max-width: 350px;
-  }
-
-  .cart .error-notif {
-    display: block;
-    font-size: 12px;
-    color: red;
-  }
-
-  .cart tr > td,
-  .cart tr > th {
-    padding-bottom: 1em;
-  }
-
-  .cart .loading-indicator {
-    display: none;
-    height: 16px;
-    width: 16px;
-  }
-
-  .cart input[type="number"] {
-    text-align: center;
-  }
-
-  .cart input::-webkit-outer-spin-button,
-  .cart input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0;
-    /* <-- Apparently some margin are still there even though it's hidden */
-  }
-
-  .cart input[type=number] {
-    -moz-appearance: textfield;
-    /* Firefox */
-  }
-</style>

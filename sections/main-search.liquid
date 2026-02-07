@@ -34,16 +34,8 @@
 
     {% if search.performed %}
       {% if search.results.size > 0 %}
-        <style>
-          .product-grid {
-            display: grid;
-            grid-gap: 1rem;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-          }
-        </style>
-
         {%- paginate search.results by 12 -%}
-          <div class="product-grid">
+          <div class="product-grid grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4">
             {% for item in search.results %}
               {% case item.object_type %}
                 {% when 'product' %}

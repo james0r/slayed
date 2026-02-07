@@ -24,39 +24,14 @@
       <h2 class="mb-12">Featured Product Grid</h2>
       <div class="grid-wrapper">
         {% assign featured_collection = section.settings.featured_collection %}
-        <div class="product-grid">
+        <div class="product-grid grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4">
           {% for product in featured_collection.products %}
             {% render 'product-grid-item', prod: product %}
           {% endfor %}
         </div>
       </div>
+
+      <div class="mt-10 [&_.pagination]:mx-auto [&_.pagination]:flex [&_.pagination]:max-w-max [&_.pagination]:gap-2.5"></div>
     </div>
-
-    <style>
-      .featured-product-grid {
-        padding: 20px;
-      }
-
-      .featured-product-grid h2 {
-        margin-bottom: 40px;
-      }
-
-      .product-grid {
-        display: grid;
-        grid-gap: 1rem;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      }
-
-      .featured-product-grid .pagination-nav {
-        margin-top: 40px;
-      }
-
-      .featured-product-grid .pagination-nav .pagination {
-        display: flex;
-        gap: 10px;
-        margin: auto;
-        max-width: max-content;
-      }
-    </style>
   {% endif %}
 </div>

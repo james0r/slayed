@@ -30,7 +30,7 @@
         {% endif %}
 
         <div class="grid-wrapper">
-          <ul class="product-grid">
+          <ul class="product-grid grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4">
             {%- for product in recommendations.products -%}
               <li class="product">
                 {% render 'product-grid-item'
@@ -71,11 +71,3 @@
 
   observer.observe(productRecommendationsSection);
 {% endjavascript %}
-
-<style>
-  .product-grid {
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  }
-</style>

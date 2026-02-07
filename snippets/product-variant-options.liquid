@@ -62,10 +62,10 @@
   -%}
 
   {%- if picker_type == 'radio' -%}
-    <input
-      type="radio"
-      id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-      name="{{ option.name }}"
+      <input
+        type="radio"
+        id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+        name="{{ option.name }}"
       value="{{ value | escape }}"
       form="{{ product_form_id }}"
       data-prodify-shopify-section-main-product-inner
@@ -73,16 +73,17 @@
         checked
       {% endif %}
       {% if option_disabled %}
-        class="disabled hidden [&:checked+label]:bg-indigo-900 [&:checked+label]:text-white"
+        class="peer disabled hidden [&:checked+label]:bg-indigo-900 [&:checked+label]:text-white [&:disabled+label]:bg-slate-100 [&:disabled+label]:text-gray-300 focus-visible:[&+label]:outline focus-visible:[&+label]:outline-2 focus-visible:[&+label]:outline-[#08f]"
       {% else %}
-        class="hidden [&.disabled+label]:line-through [&:checked+label]:bg-indigo-900 [&:checked+label]:text-white"
+        class="peer hidden [&.disabled+label]:line-through [&:checked+label]:bg-indigo-900 [&:checked+label]:text-white [&:disabled+label]:bg-slate-100 [&:disabled+label]:text-gray-300 focus-visible:[&+label]:outline focus-visible:[&+label]:outline-2 focus-visible:[&+label]:outline-[#08f]"
       {% endif %}
     >
     <label 
       for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" 
+      data-unavailable="{{ option_unavailable }}"
       @keyup.enter="$el.click()"
       tabindex="0"
-      class="bg-slate-100 text-black"
+      class="inline-block cursor-pointer rounded-full bg-slate-100 px-5 py-2.5 text-sm tracking-[1px] text-black data-[unavailable=true]:bg-slate-100 data-[unavailable=true]:text-gray-300"
       >
       {{ value -}}
       <span class="visually-hidden sr-only">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>

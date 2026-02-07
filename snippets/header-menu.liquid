@@ -1,45 +1,12 @@
-<ul class="header-menu">
+<ul class="header-menu flex items-center p-4 max-[576px]:hidden">
   {% for link in linklists.main-menu.links %}
     <li>
-      <a href="{{ link.url }}" {% if link.active %}class="active"{% endif %}>
+      <a href="{{ link.url }}" class="mr-4 cursor-pointer text-base text-white no-underline{% if link.active %} underline{% endif %}">
         {{ link.title | escape }}
       </a>
     </li>
   {% endfor %}
-  <button type="button" x-data @click="$store.global.isMinicartVisible = true">
+  <button type="button" x-data @click="$store.global.isMinicartVisible = true" class="mr-4 cursor-pointer border-0 bg-transparent text-base text-white appearance-none">
     Minicart
   </button>
 </ul>
-
-<style>
-  .header-menu {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-  }
-  .header-menu button {
-    -webkit-appearance: none;
-    appearance: none;
-    -moz-appearance: none;
-    background: none;
-    border: none;
-  }
-  .header-menu a, .header-menu button {
-    color: white;
-    text-decoration: none;
-    margin-right: 1rem;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  .header-menu a.active {
-    text-decoration: underline;
-  }
-
-  @media (max-width: 576px) {
-    .header-menu {
-      display: none;
-    }
-  }
-</style>
-
-

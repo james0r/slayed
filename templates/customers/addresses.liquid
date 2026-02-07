@@ -4,9 +4,8 @@
   <div class="account-register-inner shell">
 
     {%- paginate customer.addresses by 5 -%}
-    <div class="customer addresses" data-customer-addresses
-      style="margin-top: 0 !important; margin-bottom: 0 !important; max-width: 100%;">
-      <svg style="display: none">
+    <div class="customer addresses !mt-0 !mb-0 max-w-full" data-customer-addresses>
+      <svg class="hidden">
         <symbol id="icon-caret" viewBox="0 0 10 6">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z"
@@ -64,7 +63,7 @@
               </select>
             </div>
           </div>
-          <div id="AddressProvinceContainerNew" style="display: none">
+          <div id="AddressProvinceContainerNew" class="hidden">
             <label for="AddressProvinceNew">{{ 'customer.addresses.province' | t }}</label>
             <div class="select">
               <select id="AddressProvinceNew" name="address[province]" data-default="{{ form.province }}"
@@ -83,14 +82,7 @@
             <label for="AddressPhoneNew">{{ 'customer.addresses.phone' | t }}</label>
           </div>
 
-          <style>
-            .clear-below * {
-              all: revert !important;
-              margin-top: 20px !important;
-            }
-          </style>
-
-          <div class="clear-below">
+          <div class="clear-below [&>*]:mt-5 [&_input]:m-0 [&_label]:m-0">
             {{ form.set_as_default_checkbox }}
             <label for="address_default_address_new">{{ 'customer.addresses.set_default' | t }}</label>
           </div>
@@ -164,7 +156,7 @@
                 </select>
               </div>
             </div>
-            <div id="AddressProvinceContainer_{{ form.id }}" style="display:none;">
+            <div id="AddressProvinceContainer_{{ form.id }}" class="hidden">
               <label for="AddressProvince_{{ form.id }}">
                 {{ 'customer.addresses.province' | t }}
               </label>
@@ -187,7 +179,7 @@
                 autocomplete="tel" placeholder="{{ 'customer.addresses.phone' | t }}">
               <label for="AddressPhone_{{ form.id }}">{{ 'customer.addresses.phone' | t }}</label>
             </div>
-            <div class="clear-below">
+            <div class="clear-below [&>*]:mt-5 [&_input]:m-0 [&_label]:m-0">
               {{ form.set_as_default_checkbox }}
               <label for="address_default_address_{{ form.id }}">
                 {{ 'customer.addresses.set_default' | t }}
