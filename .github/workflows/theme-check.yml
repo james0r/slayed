@@ -1,0 +1,33 @@
+name: Theme Check (PRs to main)
+
+on:
+  pull_request:
+    branches:
+      - main
+    # Run when the PR is opened, updated, or marked ready
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  theme-check:
+    name: Shopify Theme Check
+    runs-on: ubuntu-latest
+
+    # Don't run on draft PRs (until it's "Ready for review")
+    if: ${{ github.event.pull_request.draft == false }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Theme Check
+        uses: shopify/theme-check-action@v2
+        with:
+          # Change this if your theme is in a subfolder like "theme/"
+          theme_root: "."
+          token: ${{ github.token }}
+          base: main
+          

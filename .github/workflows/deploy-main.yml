@@ -1,0 +1,66 @@
+name: Deploy (main)
+
+on:
+  push:
+    branches:
+      - main
+
+# Prevent overlapping deploys if multiple merges happen quickly
+concurrency:
+  group: deploy-live-theme
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Build + Deploy
+    runs-on: ubuntu-latest
+
+    # Extra safety: only run on main
+    if: ${{ github.ref == 'refs/heads/main' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Use npm ci if you have a package-lock.json committed; otherwise npm install
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Install Shopify CLI
+        run: npm i -g @shopify/cli@latest
+
+      # If your script already runs "shopify theme push", you don't need a separate push step.
+      - name: Run deploy script
+        env:
+          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          SHOPIFY_STORE: ${{ secrets.SHOPIFY_STORE }}
+          SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID }}
+        run: npm run deploy
+
+      # If your npm script does NOT push, uncomment this step and remove push logic from npm script.
+      # - name: Push theme to LIVE
+      #   env:
+      #     SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+      #     SHOPIFY_STORE: ${{ secrets.SHOPIFY_STORE }}
+      #     SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID }}
+      #   run: |
+      #     set -euo pipefail
+      #     yes | shopify theme push \
+      #       --store "${SHOPIFY_STORE}" \
+      #       --theme "${SHOPIFY_THEME_ID}" \
+      #       --allow-live \
+      #       --path .
