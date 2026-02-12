@@ -9,4 +9,12 @@
   <button type="button" x-data @click="$store.global.isMinicartVisible = true" class="mr-4 cursor-pointer border-0 bg-transparent text-base text-white appearance-none">
     Minicart
   </button>
+  <button 
+    type="button"
+    x-data
+    @click="$store.global.openAgentDrawer()"
+    class="cursor-pointer"
+  >
+    Agent Drawer
+  </button>
 </ul>

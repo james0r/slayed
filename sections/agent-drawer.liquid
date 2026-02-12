@@ -1,0 +1,114 @@
+{% schema %}
+  {
+    "name": "Agent Drawer",
+    "class": "section-agent-drawer",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enabled",
+        "label": "Enable agent drawer",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "endpoint",
+        "label": "Assistant API endpoint",
+        "default": "https://your-app.com/api/chat"
+      },
+      {
+        "type": "textarea",
+        "id": "api_key",
+        "label": "Required API key",
+        "default": "REQUIRED",
+        "info": "Must match CHAT_API_KEY on your Next.js server. Replace 'REQUIRED' with your actual key."
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Header button label",
+        "default": "Assistant"
+      }, {
+        "type": "text",
+        "id": "greeting",
+        "label": "Greeting message",
+        "default": "Hi! I can help with sizing, fit, and finding items. What are you shopping for?"
+      }, {
+        "type": "checkbox",
+        "id": "lazy_load",
+        "label": "Lazy-load widget script",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}
+
+<div
+  class="agent-drawer fixed right-0 top-0 h-full w-full max-w-100 bg-white shadow-lg z-50"
+  x-data
+  x-show="$store.global.isAgentDrawerVisible"
+  x-on:click.outside="$store.global.closeAgentDrawer()"
+  x-transition:enter="transition duration-300 ease-out"
+  x-transition:enter-start="translate-x-full"
+  x-transition:enter-end="translate-x-0"
+  x-transition:leave="transition duration-300 ease-in"
+  x-transition:leave-start="translate-x-0"
+  x-transition:leave-end="translate-x-full"
+  x-show="$store.global.isAgentDrawerVisible"
+  @keyup.escape="$store.global.isAgentDrawerVisible = false"
+  x-cloak
+  :aria-hidden="$store.global.isAgentDrawerVisible ? 'false' : 'true'"
+  aria-modal="true"
+  role="dialog"
+  aria-label="Agent Drawer">
+  <div class="display flex flex-col p-4 h-full">
+    <button
+      type="button"
+      class="block cursor-pointer text-gray-500 hover:text-gray-700 focus:outline-none"
+      @click="$store.global.closeAgentDrawer()"
+      aria-label="Close Agent Drawer"
+      :aria-expanded="$store.global.isAgentDrawerVisible ? 'true' : 'false'">
+      {% render 'icon-close-x' %}
+    </button>
+    <div class="mt-auto h-full">
+      {% assign api_key = section.settings.api_key | strip %}
+
+      {% if api_key != blank and api_key != 'REQUIRED' %}
+        <div
+          id="shop-assistant-mount"
+          class="h-full flex flex-col justify-end"
+          data-assistant-endpoint="{{ section.settings.endpoint | escape }}"
+          data-assistant-api-key="{{ api_key | escape }}"
+          data-assistant-greeting="{{ section.settings.greeting | escape }}"></div>
+      {% else %}
+        Agent Drawer is enabled but API key is not configured.  
+          Set section.settings.api_key to match CHAT_API_KEY in Next.js.
+      {% endif %}
+      {% assign api_key = section.settings.api_key | strip %}
+
+      {% if api_key != blank and api_key != 'REQUIRED' %}
+        {% if section.settings.lazy_load %}
+          <script>
+                  (function () {
+                    var loaded = false
+                    function load() {
+                      if (loaded) return
+                      loaded = true
+                      var s = document.createElement('script')
+                      s.src = "{{ 'shop-assistant.js' | asset_url }}"
+                      s.defer = true
+                      document.head.appendChild(s)
+                    }
+
+                    // Load when the user opens the drawer (or interacts)
+                    window.addEventListener('pointerdown', load, { once: true })
+                    window.addEventListener('keydown', load, { once: true })
+                    setTimeout(load, 4000)
+                  })()
+          </script>
+        {% else %}
+          <script src="{{ 'shop-assistant.js' | asset_url }}" defer></script>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>

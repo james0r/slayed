@@ -1,10 +1,19 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "show_promo_bar": true,
-    "promo_bar_content": "<p>Promo Content<\/p>",
+    "promo_bar_content": "<p>Promo Content</p>",
     "enable_predictive_search": true,
     "enable_modal": true,
-    "checkout_logo_image": "shopify:\/\/shop_images\/62c73f0abd956f48cca683d9_4bNa5cCDFPP7_16T0grGJvHZXl_OBBUqXqUTpHmG5yqB9liv19wLCP1imCk2xUGdCdVI85078T_ZJ85NzRmH2SMUyuv05LLPXr3IQcmYtT9GHXACz5bKLH7EALVbzBQ2VniAMTpDo9BvZHmY5w.png",
+    "checkout_logo_image": "shopify://shop_images/62c73f0abd956f48cca683d9_4bNa5cCDFPP7_16T0grGJvHZXl_OBBUqXqUTpHmG5yqB9liv19wLCP1imCk2xUGdCdVI85078T_ZJ85NzRmH2SMUyuv05LLPXr3IQcmYtT9GHXACz5bKLH7EALVbzBQ2VniAMTpDo9BvZHmY5w.png",
     "checkout_logo_position": "center",
     "checkout_logo_size": "medium",
     "checkout_body_background_color": "#ffffff",
@@ -14,18 +23,15 @@
     "sections": {
       "header": {
         "type": "header",
-        "settings": {
-        }
+        "settings": {}
       },
       "minicart": {
         "type": "minicart",
-        "settings": {
-        }
+        "settings": {}
       },
       "footer": {
         "type": "footer",
-        "settings": {
-        }
+        "settings": {}
       },
       "predictive-search-main": {
         "type": "predictive-search-main",
@@ -35,12 +41,20 @@
       },
       "modal": {
         "type": "modal",
+        "settings": {}
+      },
+      "agent-drawer": {
+        "type": "agent-drawer",
         "settings": {
+          "enabled": true,
+          "endpoint": "https://your-app.com/api/chat",
+          "api_key": "k7mPq9xR2nL5vW8b",
+          "button_label": "Assistant",
+          "greeting": "Hi! I can help with sizing, fit, and finding items. What are you shopping for?",
+          "lazy_load": false
         }
       }
     },
-    "content_for_index": [
-
-    ]
+    "content_for_index": []
   }
 }

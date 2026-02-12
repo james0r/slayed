@@ -7,6 +7,7 @@ export default {
       isPredictiveSearchVisible: false,
       isPromoBarVisible: true,
       isWindowScrolled: false,
+      isAgentDrawerVisible: true,
       cart: null,
       init() {
         console.log('Slayed Global Store Initialized.')
@@ -23,6 +24,12 @@ export default {
         }
 
         return classes || ''
+      },
+      openAgentDrawer() {
+        this.isAgentDrawerVisible = true
+      },
+      closeAgentDrawer() {
+        this.isAgentDrawerVisible = false
       },
       openMobileMenu() {
         this.isMobileMenuVisible = true
