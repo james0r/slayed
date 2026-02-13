@@ -43,14 +43,17 @@ jobs:
       - name: Install Shopify CLI
         run: npm i -g @shopify/cli@latest
 
+      - name: Run build script
+        run: npm run build
+
       # If your script already runs "shopify theme push", you don't need a separate push step.
-      - name: Run deploy script
-        env:
-          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
-          SHOPIFY_STORE: ${{ secrets.SHOPIFY_STORE }}
-          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
-          SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID }}
-        run: npm run deploy
+      - name: Upload theme to Shopify
+        run: |
+          shopify theme push \
+            --json \
+            --theme ${{ secrets.SHOPIFY_THEME_ID }} \
+            --store ${{ secrets.SHOPIFY_STORE_URL }} \
+            --password ${{ secrets.SHOPIFY_API_PASSWORD }}
 
       # If your npm script does NOT push, uncomment this step and remove push logic from npm script.
       # - name: Push theme to LIVE
