@@ -66,7 +66,7 @@
 
     {% comment %} Styles for minicart wrapper in sections/minicart.liquid {% endcomment %}
     <div
-      class="minicart-wrapper fixed top-[50px] right-[50px] z-100 max-[576px]:right-[20px] [[x-cloak]]:hidden"
+      class="minicart-wrapper fixed top-12.5 right-12.5 z-100 max-[576px]:right-5"
       x-data
       x-show="$store.global.isMinicartVisible"
       x-on:click.outside="$store.global.isMinicartVisible = false"

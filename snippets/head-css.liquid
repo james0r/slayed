@@ -1,2 +1,6 @@
-{% comment %} x-cloak hiding is handled via `[[x-cloak]]:hidden` utility classes. {% endcomment %}
-
+<style>
+  /* Hide elements with x-cloak attribute until Alpine.js is loaded */
+  [x-cloak] {
+    display: none !important;
+  }
+</style>
