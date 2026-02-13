@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__shopify-dev-mcp__learn_shopify_api",
+      "mcp__shopify-dev-mcp__validate_theme"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "shopify-dev-mcp"
+  ]
+}
