@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "mcp__shopify-dev-mcp__learn_shopify_api",
-      "mcp__shopify-dev-mcp__validate_theme"
+      "mcp__shopify-dev-mcp__validate_theme",
+      "mcp__ide__getDiagnostics",
+      "Bash(npx vite build:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
