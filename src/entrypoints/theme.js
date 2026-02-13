@@ -10,6 +10,8 @@ import helpers, { hasBodyClass } from '../js/helpers.js'
 // Uncomment to use to load the dynamic script demo
 // hasBodyClass('product-template') && import('../js/dynamicScript')
 
+console.log('test3')
+
 const ns = 'slayed'
 
 window.slayedNamespace = ns
