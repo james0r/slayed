@@ -50,6 +50,7 @@ jobs:
       - name: Upload theme to Shopify
         run: |
           shopify theme push \
+            --allow-live \
             --json \
             --theme ${{ secrets.SHOPIFY_THEME_ID }} \
             --store ${{ secrets.SHOPIFY_STORE_URL }} \
