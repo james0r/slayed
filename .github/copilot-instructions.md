@@ -46,10 +46,12 @@ This is a modern Shopify theme starter built with:
 
 - **vite.config.js** - Vite configuration with Shopify plugin, Tailwind, SSL, CORS settings
 - **tsconfig.json** - TypeScript configuration with path aliases (`@/*` → `src/*`)
+- **jsconfig.json** - JavaScript configuration with path aliases (mirrors tsconfig.json)
 - **package.json** - Dependencies and npm scripts for development, building, and deployment
-- **.theme-check.yml** - Shopify theme linting configuration
-- **.shopifyignore** - Files to ignore during Shopify theme push
+- **.theme-check.yml** - Shopify theme linting configuration (most checks disabled)
+- **.shopifyignore** - Files to ignore during Shopify theme push (config files, node_modules, etc.)
 - **.gitignore** - Git ignore patterns (notably: `/assets`, `/snippets/vite.liquid`, `node_modules/`)
+- **.mcp.json** - MCP server configuration for Shopify dev tools
 - **shopify.theme.toml** - Shopify CLI environment configuration (NOT committed, create locally)
 
 ### Source Code Structure
@@ -271,7 +273,7 @@ shopify theme check
 
 ## Path Aliases
 
-TypeScript/JavaScript path aliases are configured in `tsconfig.json` and `vite.config.js`:
+TypeScript/JavaScript path aliases are configured in `tsconfig.json`, `jsconfig.json`, and `vite.config.js`:
 - `@/*` maps to `src/*`
 - `~/*` maps to `src/*`
 
@@ -279,6 +281,23 @@ Example usage:
 ```javascript
 import helpers from '@/js/helpers.js'
 ```
+
+## MCP (Model Context Protocol) Configuration
+
+The `.mcp.json` file configures the Shopify Dev MCP server:
+```json
+{
+  "mcpServers": {
+    "shopify-dev-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@shopify/dev-mcp@latest"]
+    }
+  }
+}
+```
+
+This enables MCP-compatible AI tools to interact with Shopify development tools programmatically.
 
 ## Environment Variables
 
