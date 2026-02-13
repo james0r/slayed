@@ -23,7 +23,7 @@
     "@alpinejs/focus": "^3.15.3",
     "@alpinejs/morph": "^3.15.3",
     "@by-association-only/vite-plugin-shopify-clean": "^2.2.0",
-    "@shopify/cli": "^3.88.0",
+    "@shopify/cli": "^3.90.1",
     "@tailwindcss/typography": "^0.5.19",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "alpinejs": "^3.15.3",
