@@ -22,10 +22,10 @@
     "@alpinejs/collapse": "^3.15.3",
     "@alpinejs/focus": "^3.15.3",
     "@alpinejs/morph": "^3.15.3",
-    "@by-association-only/vite-plugin-shopify-clean": "^2.2.0",
     "@shopify/cli": "^3.90.1",
     "@tailwindcss/typography": "^0.5.19",
-    "@vitejs/plugin-basic-ssl": "^1.1.0",
+    "@tailwindcss/vite": "^4.1.18",
+    "@vitejs/plugin-basic-ssl": "^2.1.4",
     "alpinejs": "^3.15.3",
     "autoprefixer": "^10.4.20",
     "chokidar": "^4.0.1",
@@ -36,11 +36,8 @@
     "postcss": "^8.4.47",
     "postcss-import": "^16.1.0",
     "tailwindcss": "^4.1.18",
-    "vite": "^5.4.21",
+    "vite": "^7.3.1",
     "vite-plugin-page-reload": "^0.2.2",
     "vite-plugin-shopify": "^4.1.1"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.1.18"
   }
 }

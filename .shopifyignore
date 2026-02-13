@@ -6,3 +6,4 @@ jsconfig.json
 tsconfig.json
 postcss.config.cjs
 assets/.vite
+plugins/*
