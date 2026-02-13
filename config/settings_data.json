@@ -47,7 +47,7 @@
         "type": "agent-drawer",
         "settings": {
           "enabled": true,
-          "endpoint": "https://your-app.com/api/chat",
+          "endpoint": "http://localhost:8080/api/chat",
           "api_key": "k7mPq9xR2nL5vW8b",
           "button_label": "Assistant",
           "greeting": "Hi! I can help with sizing, fit, and finding items. What are you shopping for?",
