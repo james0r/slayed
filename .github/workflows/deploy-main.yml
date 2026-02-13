@@ -48,7 +48,7 @@ jobs:
         env:
           SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
           SHOPIFY_STORE: ${{ secrets.SHOPIFY_STORE }}
-          SNOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
+          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
           SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID }}
         run: npm run deploy
 
